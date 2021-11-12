@@ -1,0 +1,74 @@
+
+											:root{
+												--font-family: 'Source Code Pro', monospace;
+												
+												--color-primary: rgba(37, 37, 37, 1.0);
+												--color-secondary: rgba(252, 41, 74, 1.0);
+												--color-shades: rgba(238, 238, 238, 1.0);
+												
+												--font-size-xl: calc(1.625rem + 4.5vw);
+											}
+											
+											html {
+												font-size: 100%;
+												box-sizing: border-box;
+											}
+											
+											*,
+											*::before,
+											*::after {
+												box-sizing: inherit;
+												scroll-behavior: smooth;
+												margin: 0;
+												padding: 0;
+											}
+											
+											body {
+												font-family: var(--font-family);
+												line-height: 1.6;
+											}
+											
+											.wrapper {
+												display: flex;
+											  align-content: center;
+											  justify-content: center;
+											  align-items: center;
+												width: 100vw;
+												height: 100vh;
+												background-color: var(--color-primary);
+											}
+											
+											h1 {
+												font-size: var(--font-size-xl);
+												color: var(--color-shades);
+											}
+											
+											.card {
+											  background: rgba(245, 245, 245, 1.0);
+											  color: rgba(68, 68, 68, 01);
+											  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+											  display: flex;
+											  flex-direction: column;
+												max-width: 300px;
+											  min-height: 300px;
+											  position: relative;
+											  top: 0;
+											  transition: all .1s ease-in;
+											}
+											
+											.card:hover {
+											  top: -2px;
+											  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+											}
+											
+											.card  .cardImg{
+												width: 300px;
+											  background-size: cover;
+											  background-position: center center;
+											}
+											
+											.card .cardBody {
+											  padding: 20px;
+												text-align: center;
+											}
+									

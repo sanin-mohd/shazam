@@ -1,0 +1,154 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from codescandy.com/dashui/pages/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Nov 2021 05:01:34 GMT -->
+<head>
+  <!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+<!-- Favicon icon-->
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'vendor/assets/images/favicon/favicon.ico' %}">
+
+<!-- Libs CSS -->
+
+<link rel="stylesheet" href="{% static 'vendor/assets/libs/prismjs/themes/prism.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/assets/libs/prismjs/plugins/toolbar/prism-toolbar.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/assets/libs/bootstrap-icons/font/bootstrap-icons.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/assets/libs/dropzone/dist/dropzone.css' %}" >
+<link href="{% static 'vendor/assets/libs/%40mdi/font/css/materialdesignicons.min.css' %}" rel="stylesheet" />
+
+<link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+
+
+
+
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="{% static 'vendor/assets/css/theme.min.css' %}">
+  <title>Sign Up | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
+</head>
+
+<body>
+  <!-- container -->
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center g-0 min-vh-200">
+      <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
+        <!-- Card -->
+        <div class="card smooth-shadow-md">
+          <!-- Card body -->
+          <div class="card-body p-6">
+            <div class="mb-4">
+              <style>
+                @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+            </style>
+              <a class="navbar-brand" href="index.html" style="font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
+                <img src="{% static 'vendor/store_white_24dp.svg' %}" alt="">SHAZAM<span style="font-size: x-small;">seller </span> 
+                
+              </a>
+
+            </div>
+            <!-- Form -->
+            <form action="" method="post" enctype="multipart/form-data">
+              <!-- Username -->
+              <div class="mb-3">
+                <label for="vendor_name" class="form-label">Seller name</label>
+                <input type="text" id="vendor_name" class="form-control" name="vendor_name"  required="">
+              </div>
+              <div class="mb-3">
+                <label for="GST_number" class="form-label">GST Number</label>
+                <input type="text" id="GST_number" class="form-control" name="GST_number"  required="">
+              </div>
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" name="email"  required="">
+              </div>
+              <div class="mb-3">
+                <label for="mobile" class="form-label">Mobile</label>
+                <input type="text" id="mobile" class="form-control" name="mobile"  required="">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Logo</label>
+                <input type="file"  id="logo" class="form-control" name="logo"  required="">
+              </div>
+              <!-- Password -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="**************" required="">
+              </div>
+              <!-- Password -->
+              <div class="mb-3">
+                <label for="confirm-password" class="form-label">Confirm
+                    Password</label>
+                <input type="password" id="confirm-password" class="form-control" name="password" placeholder="**************" required="">
+              </div>
+              <!-- Checkbox -->
+              <!-- <div class="mb-3">
+                <div class="form-check custom-checkbox">
+                  <input type="checkbox" class="form-check-input" id="agreeCheck">
+                  <label class="form-check-label" for="agreeCheck"><span
+                        class="fs-5">I agree to the <a
+                          href="terms-condition-page.html">Terms of
+                          Service </a>and
+                        <a href="terms-condition-page.html">Privacy Policy.</a></span></label>
+                </div>
+              </div> -->
+              <div class="mt-5">
+                <!-- Button -->
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">
+                    Submit Application
+                  </button>
+                </div>
+
+                <div class="d-md-flex justify-content-between mt-4">
+                  <div class="mb-2 mb-md-0">
+                    <a href="{% url 'vendor-login'%}" class="fs-5">Already
+                        member? Login </a>
+                  </div>
+                  <div>
+                   
+                  </div>
+
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Libs JS -->
+<script src="{% static 'vendor/assets/libs/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/feather-icons/dist/feather.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/prismjs/components/prism-core.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/prismjs/components/prism-markup.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+<script src="{% static 'vendor/assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
+
+
+<!-- clipboard -->
+<script src="../../../cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js' %}"></script>
+
+
+
+<!-- Theme JS -->
+<script src="{% static 'vendor/assets/js/theme.min.js' %}"></script>
+</body>
+
+
+<!-- Mirrored from codescandy.com/dashui/pages/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Nov 2021 05:01:35 GMT -->
+</html>
