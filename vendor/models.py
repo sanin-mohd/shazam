@@ -10,14 +10,15 @@ class Vendor(models.Model):
     email           =models.EmailField(max_length=100,unique=True) 
     mobile          =models.CharField(max_length=10,unique=True)
     logo            =models.ImageField(upload_to='photos/vendors_logo/',blank='true')
+    password        =models.CharField(max_length=20,blank=False)
 
 
     date_joined     =models.DateTimeField(auto_now_add=True)
     last_login      =models.DateTimeField(auto_now_add=True)
     is_admin        =models.BooleanField(default=False)
-    is_staff        =models.BooleanField(default=False)
+    is_staff        =models.BooleanField(default=True)
     is_verified     =models.BooleanField(default=False)
-    is_active       =models.BooleanField(default=False)
+    is_active       =models.BooleanField(default=True)
     is_superadmin   =models.BooleanField(default=False)
 
     USERNAME_FIELD  ='vendor_name'

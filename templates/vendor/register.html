@@ -32,7 +32,7 @@
 
 <!-- Theme CSS -->
 <link rel="stylesheet" href="{% static 'vendor/assets/css/theme.min.css' %}">
-  <title>Sign Up | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
+  <title>Shazam seller</title>
 </head>
 
 <body>
@@ -55,7 +55,8 @@
 
             </div>
             <!-- Form -->
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="vendor-register" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
               <!-- Username -->
               <div class="mb-3">
                 <label for="vendor_name" class="form-label">Seller name</label>
@@ -87,7 +88,7 @@
               <div class="mb-3">
                 <label for="confirm-password" class="form-label">Confirm
                     Password</label>
-                <input type="password" id="confirm-password" class="form-control" name="password" placeholder="**************" required="">
+                <input type="password" id="confirm-password" class="form-control" name="confirm_password" placeholder="**************" required="">
               </div>
               <!-- Checkbox -->
               <!-- <div class="mb-3">

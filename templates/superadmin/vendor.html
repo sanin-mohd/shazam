@@ -1,0 +1,85 @@
+{% extends 'superadmin/base.html'%}
+{% load static %}
+{% block content%}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h3 class="card-title">{% if pending%} Pending Verifications{% else %}Active Vendors{% endif%}</h3>
+                    <table class="table table-striped table-hover" id="products-list">
+                        <thead>
+                        <tr>
+                            <th scope="col">Sl.No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Logo</th>
+                            <th scope="col">GST Number</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Contact</th>
+                            {% if pending%}
+                            <th scope="col">Update</th>
+                            {% else %}
+                            <th scope="col">Status</th>
+                            <th scope="col">Block|Unblock</th>
+                            <th scope="col">Delete</th>
+                            {% endif%}
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for vendor in vendors %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>
+                                    <!-- <div class="d-flex justify-content-start">
+                                        <div style="width: 2.5em">
+                                            <img src="{{ variant.image1.url }}" class="img w-100" alt="" srcset="">
+                                        </div>
+                                        <div class="ms-2">
+                                            {{ variant.product.name | capfirst }}
+                                        </div>
+                                    </div> -->
+                                    {{ vendor.vendor_name | capfirst }}
+                                </td>
+                                <td> <img src="{{ vendor.logo.url }}" style="width: 60px;height: 60px;" alt=""></td>
+                                <td> {{ vendor.GST_number}}</td>
+                                <td> {{ vendor.email }}</td>
+                                <td> {{ vendor.mobile }}</td>
+                                
+                                {% if pending%}  
+                                <td> <a href="{% url 'verify-vendor' vendor.id %}"><div class="btn btn-primary w-50" style="font-size: x-small;">Verify Now</div></a> </td>
+
+                                {%else%}
+                                {%if vendor.is_active%}
+                                <td>Active</td>
+                                <td> <a href="{% url 'block-vendor' vendor.id %}"><div  class="btn btn-danger">Block</div></a> </td>
+                                {% else %}
+                                <td>Blocked</td>
+                                <td> <a href="{% url 'unblock-vendor' vendor.id %}"><div  class="btn btn-primary ">Unblock</div></a> </td>
+                                {% endif%}
+                                <td> <a href="{% url 'delete-vendor' vendor.id %}"><div  class="btn btn-danger ">Delete</div></a> </td>
+                                {% endif %}
+                                <!-- <td>
+                                    <a href="#"><span
+                                            class="material-icons-outlined text-primary">visibility</span></a>
+                                    <a href="#"><span
+                                            class="material-icons-outlined text-warning">edit</span></a>
+                                    <a href="#"><span
+                                            class="material-icons-outlined text-danger">delete</span></a>
+                                </td> -->
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#products-list').DataTable();
+    });
+</script>
+{% endblock %}

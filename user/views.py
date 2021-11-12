@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
+    if request.user.is_staff or not request.user.is_active:
+        auth.logout(request)
+
     
     return render(request,'index.html')
 
@@ -22,8 +25,20 @@ def login(request):
 
         user=auth.authenticate(email=email,password=password)
         if user is not None:
-            auth.login(request,user)
-            return redirect('home')
+            if user.is_staff:
+                print("You are a vendor")
+                return redirect('vendor')
+            else:
+                if user.is_active:
+                    auth.login(request,user)
+                    return redirect('home')
+                else:
+                    print("You are blocked by admin")
+                    return redirect('login')
+
+                
+                
+            
         else:
             messages.error(request,'Invalid login credentials')
             return redirect('login')

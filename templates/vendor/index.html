@@ -159,7 +159,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="pages/billing.html">
+                  <a class="nav-link " href="{% url 'vendor-logout'%}">
                     Logout
                   </a>
                 </li>
@@ -211,11 +211,9 @@
           
           <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
             <div class="widget-header">
-              <small class="title ">Welcome guest!</small>
-              <div style="color: rgb(0, 0, 0);"> 
-                  <a style="color: rgb(0, 0, 0);" href="{% url 'login'%}">Sign in</a> <span class="dark-transp"> | </span>
-                  <a style="color: rgb(0, 0, 0);"href="{% url 'register'%}"> Register</a>
-              </div>
+              
+              <small class="title ">Welcome {{user}}</small>
+              
           </div>
           
             <li class="dropdown stopevent">

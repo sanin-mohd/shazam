@@ -8,7 +8,7 @@ GENDER_CHOICES = (
     )
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self,first_name,last_name,email,mobile,gender,password=None):
+    def create_user(self,first_name,last_name,email,mobile,gender,password=None,is_staff=False):
         if not email:
             raise ValueError('User must have an email address')
         if not mobile:
@@ -25,6 +25,26 @@ class MyAccountManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+    def create_vendor(self,email,password=None):
+        if not email:
+            raise ValueError('Vendor must have an email address')
+        
+        vendor=self.model(
+            email       =self.normalize_email(email),
+            
+            
+
+
+        )
+        vendor.is_admin=False
+        vendor.is_active=True
+        vendor.is_verified=False
+        vendor.is_staff=True
+        vendor.is_superadmin=False
+        vendor.set_password(password)
+        vendor.save(using=self._db)
+        return vendor
+
 
     def create_superuser(self,email,first_name,last_name,gender,mobile,password):
         user=self.create_user(
@@ -59,10 +79,11 @@ class Account(AbstractBaseUser):
     is_admin        =models.BooleanField(default=False)
     is_staff        =models.BooleanField(default=False)
     is_active       =models.BooleanField(default=True)
+    is_verified     =models.BooleanField(default=False)
     is_superadmin   =models.BooleanField(default=False)
 
     USERNAME_FIELD  ='email'
-    REQUIRED_FIELDS =['first_name','last_name','mobile','gender']
+    REQUIRED_FIELDS =['first_name', 'last_name', 'gender', 'mobile']
     
     objects=MyAccountManager()
 
