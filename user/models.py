@@ -69,7 +69,7 @@ class Account(AbstractBaseUser):
     first_name      =models.CharField(max_length=50)
     last_name       =models.CharField(max_length=50)
     email           =models.EmailField(max_length=100,unique=True) 
-    mobile          =models.CharField(max_length=10,unique=True)
+    mobile          =models.CharField(max_length=10,unique=True,null=True)
     gender          = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True,blank=False)
     dp              =models.ImageField(upload_to='photos/users_dp/',blank=True)
 

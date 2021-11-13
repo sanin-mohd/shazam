@@ -8,6 +8,8 @@
   <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
 
 
 
@@ -23,7 +25,6 @@
 <link rel="stylesheet" href="{% static 'vendor/assets/libs/dropzone/dist/dropzone.css' %}" >
 <link href="{% static 'vendor/assets/libs/%40mdi/font/css/materialdesignicons.min.css' %}" rel="stylesheet" />
 
-<link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 
 
 
@@ -55,40 +56,40 @@
 
             </div>
             <!-- Form -->
-            <form action="vendor-register" method="post" enctype="multipart/form-data">
+            <form id="form" action="vendor-register" method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <!-- Username -->
               <div class="mb-3">
                 <label for="vendor_name" class="form-label">Seller name</label>
-                <input type="text" id="vendor_name" class="form-control" name="vendor_name"  required="">
+                <input type="text" id="vendor_name" class="form-control" name="vendor_name"  >
               </div>
               <div class="mb-3">
                 <label for="GST_number" class="form-label">GST Number</label>
-                <input type="text" id="GST_number" class="form-control" name="GST_number"  required="">
+                <input type="text" id="GST_number" class="form-control" name="GST_number"  >
               </div>
               <!-- Email -->
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" class="form-control" name="email"  required="">
+                <input type="email" id="email" class="form-control" name="email"  >
               </div>
               <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile</label>
-                <input type="text" id="mobile" class="form-control" name="mobile"  required="">
+                <input type="text" id="mobile" class="form-control" name="mobile"  >
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Logo</label>
-                <input type="file"  id="logo" class="form-control" name="logo"  required="">
+                <input type="file"  id="logo" class="form-control" name="logo"  >
               </div>
               <!-- Password -->
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" class="form-control" name="password" placeholder="**************" required="">
+                <input type="password" id="password" class="form-control" name="password" placeholder="**************" >
               </div>
               <!-- Password -->
               <div class="mb-3">
                 <label for="confirm-password" class="form-label">Confirm
                     Password</label>
-                <input type="password" id="confirm-password" class="form-control" name="confirm_password" placeholder="**************" required="">
+                <input type="password" id="confirm-password" class="form-control" name="confirm_password" placeholder="**************" >
               </div>
               <!-- Checkbox -->
               <!-- <div class="mb-3">
@@ -127,9 +128,15 @@
       </div>
     </div>
   </div>
+  <style>
+    .error{
+        color: rgb(255, 0, 0) !important;
+    }
+</style>
 
   <!-- Scripts -->
   <!-- Libs JS -->
+  
 <script src="{% static 'vendor/assets/libs/jquery/dist/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'vendor/assets/libs/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
@@ -142,12 +149,18 @@
 
 
 <!-- clipboard -->
-<script src="../../../cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js' %}"></script>
+
 
 
 
 <!-- Theme JS -->
-<script src="{% static 'vendor/assets/js/theme.min.js' %}"></script>
+<!-- <script src="{% static 'vendor/assets/js/theme.min.js' %}"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+        
+        <script src="{% static 'js/validation.js' %}"></script>
+
 </body>
 
 

@@ -21,7 +21,7 @@
       <article class="card-body">
 		  {% include 'includes/alerts.html' %}
 		<header class="mb-4"><h4 class="card-title">Sign up</h4></header>
-		<form  action="{% url 'register' %}" method="POST" >   
+		<form id="form"  action="{% url 'register' %}" method="POST" >   
 			
 			{%csrf_token%}
 			
@@ -78,9 +78,9 @@
 					</div> <!-- form-group end.// -->  
 				</div>
 			    <div class="form-group">
-			        <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+			        <button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Register</button>
 					
-					<!-- <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Register</button>
+					<!-- <button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Register</button>
 					<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">

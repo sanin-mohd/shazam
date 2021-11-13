@@ -37,6 +37,11 @@
 </head>
 
 <body>
+  <style>
+    .navbar{
+      background-color: #00B2BD
+    }
+  </style>
   <div id="db-wrapper">
     <!-- navbar vertical -->
     <!-- Sidebar -->
@@ -46,7 +51,7 @@
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
       </style>
-        <a class="navbar-brand" href="index.html" style="font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
+        <a class="navbar-brand" href="index.html" style="color:white;font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
           <img src="{% static 'vendor/store_white_24dp.svg' %}" alt="">SHAZAM<span style="font-size: x-small;">seller </span> 
           
         </a>
@@ -70,7 +75,7 @@
 
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication1" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">
               </i> Showroom
@@ -89,7 +94,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">
               </i> Bookings
@@ -114,7 +119,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication2" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">
               </i> Promotions
@@ -137,7 +142,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navPages"
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navPages"
               aria-expanded="false" aria-controls="navPages">
               <i data-feather="layers" class="nav-icon icon-xs me-2">
               </i> Profile
@@ -212,7 +217,7 @@
           <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
             <div class="widget-header">
               
-              <small class="title ">Welcome {{user}}</small>
+              <small style="color: white;" class="title ">Welcome {{user}}</small>
               
           </div>
           

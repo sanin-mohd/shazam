@@ -1,10 +1,12 @@
 
 from django.http import request
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from vendor.models import Vendor
 from user.models import Account
 from django.contrib import messages,auth
 from django.views.decorators.cache import never_cache
+from . verify_sms import verify_sms
 
 # Create your views here.
 def superadmin_login(request):
@@ -77,10 +79,15 @@ def unblock_vendor(request,pk):
     return redirect('active-vendor-list')
 def delete_vendor(request,pk):
     admin_check(request)
+    if request.is_ajax():
+        Vendor.objects.get(id=pk).delete()
+        return JsonResponse({'message': 'success'})
+        print('ajax :vendor deleted')
+
     vendor=Vendor.objects.get(id=pk)
     vendor.delete()
     
-    print('vendor unblocked')
+    print('vendor deleted')
     return redirect('active-vendor-list')
 def block_customer(request,pk):
     admin_check(request)
@@ -99,6 +106,15 @@ def unblock_customer(request,pk):
 
 def verify_vendor(request,pk):
     admin_check(request)
+    if request.is_ajax():
+        vendor=Vendor.objects.get(id=pk)
+        vendor.is_verified=True
+        vendor.save()
+        verify_sms(1,1)
+
+        return JsonResponse({'message': 'success'})
+        print('ajax :vendor Verified')
+    
     vendor=Vendor.objects.get(id=pk)
     vendor.is_verified=True
     vendor.save()

@@ -37,13 +37,14 @@ def vendor_login(request):
         if user is not None:
             if user.is_staff:
                 
-                vendor=Vendor.objects.filter(email=email)
+                vendor=Vendor.objects.get(email=email)
                 print(vendor)
                 if vendor.is_active:
                     auth.login(request,user)
                     print("Session created")
                     return redirect('vendor')
                 else:
+                    messages.info(request,"You are blocked by admin")
                     print("You are blocked by admin")
                     return redirect('vendor-login')
 

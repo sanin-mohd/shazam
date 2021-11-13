@@ -17,15 +17,16 @@
 
   <!-- Libs CSS -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"/>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
+  
   <link rel="stylesheet" href="{% static 'vendor/assets/libs/prismjs/themes/prism.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/assets/libs/prismjs/plugins/toolbar/prism-toolbar.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/assets/libs/bootstrap-icons/font/bootstrap-icons.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/assets/libs/dropzone/dist/dropzone.css' %}">
   <link href="{% static 'vendor/assets/libs/%40mdi/font/css/materialdesignicons.min.css' %}" rel="stylesheet" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="{% static 'js/superadmin/script.js'%}"></script>
 
-  <link rel="stylesheet" href="../../cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 
 
 
@@ -41,19 +42,32 @@
   <div id="db-wrapper">
     <!-- navbar vertical -->
     <!-- Sidebar -->
+    <style>
+      .navbar-vertical{
+        background-color: #00B2BD !important;
+      }
+      .nav-link{
+        color: white;
+      }
+      .btn-success{
+        background-color: #00B2BD !important;
+      }
+    </style>
     <nav class="navbar-vertical navbar">
       <div class="nav-scroller">
         <!-- Brand logo -->
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+          
       </style>
-        <a class="navbar-brand" href="{% url 'superadmin-login' %}" style="font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
-          <img src="{% static 'vendor/store_white_24dp.svg' %}" alt="">SHAZAM<span style="font-size: x-small;">admin </span> 
+        <a class="navbar-brand" href="{% url 'superadmin-login' %}" style="color: white;font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
+          SHAZAM<span style="font-size: x-small; ">admin </span> 
           
         </a>
         <!-- Navbar nav -->
         <ul class="navbar-nav flex-column" id="sideNavbar">
           <li class="nav-item">
+
             <a class="nav-link has-arrow  active " href="{% url 'superadmin-login' %}">
               <i data-feather="home" class="nav-icon icon-xs me-2"></i> Dashboard
             </a>
@@ -71,7 +85,7 @@
 
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+            <a class="nav-link has-arrow active  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication1" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">
               </i> Vendors
@@ -90,7 +104,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication3" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">
               </i> Customers
@@ -134,7 +148,7 @@
             </div>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication2" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">
               </i> Coupons
@@ -157,7 +171,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navPages"
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navPages"
               aria-expanded="false" aria-controls="navPages">
               <i data-feather="layers" class="nav-icon icon-xs me-2">
               </i> Profile
@@ -203,6 +217,11 @@
       </div>
     </nav>
     <!-- Page content -->
+    <style>
+      .navbar{
+        background-color:#00B2BD !important;
+      }
+    </style>
     <div id="page-content">
       <div class="header @@classList">
         <!-- navbar -->
@@ -220,7 +239,7 @@
           <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
             <div class="widget-header">
               
-              <small class="title ">Welcome back admin</small>
+              <small style="color:white;" class="title ">Welcome back admin</small>
               
           </div>
           
@@ -393,7 +412,7 @@
   <script src="{% static 'vendor/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js' %}"></script>
   <script src="{% static 'vendor/assets/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
   <script src="{% static 'vendor/assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
-
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
 
   <!-- clipboard -->
   <script src="../../cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
@@ -402,7 +421,8 @@
 
   <!-- Theme JS -->
   <script src="{% static 'vendor/assets/js/theme.min.js' %}"></script>
-
+{%block script%}
+{% endblock%}
 
 </body>
 

@@ -48,7 +48,11 @@
                                 <td> {{ vendor.mobile }}</td>
                                 
                                 {% if pending%}  
-                                <td> <a href="{% url 'verify-vendor' vendor.id %}"><div class="btn btn-primary w-50" style="font-size: x-small;">Verify Now</div></a> </td>
+                                <td> 
+                                    <a href="#"onclick="verifyVendor((event), '{% url 'verify-vendor' vendor.id %}')"
+                                    id="pp"><div  class="btn btn-success ">Verify</div></a>     
+                                    
+                                </td>
 
                                 {%else%}
                                 {%if vendor.is_active%}
@@ -56,9 +60,15 @@
                                 <td> <a href="{% url 'block-vendor' vendor.id %}"><div  class="btn btn-danger">Block</div></a> </td>
                                 {% else %}
                                 <td>Blocked</td>
-                                <td> <a href="{% url 'unblock-vendor' vendor.id %}"><div  class="btn btn-primary ">Unblock</div></a> </td>
+                                <td> <a href="{% url 'unblock-vendor' vendor.id %}"><div  class="btn btn-success ">Unblock</div></a> </td>
                                 {% endif%}
-                                <td> <a href="{% url 'delete-vendor' vendor.id %}"><div  class="btn btn-danger ">Delete</div></a> </td>
+                                <td>
+                                    <a href="" onclick="deleteVendor((event), '{% url 'delete-vendor' vendor.id %}')" id="pp"><div  class="btn btn-danger ">Delete</div></a>
+                                    <!-- <form  method="post" onsubmit="return submitForm(event,this);" action="{% url 'delete-vendor' vendor.id %}">
+                                        {% csrf_token%}
+                                        <input  class="btn btn-danger" type="submit" style="" value="Delete">
+                                    </form> -->
+                                </td>
                                 {% endif %}
                                 <!-- <td>
                                     <a href="#"><span
@@ -77,9 +87,83 @@
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block script%}
 <script>
     $(document).ready(function () {
         $('#products-list').DataTable();
     });
 </script>
-{% endblock %}
+<script>
+    function deleteVendor(e, id) {
+        // Deleting product variant
+        let url = id
+        e.preventDefault()
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal("Successfully deleted", {
+                    icon: "success",
+                }).then(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: {
+                            csrfmiddlewaretoken: csrftoken,
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.message === "success") {
+                                window.location.replace("{% url 'active-vendor-list' %}");
+                            }
+                        }
+                    })
+                })
+            } else {
+                swal("Vendor data is safe!");
+            }
+        });
+    }
+    function verifyVendor(e, id) {
+        // Deleting product variant
+        let url = id
+        e.preventDefault()
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: false,
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal("Verified", {
+                    icon: "success",
+                }).then(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: {
+                            csrfmiddlewaretoken: csrftoken,
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.message === "success") {
+                                window.location.replace("{% url 'vendor-list-for-verification' %}");
+                            }
+                        }
+                    })
+                })
+            } else {
+                swal("Vendor is not verified!");
+            }
+        });
+    }
+</script>
+{% endblock%}

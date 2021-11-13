@@ -10,6 +10,7 @@
 <title>SHAZAM | WELCOME TO FUTURE</title>
 
 <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 
 <!-- jQuery -->
 <script src="{% static 'js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
@@ -74,11 +75,18 @@ $(document).ready(function() {
 	</div>
   </div> -->
 <!-- ========================= FOOTER END // ========================= -->
-
+<style>
+    .error{
+        color: rgb(255, 0, 0) !important;
+    }
+</style>
 <script src="{% static 'footer/js/jquery.min.js'%}"></script>
     <script src="{% static 'footer/js/popper.js'%}"></script>
     <script src="{% static 'footer/js/bootstrap.min.js'%}"></script>
     <script src="{% static 'footer/js/main.js'%}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+        <script src="{% static 'js/validation.js' %}"></script>
 </body>
 </html>
 

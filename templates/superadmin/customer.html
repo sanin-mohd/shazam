@@ -14,8 +14,9 @@
                             <th  scope="col">Sl.No</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Gender</th>
+                            <th scope="col">Mobile</th>
                             <th scope="col">Status</th>
+                            
                             <th scope="col">Block|Unblock</th>
                             
                         </tr>
@@ -36,7 +37,7 @@
                                     {{customer.first_name | capfirst}}
                                 </td>
                                 <td>{{customer.email}}</td>
-                                <td>{{customer.gender | capfirst}}</td>
+                                <td>{{customer.mobile}}{%if customer.is_verified%} <img src="{% static 'admin/verified_black_24dp.svg'%}" alt=""> {% else%}{% endif%}</td>
                                 <td>{% if customer.is_active%} Active {%else%}Blocked{% endif %}</td>
                                 <td>{% if customer.is_active%} <a href="{% url 'block-customer' customer.id %}"><div class="btn btn-danger w-50">Block</div></a>  {%else%} <a href="{% url 'unblock-customer' customer.id %}"><div class="btn btn-primary w-50">Unblock</div></a> {% endif %}</td>
                                 <!-- <td>
@@ -56,10 +57,14 @@
         </div>
     </div>
 </div>
+
+
+{% endblock %}
+
+{% block script%}
 <script>
     $(document).ready(function () {
         $('#products-list').DataTable();
     });
 </script>
-
-{% endblock %}
+{% endblock%}

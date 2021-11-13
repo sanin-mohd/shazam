@@ -12,6 +12,8 @@
 
 
 <!-- Favicon icon-->
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'vendor/assets/images/favicon/favicon.ico' %}">
 
 <!-- Libs CSS -->
@@ -23,7 +25,6 @@
 <link rel="stylesheet" href="{% static 'vendor/assets/libs/dropzone/dist/dropzone.css' %}" >
 <link href="{% static 'vendor/assets/libs/%40mdi/font/css/materialdesignicons.min.css' %}" rel="stylesheet" />
 
-<link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css' %}">
 
 
 
@@ -56,17 +57,23 @@
               
             </div>
             <!-- Form -->
-            <form action="{% url 'vendor-login' %}" method="post">
+            <form id="form" action="{% url 'vendor-login' %}" method="post">
               {% csrf_token %}
+              <div >
+                {% for message in messages %}
+                <h6 style="color: rgb(212, 0, 0);text-align: center;">{{message}}</h3>
+                
+                {% endfor %}
+            </div>
               <!-- Username -->
               <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email"  class="form-control" name="email"  required="">
+                <input type="email"  class="form-control" name="email"  >
               </div>
               <!-- Password -->
               <div class="mb-3">
                 <label  class="form-label">Password</label>
-                <input type="password"  class="form-control" name="password" placeholder="**************" required="">
+                <input type="password"  class="form-control" name="password" placeholder="**************" >
               </div>
               <!-- Checkbox -->
               <div class="d-lg-flex justify-content-between align-items-center
@@ -105,6 +112,11 @@
       </div>
     </div>
   </div>
+  <style>
+    .error{
+        color: rgb(255, 0, 0) !important;
+    }
+</style>
   <!-- Scripts -->
   <!-- Libs JS -->
 <script src="{% static 'vendor/assets/libs/jquery/dist/jquery.min.js' %}"></script>
@@ -119,12 +131,15 @@
 
 
 <!-- clipboard -->
-<script src="../../../cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js' %}"></script>
+
 
 
 
 <!-- Theme JS -->
-<script src="{% static 'vendor/assets/js/theme.min.js' %}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+        <script src="{% static 'js/validation.js' %}"></script>
 </body>
 
 
