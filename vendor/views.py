@@ -4,13 +4,18 @@ from . models import Vendor
 from user.models import Account
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
-
+from check_code import check_code
+from send_code import send_code
+import time
 # Create your views here.
 
 def vendor_dashboard(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
-            return render(request,'vendor/index.html')
+            vendor=Vendor.objects.get(email=request.user)
+            request.session['mobile']=vendor.mobile
+            print('mobile-verified:'+str(vendor.is_mobile_verified))
+            return render(request,'vendor/index.html',{'vendor':vendor})
         else:
             auth.logout(request)
             return redirect('home')
@@ -38,8 +43,10 @@ def vendor_login(request):
             if user.is_staff:
                 
                 vendor=Vendor.objects.get(email=email)
+
                 print(vendor)
                 if vendor.is_active:
+                    request.session['mobile']=vendor.mobile
                     auth.login(request,user)
                     print("Session created")
                     return redirect('vendor')
@@ -88,8 +95,31 @@ def vendor_register(request):
 
 
             print("vendor created")
+            request.session['mobile']=mobile
             return redirect('vendor')
         else:
             print("Password not matching")
 
     return render(request,'vendor/register.html')
+
+def otp(request):
+    if request.method=="POST":
+        entered_code=str(request.POST['first'])+str(request.POST['second'])+str(request.POST['third'])+str(request.POST['fourth'])
+        mobile=request.session['mobile']
+        if check_code(mobile,entered_code):
+            user=Vendor.objects.get(mobile=mobile)
+            user.is_mobile_verified=True
+            user.save()
+            auth.login(request,user)
+            return redirect('vendor')
+        else:
+            messages.info(request,"OTP not matching...")
+            return redirect('vendor-otp')
+
+    else:
+        mobile=request.session['mobile']
+        
+        send_code(mobile)
+        time.sleep(5)
+        print("OTP sent----->>>>")
+        return render(request,'vendor/otp.html',{'mobile':mobile})

@@ -1,5 +1,6 @@
 from django import forms
 import django
+from django.db import models
 from django.forms.widgets import PasswordInput
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
@@ -15,6 +16,8 @@ from check_code import check_code
 # Create your views here.
 
 def home(request):
+    
+    
     if request.user.is_staff or not request.user.is_active:
         auth.logout(request)
 
@@ -95,7 +98,7 @@ def register(request):
             
             print('User Created')
             # messages.success(request,'Registration Successful')
-            send_code(mobile)
+            
             request.session['mobile']=mobile
             return redirect('send-otp')
         print('form not valid')
@@ -110,7 +113,7 @@ def register(request):
 
 def verify_otp(request):
     if request.method=="POST":
-        entered_code=str(request.POST['first'])+str(request.POST['second'])+str(request.POST['third'])+str(request.POST['fourth'])+str(request.POST['fifth'])+str(request.POST['sixth'])
+        entered_code=str(request.POST['first'])+str(request.POST['second'])+str(request.POST['third'])+str(request.POST['fourth'])
         mobile=request.session['mobile']
         if check_code(mobile,entered_code):
             user=Account.objects.get(mobile=mobile)
@@ -119,9 +122,11 @@ def verify_otp(request):
             auth.login(request,user)
             return redirect('home')
         else:
-            return HttpResponse("OTP not matching")
+            messages.info(request,"OTP not matching...")
+            return redirect('verify-otp')
 
     else:
         mobile=request.session['mobile']
+        send_code(mobile)
         return render(request,'otp.html',{'mobile':mobile})
 

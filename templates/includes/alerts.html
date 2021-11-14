@@ -1,6 +1,11 @@
 {% if messages %}
 
     {% for message in messages %}
+    <style>
+        .error{
+            color: rgb(255, 0, 0) !important;
+        }
+    </style>
     <div id="message" class="container">
             <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">
                 <button type="button" class="close" data-dismiss='alert'><span aria-hidden="true">&times;</span></button>

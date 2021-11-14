@@ -110,7 +110,8 @@ def verify_vendor(request,pk):
         vendor=Vendor.objects.get(id=pk)
         vendor.is_verified=True
         vendor.save()
-        verify_sms(1,1)
+        mobile=vendor.mobile
+        verify_sms(mobile)
 
         return JsonResponse({'message': 'success'})
         print('ajax :vendor Verified')
@@ -118,6 +119,9 @@ def verify_vendor(request,pk):
     vendor=Vendor.objects.get(id=pk)
     vendor.is_verified=True
     vendor.save()
+    mobile=vendor.mobile
+    verify_sms(mobile)
+    
     return redirect('vendor-list-for-verification')
 
     

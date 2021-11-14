@@ -7,11 +7,11 @@ from twilio.rest import Client
 def send_code(mobile):
 
     account_sid = "ACa4220a71ba87652275dc696cba0adfcf"
-    auth_token ="baee61d4c4223a4a76ffaad1e3ebed01"
+    auth_token ="ef4ae5f4891a5762bcc67619ba451a69"
     client = Client(account_sid, auth_token)
 
     verification = client.verify \
-                        .services('VA26ec3dd3979faf82183100a7cb9e7efa') \
+                        .services('VA757e9b70b41b455a6255601201c38ac8') \
                         .verifications \
                         .create(to='+91'+mobile, channel='sms')
 

@@ -1,3 +1,4 @@
+
 {% load static%}
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,7 @@
           ><b>Enter the code we just sent on your phone</b>
           <b class="text-color">+91 {{mobile}}</b>
         </span>
-        <form method="post" action="{% url 'verify-otp'%}">
+        <form method="post" action="{% url 'vendor-otp'%}">
             {% csrf_token%}
             <div class="d-flex flex-row mt-5" id="otp">
                 <input type="text" class="form-control" autofocus=""maxlength="1" name="first" />
@@ -39,7 +40,7 @@
         <!-- <div  class="btn btn-success m-5 p-2"> Submit</div> -->
         <div class="text-center mt-5">
           <span class="d-block mobile-text" id="countdown"></span>
-          <span class="d-block mobile-text" id="resend"><a href="{% url 'verify-otp'%}"></a></span>
+          <span class="d-block mobile-text" id="resend"></span>
         </div>
       </div>
     </div>

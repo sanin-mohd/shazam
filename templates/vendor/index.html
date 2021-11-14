@@ -74,6 +74,61 @@
 
 
           <!-- Nav item -->
+          {% if not vendor.is_mobile_verified %}
+          <li class="nav-item">
+            <a style="color: rgb(255, 255, 255);" class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+              data-bs-target="#navAuthentication1" aria-expanded="false" aria-controls="navAuthentication">
+              <i data-feather="lock" class="nav-icon icon-xs me-2">
+              </i> Mobile verification <img src="{% static 'vendor/new_releases_white_24dp.svg'%}" alt="">
+            </a>
+            <div id="navAuthentication1" class="collapse " data-bs-parent="#sideNavbar">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'vendor-otp'%}">Verify Now</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'vendor-logout'%}">
+                    Logout
+                  </a>
+                </li>
+               
+
+              </ul>
+            </div>
+          </li>
+          {% elif not vendor.is_verified%}
+          
+          <li class="nav-item">
+            <p style="color: rgb(255, 255, 255);" class="nav-link active has-arrow  collapsed " href="#!" 
+              data-bs-target="#navAuthentication1" aria-expanded="false" aria-controls="navAuthentication">
+              <i data-feather="lock" class="nav-icon icon-xs me-2">
+              </i>Mobile verification <img src="{% static 'admin/verified_white_24dp.svg'%}" alt="">
+            </p>
+            <a style="color: rgb(255, 255, 255);" class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+              data-bs-target="#navAuthentication11" aria-expanded="false" aria-controls="navAuthentication">
+              <i data-feather="lock" class="nav-icon icon-xs me-2">
+              </i> Application Sent  <img class="p-2" src="{% static 'admin/verified_white_24dp.svg'%}" alt="">
+            </a>
+            <div id="navAuthentication11" class="collapse " data-bs-parent="#sideNavbar">
+              <ul class="nav flex-column">
+                
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'vendor-logout'%}">
+                    Logout
+                  </a>
+                </li>
+               
+
+              </ul>
+            </div>
+          </li>
+          
+          
+           
+
+          {% else %}
+
+          
           <li class="nav-item">
             <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication1" aria-expanded="false" aria-controls="navAuthentication">
@@ -171,14 +226,14 @@
 
 
 
-
+                
                
               </ul>
             </div>
 
           </li>
           
-          
+          {% endif %}
           <!-- Nav item -->
           
          
@@ -373,7 +428,6 @@
       <div class="bg-success pt-10 pb-21"></div>
       <div class="container-fluid mt-n22 px-6">
         <div class="row">
-         
           <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
             <!-- card -->
             <div class="card rounded-3">
@@ -383,31 +437,7 @@
                 <div class="d-flex justify-content-between align-items-center
                     mb-3">
                   <div>
-                    <h4 class="mb-0">Projects</h4>
-                  </div>
-                  <div class="icon-shape icon-md bg-light-primary text-primary
-                      rounded-1">
-                    <i class="bi bi-briefcase fs-4"></i>
-                  </div>
-                </div>
-                <!-- project number -->
-                <div>
-                  <h1 class="fw-bold">18</h1>
-                  <p class="mb-0"><span class="text-dark me-2">2</span>Completed</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
-            <!-- card -->
-            <div class="card rounded-3">
-              <!-- card body -->
-              <div class="card-body">
-                <!-- heading -->
-                <div class="d-flex justify-content-between align-items-center
-                    mb-3">
-                  <div>
-                    <h4 class="mb-0">Active Task</h4>
+                    <h4 class="mb-0">Revenue</h4>
                   </div>
                   <div class="icon-shape icon-md bg-light-primary text-primary
                       rounded-1">
@@ -416,8 +446,8 @@
                 </div>
                 <!-- project number -->
                 <div>
-                  <h1 class="fw-bold">132</h1>
-                  <p class="mb-0"><span class="text-dark me-2">28</span>Completed</p>
+                  <h1 class="fw-bold">₹0</h1>
+                  <p class="mb-0"><span class="text-dark me-2">0</span>Completed</p>
                 </div>
               </div>
             </div>
@@ -431,7 +461,32 @@
                 <div class="d-flex justify-content-between align-items-center
                     mb-3">
                   <div>
-                    <h4 class="mb-0">Teams</h4>
+                    <h4 class="mb-0">Sales</h4>
+                  </div>
+                  <div class="icon-shape icon-md bg-light-primary text-primary
+                      rounded-1">
+                    <i class="bi bi-briefcase fs-4"></i>
+                  </div>
+                </div>
+                <!-- project number -->
+                <div>
+                  <h1 class="fw-bold">0</h1>
+                  <p class="mb-0"><span class="text-dark me-2">0</span>Completed</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+            <!-- card -->
+            <div class="card rounded-3">
+              <!-- card body -->
+              <div class="card-body">
+                <!-- heading -->
+                <div class="d-flex justify-content-between align-items-center
+                    mb-3">
+                  <div>
+                    <h4 class="mb-0">Sales Growth</h4>
                   </div>
                   <div class="icon-shape icon-md bg-light-primary text-primary
                       rounded-1">
@@ -440,8 +495,8 @@
                 </div>
                 <!-- project number -->
                 <div>
-                  <h1 class="fw-bold">12</h1>
-                  <p class="mb-0"><span class="text-dark me-2">1</span>Completed</p>
+                  <h1 class="fw-bold">0%</h1>
+                  <p class="mb-0"><span class="text-dark me-2">0</span>Completed</p>
                 </div>
               </div>
             </div>
@@ -456,7 +511,7 @@
                 <div class="d-flex justify-content-between align-items-center
                     mb-3">
                   <div>
-                    <h4 class="mb-0">Productivity</h4>
+                    <h4 class="mb-0">New customers</h4>
                   </div>
                   <div class="icon-shape icon-md bg-light-primary text-primary
                       rounded-1">
@@ -465,14 +520,16 @@
                 </div>
                 <!-- project number -->
                 <div>
-                  <h1 class="fw-bold">76%</h1>
-                  <p class="mb-0"><span class="text-success me-2">5%</span>Completed</p>
+                  <h1 class="fw-bold">0%</h1>
+                  <p class="mb-0"><span class="text-success me-2">0%</span>Completed</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <!-- row  -->
+        {% block content%}
+        {% endblock%}
         
       </div>
       
