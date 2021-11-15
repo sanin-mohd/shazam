@@ -111,7 +111,7 @@ def verify_vendor(request,pk):
         vendor.is_verified=True
         vendor.save()
         mobile=vendor.mobile
-        verify_sms(mobile)
+        #verify_sms(mobile)
 
         return JsonResponse({'message': 'success'})
         print('ajax :vendor Verified')

@@ -17,11 +17,12 @@ function timer(remaining) {
   if (!timerOn) {
     return;
   }
+  
   document.getElementById("resend").innerHTML = `Don't receive the code? <br>
-  <a href="verify-otp" class=" btn btn-success">Resend</a>
+  <a href="vendor-otp" class=" btn btn-success">Resend</a>
   `;
-   let sub = document.getElementById("submit").remove()
-   
+   let sub = document.getElementById("submit")
+   sub.style.visibility = "hidden"
    console.log(sub);
 
 

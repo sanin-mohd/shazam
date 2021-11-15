@@ -45,7 +45,11 @@
                                 <td> <img src="{{ vendor.logo.url }}" style="width: 60px;height: 60px;" alt=""></td>
                                 <td> {{ vendor.GST_number}}</td>
                                 <td> {{ vendor.email }}</td>
-                                <td> {{ vendor.mobile }}{%if vendor.is_mobile_verified%} <img src="{% static 'admin/verified_black_24dp.svg'%}" alt=""> {% else%}{% endif%}</td>
+                                <td> <div class="d-flex">
+                                    <div class=""> {{ vendor.mobile }}{%if vendor.is_mobile_verified%}<img src="{% static 'admin/verified_black_24dp.svg'%}" alt=""> {% else%}{% endif%}</div>
+                                    
+
+                                </div> </td>
                                 
                                 {% if pending%}  
                                 <td> 

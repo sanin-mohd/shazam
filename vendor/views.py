@@ -110,6 +110,7 @@ def otp(request):
             user=Vendor.objects.get(mobile=mobile)
             user.is_mobile_verified=True
             user.save()
+            user=auth.authenticate(email=user.email,password=user.password)
             auth.login(request,user)
             return redirect('vendor')
         else:
@@ -120,6 +121,6 @@ def otp(request):
         mobile=request.session['mobile']
         
         send_code(mobile)
-        time.sleep(5)
+        time.sleep(3)
         print("OTP sent----->>>>")
         return render(request,'vendor/otp.html',{'mobile':mobile})

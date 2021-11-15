@@ -16,8 +16,6 @@ from check_code import check_code
 # Create your views here.
 
 def home(request):
-    
-    
     if request.user.is_staff or not request.user.is_active:
         auth.logout(request)
 
@@ -32,8 +30,13 @@ def login(request):
         password=request.POST['password']
         print(mobile)
         print(password)
-        email=Account.objects.get(mobile=mobile).email
-        user=auth.authenticate(email=email,password=password)
+        try:
+
+            email=Account.objects.get(mobile=mobile).email
+            user=auth.authenticate(email=email,password=password)
+        except:
+            user=None
+            pass
         print(user)
         if user is not None:
             if user.is_staff:
@@ -41,27 +44,14 @@ def login(request):
                 return redirect('vendor')
             else:
                 if user.is_active:
-                    if user.is_verified:
-                        auth.login(request,user)
-                        return redirect('home')
-                    else:
-                        send_code(mobile)
-                        messages.info(request,"Mobile number is not verified")
-                        print("Mobile number is not verified")
-                        request.session['mobile']=mobile
-                        return redirect('verify-otp')
-
-
                     
-                    
+                    auth.login(request,user)
+                    return redirect('home')
                 else:
                     messages.info(request,"You are blocked by admin")
                     print("You are blocked by admin")
                     return redirect('login')
-
-                
-                
-            
+   
         else:
             messages.error(request,'Invalid login credentials')
             return redirect('login')
@@ -128,5 +118,5 @@ def verify_otp(request):
     else:
         mobile=request.session['mobile']
         send_code(mobile)
-        return render(request,'otp.html',{'mobile':mobile})
+        return render(request,'otp_codepen/otp.html',{'mobile':mobile})
 
