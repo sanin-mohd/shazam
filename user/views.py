@@ -119,4 +119,44 @@ def verify_otp(request):
         mobile=request.session['mobile']
         send_code(mobile)
         return render(request,'otp_codepen/otp.html',{'mobile':mobile})
+def otp_login(request):
+    if request.method=="POST":
+        mobile=request.POST['mobile']
+        try:
+            user=Account.objects.get(mobile=mobile)
+        except:
+            user=None
+        if user is not None:
+            request.session['mobile']=mobile
+            send_code(mobile)
+            print("Login otp sent")
+            return redirect('check-login-otp')
+        else:
+            messages.info(request,"Mobile number is not registered")
+            print("Mobile not registrered")
+            return redirect('otp-login')
+
+        
+    else:
+        return render(request,'otp_signin.html')
+
+def check_login_otp(request):
+    if request.method=="POST":
+        otp=request.POST['otp']
+        mobile=request.session['mobile']
+
+        if check_code(mobile,otp):
+            user=Account.objects.get(mobile=mobile)
+            user.is_verified=True
+            user.save()
+            
+            auth.login(request,user)
+            return redirect('home')
+        else:
+            messages.info(request,"OTP not matching")
+            return redirect('otp-login')
+
+    else:
+        return render(request,'otp-check.html')
+
 

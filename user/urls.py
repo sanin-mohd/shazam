@@ -9,5 +9,8 @@ urlpatterns = [
     path('logout',views.logout,name='logout'),
     path('send-otp',views.verify_otp,name='send-otp'),
     path('verify-otp',views.verify_otp,name='verify-otp'),
+    path('otp-login', views.otp_login,name='otp-login'),
+    path('check-login-otp',views.check_login_otp,name='check-login-otp'),
+
 
 ]

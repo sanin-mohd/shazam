@@ -1,51 +1,51 @@
-{% extends 'base.html'%}
-{% load static%}
+{% extends 'base.html'%} {% load static%} {% block content%}
 
-{% block content%}
-
-		<style>
-			.btn-primary{
-				background-color:#00B2BD ;
-			}
-			.btn-primary:hover{
-				background-color: black;
-			}
-		</style>
-		
+<style>
+  .btn-primary {
+    background-color: #00b2bd;
+  }
+  .btn-primary:hover {
+    background-color: black;
+  }
+</style>
 
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
+  <!-- ============================ COMPONENT REGISTER   ================================= -->
+  <div class="card mx-auto" style="max-width: 520px; margin-top: 40px">
+    <article class="card-body">
+      {% include 'includes/alerts.html' %}
+      <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
+      <form id="form" action="{% url 'register' %}" method="POST">
+        {%csrf_token%}
 
-<!-- ============================ COMPONENT REGISTER   ================================= -->
-	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
-      <article class="card-body">
-		  {% include 'includes/alerts.html' %}
-		<header class="mb-4"><h4 class="card-title">Sign up</h4></header>
-		<form id="form"  action="{% url 'register' %}" method="POST" >   
-			
-			{%csrf_token%}
-			
-				<div class="form-row">
-					<div class="col form-group ">
-						<label>First name</label>
-						<!-- <input type="text" class="form-control" placeholder=""> -->
-					  	{{form.first_name}}
-					</div> <!-- form-group end.// -->
-					<div class="col form-group">
-						<label>Last name</label>
-					  	<!-- <input type="text" class="form-control" placeholder=""> -->
-						  {{form.last_name}}
-					</div> <!-- form-group end.// -->
-				</div> <!-- form-row end.// -->
-				<div class="form-group">
-					<label>Email</label>
-					<!-- <input type="email" class="form-control" placeholder=""> -->
-					{{form.email}}
-					<small class="form-text text-muted">We'll never share your email with anyone else.</small>
-				</div> <!-- form-group end.// -->
-				<div class="form-group">
-					{{form.gender}}
-					<!-- <label class="custom-control custom-radio custom-control-inline">
+        <div class="form-row">
+          <div class="col form-group">
+            <label>First name</label>
+            <!-- <input type="text" class="form-control" placeholder=""> -->
+            {{form.first_name}}
+          </div>
+          <!-- form-group end.// -->
+          <div class="col form-group">
+            <label>Last name</label>
+            <!-- <input type="text" class="form-control" placeholder=""> -->
+            {{form.last_name}}
+          </div>
+          <!-- form-group end.// -->
+        </div>
+        <!-- form-row end.// -->
+        <div class="form-group">
+          <label>Email</label>
+          <!-- <input type="email" class="form-control" placeholder=""> -->
+          {{form.email}}
+          <small class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          >
+        </div>
+        <!-- form-group end.// -->
+        <div class="form-group">
+          {{form.gender}}
+          <!-- <label class="custom-control custom-radio custom-control-inline">
 					  <input class="custom-control-input" checked="" type="radio" name="gender" value="option1">
 					  <span class="custom-control-label"> Male </span>
 					</label>
@@ -53,34 +53,46 @@
 					  <input class="custom-control-input" type="radio" name="gender" value="option2">
 					  <span class="custom-control-label"> Female </span>
 					</label> -->
-				</div> <!-- form-group end.// -->
-				<div class="form-row">
-					<div class="form-group col-md-12">
-					  <label>Mobile</label>
-					  {{form.mobile}}
-					  <!-- <input type="text" class="form-control"> -->
-					</div> <!-- form-group end.// -->
-					<!-- + -->
-					<!-- form-group end.// -->
-				</div> <!-- form-row.// -->
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label>Create password</label>
-						{{form.password}}
-					    <!-- <input class="form-control" type="password"> -->
-					</div> <!-- form-group end.// --> 
-					<div class="form-group col-md-6">
-						<label>Repeat password</label>
+        </div>
+        <!-- form-group end.// -->
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Mobile</label>
+            {{form.mobile}}
+            <!-- <input type="text" class="form-control"> -->
+          </div>
+          <!-- form-group end.// -->
+          <!-- + -->
+          <!-- form-group end.// -->
+        </div>
+        <!-- form-row.// -->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Create password</label>
+            {{form.password}}
+            <!-- <input class="form-control" type="password"> -->
+          </div>
+          <!-- form-group end.// -->
+          <div class="form-group col-md-6">
+            <label>Repeat password</label>
 
-						{{form.confirm_password}}
-						
-					    <!-- <input class="form-control" type="password"> -->
-					</div> <!-- form-group end.// -->  
-				</div>
-			    <div class="form-group">
-			        <button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Register</button>
-					
-					<!-- <button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Register</button>
+            {{form.confirm_password}}
+
+            <!-- <input class="form-control" type="password"> -->
+          </div>
+          <!-- form-group end.// -->
+        </div>
+        <div class="form-group">
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+          >
+            Register
+          </button>
+
+          <!-- <button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Register</button>
 					<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -106,30 +118,47 @@
 						</div>
 					</div>
 					</div> -->
-
-
-
-			    </div> <!-- form-group// -->   
-				{{form.email.errors}}
-				{{form.mobile.errors}}
-				{{form.non_field_errors}}
-				
-			        
-			</form>
-		</article><!-- card-body.// -->
-    </div> <!-- card .// -->
-    <p class="text-center mt-4">Have an account? <a href="{% url 'login'%}">Log In</a></p>
-    <br><br>
-<!-- ============================ COMPONENT REGISTER  END.// ================================= -->
-
-
+        </div>
+        <!-- form-group// -->
+        {{form.email.errors}} {{form.mobile.errors}} {{form.non_field_errors}}
+      </form>
+    </article>
+    <!-- card-body.// -->
+  </div>
+  <!-- card .// -->
+  <p class="text-center mt-4">
+    Have an account? <a href="{% url 'login'%}">Log In</a>
+  </p>
+  <br /><br />
+  <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
 </section>
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-
-        function OTPInput() {
-        const inputs = document.querySelectorAll('#otp > *[id]');
-        for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
+  document.addEventListener("DOMContentLoaded", function (event) {
+    function OTPInput() {
+      const inputs = document.querySelectorAll("#otp > *[id]");
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("keydown", function (event) {
+          if (event.key === "Backspace") {
+            inputs[i].value = "";
+            if (i !== 0) inputs[i - 1].focus();
+          } else {
+            if (i === inputs.length - 1 && inputs[i].value !== "") {
+              return true;
+            } else if (event.keyCode > 47 && event.keyCode < 58) {
+              inputs[i].value = event.key;
+              if (i !== inputs.length - 1) inputs[i + 1].focus();
+              event.preventDefault();
+            } else if (event.keyCode > 64 && event.keyCode < 91) {
+              inputs[i].value = String.fromCharCode(event.keyCode);
+              if (i !== inputs.length - 1) inputs[i + 1].focus();
+              event.preventDefault();
+            }
+          }
+        });
+      }
+    }
+    OTPInput();
+  });
 </script>
 
 <!-- ========================= SECTION CONTENT END// ========================= -->

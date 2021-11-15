@@ -11,11 +11,14 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="{% static 'otp/style.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'otp/style.css' %}"
+    />
     <script src="{% static 'js/superadmin/script.js'%}"></script>
   </head>
   <body>
-    
     <div class="d-flex justify-content-center align-items-center continer">
       <div class="card py-5 px-3">
         <h5 class="m-0">Mobile phone verification</h5>
@@ -24,37 +27,77 @@
           <b class="text-color">+91 {{mobile}}</b>
         </span>
         <form method="post" action="{% url 'verify-otp'%}">
-            {% csrf_token%}
-            <div class="d-flex flex-row mt-5" id="otp">
-                <input type="text" class="form-control" autofocus=""maxlength="1" name="first" />
-                <input type="text" class="form-control"maxlength="1" name="second" />
-                <input type="text" class="form-control"maxlength="1" name="third" />
-                <input type="text" class="form-control"maxlength="1"  name="fourth"/>
-                <!-- <input type="text" class="form-control"maxlength="1" name="fifth" />
+          {% csrf_token%}
+          <div class="d-flex flex-row mt-5" id="otp">
+            <input
+              type="text"
+              class="form-control"
+              autofocus=""
+              maxlength="1"
+              name="first"
+            />
+            <input
+              type="text"
+              class="form-control"
+              maxlength="1"
+              name="second"
+            />
+            <input
+              type="text"
+              class="form-control"
+              maxlength="1"
+              name="third"
+            />
+            <input
+              type="text"
+              class="form-control"
+              maxlength="1"
+              name="fourth"
+            />
+            <!-- <input type="text" class="form-control"maxlength="1" name="fifth" />
                 <input type="text" class="form-control"maxlength="1"  name="sixth"/> -->
-              </div>
-              <input class="m-5 btn btn-success" type="submit"  id="submit" >
-
+          </div>
+          <input class="m-5 btn btn-success" type="submit" id="submit" />
         </form>
-        
+
         <!-- <div  class="btn btn-success m-5 p-2"> Submit</div> -->
         <div class="text-center mt-5">
           <span class="d-block mobile-text" id="countdown"></span>
-          <span class="d-block mobile-text" id="resend"><a href="{% url 'verify-otp'%}"></a></span>
+          <span class="d-block mobile-text" id="resend"
+            ><a href="{% url 'verify-otp'%}"></a
+          ></span>
         </div>
       </div>
     </div>
-    
+
     <script src="{% static 'otp/main.js' %}"></script>
     <script>
-        
-            document.addEventListener("DOMContentLoaded", function(event) {
-        
-                function OTPInput() {
-                const inputs = document.querySelectorAll('#otp > *[id]');
-                for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
-        </script>
-        
-    
+      document.addEventListener("DOMContentLoaded", function (event) {
+        function OTPInput() {
+          const inputs = document.querySelectorAll("#otp > *[id]");
+          for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("keydown", function (event) {
+              if (event.key === "Backspace") {
+                inputs[i].value = "";
+                if (i !== 0) inputs[i - 1].focus();
+              } else {
+                if (i === inputs.length - 1 && inputs[i].value !== "") {
+                  return true;
+                } else if (event.keyCode > 47 && event.keyCode < 58) {
+                  inputs[i].value = event.key;
+                  if (i !== inputs.length - 1) inputs[i + 1].focus();
+                  event.preventDefault();
+                } else if (event.keyCode > 64 && event.keyCode < 91) {
+                  inputs[i].value = String.fromCharCode(event.keyCode);
+                  if (i !== inputs.length - 1) inputs[i + 1].focus();
+                  event.preventDefault();
+                }
+              }
+            });
+          }
+        }
+        OTPInput();
+      });
+    </script>
   </body>
 </html>

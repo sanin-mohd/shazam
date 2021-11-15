@@ -1,65 +1,84 @@
 {% load static%}
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="pragma" content="no-cache" />
-<meta http-equiv="cache-control" content="max-age=604800" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="max-age=604800" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<title>SHAZAM | WELCOME TO FUTURE</title>
+    <title>SHAZAM | WELCOME TO FUTURE</title>
 
-<link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+    ></script>
 
-<!-- jQuery -->
-<script src="{% static 'js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-	
-<link rel="stylesheet" href="{% static 'footer/css/ionicons.min.css' %}">
-<link rel="stylesheet" href="{% static 'footer/css/style.css'%}">
+    <!-- jQuery -->
+    <script
+      src="{% static 'js/jquery-2.0.0.min.js' %}"
+      type="text/javascript"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
 
-<!-- Bootstrap4 files-->
-<script src="{% static 'js/bootstrap.bundle.min.js' %}" type="text/javascript"></script>
-<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'footer/css/ionicons.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'footer/css/style.css'%}" />
 
-<!-- Font awesome 5 -->
-<link href="{% static 'fonts/fontawesome/css/all.min.css' %}" type="text/css" rel="stylesheet">
+    <!-- Bootstrap4 files-->
+    <script
+      src="{% static 'js/bootstrap.bundle.min.js' %}"
+      type="text/javascript"
+    ></script>
+    <link
+      href="{% static 'css/bootstrap.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
 
-<!-- custom style -->
-<link href="{% static 'css/ui.css'%}" rel="stylesheet" type="text/css"/>
-<link href="{% static 'css/responsive.css'%}" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+    <!-- Font awesome 5 -->
+    <link
+      href="{% static 'fonts/fontawesome/css/all.min.css' %}"
+      type="text/css"
+      rel="stylesheet"
+    />
 
-<!-- custom javascript -->
+    <!-- custom style -->
+    <link href="{% static 'css/ui.css'%}" rel="stylesheet" type="text/css" />
+    <link
+      href="{% static 'css/responsive.css'%}"
+      rel="stylesheet"
+      media="only screen and (max-width: 1200px)"
+    />
 
-<script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+    <!-- custom javascript -->
 
-<script type="text/javascript">
-	
-/// some script
+    <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
 
-// jquery ready start
-$(document).ready(function() {
-	// jQuery code
+    <script type="text/javascript">
+      /// some script
 
-}); 
-// jquery end
-</script>
+      // jquery ready start
+      $(document).ready(function () {
+        // jQuery code
+      });
+      // jquery end
+    </script>
+  </head>
+  <body>
+    {% include 'includes/navbar.html'%} {% block content%} {% endblock content%}
+    {% include 'includes/footer.html'%}
 
-</head>
-<body>
+    <!-- ========================= FOOTER ========================= -->
 
-
-{% include 'includes/navbar.html'%}
-
-{% block content%}
-{% endblock content%}
-
-{% include 'includes/footer.html'%}
-
-<!-- ========================= FOOTER ========================= -->
-
-  <!-- <div class="text-center">
+    <!-- <div class="text-center">
 	<div class="transform -rotate-90 text-gray-400 hover:text-gray-500">
 	  <span class="sr-only">Left</span>
 	  <svg class="animate-bounce h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,19 +93,18 @@ $(document).ready(function() {
 	  </svg>
 	</div>
   </div> -->
-<!-- ========================= FOOTER END // ========================= -->
-<style>
-    .error{
+    <!-- ========================= FOOTER END // ========================= -->
+    <style>
+      .error {
         color: rgb(255, 0, 0) !important;
-    }
-</style>
-<script src="{% static 'footer/js/jquery.min.js'%}"></script>
+      }
+    </style>
+    <script src="{% static 'footer/js/jquery.min.js'%}"></script>
     <script src="{% static 'footer/js/popper.js'%}"></script>
     <script src="{% static 'footer/js/bootstrap.min.js'%}"></script>
     <script src="{% static 'footer/js/main.js'%}"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-        <script src="{% static 'js/validation.js' %}"></script>
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="{% static 'js/validation.js' %}"></script>
+  </body>
 </html>
-
