@@ -1,5 +1,6 @@
 from django import forms
 import django
+from django.contrib.auth.backends import RemoteUserBackend
 from django.db import models
 from django.forms.widgets import PasswordInput
 from django.http.response import HttpResponse
@@ -33,6 +34,7 @@ def login(request):
         try:
 
             email=Account.objects.get(mobile=mobile).email
+            
             user=auth.authenticate(email=email,password=password)
         except:
             user=None
@@ -44,7 +46,7 @@ def login(request):
                 return redirect('vendor')
             else:
                 if user.is_active:
-                    
+                    request.session['mobile']=mobile
                     auth.login(request,user)
                     return redirect('home')
                 else:
@@ -116,13 +118,19 @@ def verify_otp(request):
             return redirect('verify-otp')
 
     else:
-        mobile=request.session['mobile']
-        send_code(mobile)
+        try:
+            mobile=request.session['mobile']
+            send_code(mobile)
+        except:
+            return redirect('otp-login')
+
+        
         return render(request,'otp_codepen/otp.html',{'mobile':mobile})
 def otp_login(request):
     if request.method=="POST":
-        mobile=request.POST['mobile']
+        
         try:
+            mobile=request.POST['mobile']
             user=Account.objects.get(mobile=mobile)
         except:
             user=None
@@ -143,19 +151,18 @@ def otp_login(request):
 def check_login_otp(request):
     if request.method=="POST":
         otp=request.POST['otp']
-        mobile=request.session['mobile']
-
-        if check_code(mobile,otp):
-            user=Account.objects.get(mobile=mobile)
-            user.is_verified=True
-            user.save()
+        try:
+            mobile=request.session['mobile']
+            if check_code(mobile,otp):
+                user=Account.objects.get(mobile=mobile)
+                user.is_verified=True
+                user.save()
             
-            auth.login(request,user)
-            return redirect('home')
-        else:
-            messages.info(request,"OTP not matching")
+                auth.login(request,user)
+                return redirect('home')
+        except:
+            messages.info(request,"Somthing Went Wrong")
             return redirect('otp-login')
-
     else:
         return render(request,'otp-check.html')
 
