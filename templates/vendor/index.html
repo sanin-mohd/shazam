@@ -51,8 +51,19 @@
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
       </style>
-        <a class="navbar-brand" href="index.html" style="color:white;font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
+        <a class="navbar-brand" href="{% url 'vendor' %}" style="color:white;font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
+          {% if vendor.is_verified%}
+          <h4 style="color:white;font-size:x-large;font-family: 'Mochiy Pop One', sans-serif; font-size:x-large">
+            <!-- {{vendor.vendor_name}} -->
+            <img src="{{vendor.logo.url }}" alt=""> 
+          
+          </h4>
+
+          {% else %}
           <img src="{% static 'vendor/store_white_24dp.svg' %}" alt="">SHAZAM<span style="font-size: x-small;">seller </span> 
+          
+
+          {% endif %}
           
         </a>
         <!-- Navbar nav -->

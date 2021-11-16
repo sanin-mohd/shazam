@@ -148,6 +148,25 @@
             </div>
           </li> -->
           <li class="nav-item">
+            <a class="nav-link has-arrow active  collapsed " href="#!" data-bs-toggle="collapse"
+              data-bs-target="#navAuthentication4" aria-expanded="false" aria-controls="navAuthentication">
+              <i data-feather="lock" class="nav-icon icon-xs me-2">
+              </i> Categories
+            </a>
+            <div id="navAuthentication4" class="collapse " data-bs-parent="#sideNavbar">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'add-category'%}">Add category</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'view-categories'%}">View categories</a>
+                </li>
+               
+
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication2" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">

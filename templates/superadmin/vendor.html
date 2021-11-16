@@ -28,7 +28,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for vendor in vendors %}
+                        {%  for vendor in vendors  %}
+                            {% if vendor.is_mobile_verified %}
                             <tr>
                                 <th scope="row">{{ forloop.counter }}</th>
                                 <td>
@@ -46,7 +47,7 @@
                                 <td> {{ vendor.GST_number}}</td>
                                 <td> {{ vendor.email }}</td>
                                 <td> <div class="d-flex">
-                                    <div class=""> {{ vendor.mobile }}{%if vendor.is_mobile_verified%}<img src="{% static 'admin/verified_black_24dp.svg'%}" alt=""> {% else%}{% endif%}</div>
+                                    <div class=""> {{ vendor.mobile }}{%if vendor.is_mobile_verified %}<img src="{% static 'admin/verified_black_24dp.svg'%}" alt=""> {% else%}{% endif%}</div>
                                     
 
                                 </div> </td>
@@ -83,6 +84,11 @@
                                             class="material-icons-outlined text-danger">delete</span></a>
                                 </td> -->
                             </tr>
+
+                            
+                            {% endif %}
+                            
+                            
                         {% endfor %}
                         </tbody>
                     </table>

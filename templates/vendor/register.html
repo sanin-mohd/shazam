@@ -57,6 +57,7 @@
             </div>
             <!-- Form -->
             <form id="form" action="vendor-register" method="post" enctype="multipart/form-data">
+              {% include 'includes/alerts.html' %}
               {% csrf_token %}
               <!-- Username -->
               <div class="mb-3">

@@ -15,5 +15,9 @@ urlpatterns = [
     path('customer-list',views.customer_list,name='customer-list'),
     path('block-customer/<int:pk>',views.block_customer,name='block-customer'),
     path('unblock-customer/<int:pk>',views.unblock_customer,name='unblock-customer'),
+    path('view-categories',views.view_Categories,name='view-categories'),
+    path('add-category',views.add_Category,name='add-category'),
+    path('edit-category/<int:pk>',views.edit_category,name='edit-category'),
+
 
 ]

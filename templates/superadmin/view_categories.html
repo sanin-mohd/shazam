@@ -1,0 +1,29 @@
+{% extends 'superadmin/base.html'%} {% load static %} {% block content%}
+<link rel="stylesheet" href="{% static 'admin/view_category.css'%}" />
+<h4 class="mt-5 p-5">Categories</h4>
+<div class="cards-list">
+
+  {% for category in categories %}
+  <a href="{% url 'edit-category' category.id %}">
+    <div class="card">
+      <div class="card_image">
+        <img
+          src="{{category.gif}}"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>{{category.category_name}}</p>
+      </div>
+    </div>
+
+
+  </a>
+  
+
+  {% endfor %}
+  
+
+ 
+</div>
+
+{% endblock %}

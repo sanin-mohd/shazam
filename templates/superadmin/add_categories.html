@@ -1,0 +1,36 @@
+
+{% extends 'superadmin/base.html'%} 
+{% load static %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
+<div id="form-main ">
+  <div id="form-div">
+    <form method="post" action="{% url 'add-category'%}" class="form" id="form1">
+      {% csrf_token %}
+      
+      <p class="name">
+        <input name="category" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Category Name" id="name" />
+      </p>
+      
+      <p class="email">
+        <input name="gif" type="url" class="validate[required,custom[email]] feedback-input" id="email" placeholder="Gif URL" />
+      </p>
+      
+      
+      <div class="submit">
+        <input type="submit" value="Save" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+      
+      <div class="submit " style="margin-top:40px">
+        <a href="{% url 'view-categories'%}"><input type="submit" value="Cancel" id="button-blue"/></a>
+        <div class="ease"></div>
+      </div>
+    </form>
+  </div>
+
+
+
+{% endblock %}
