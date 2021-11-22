@@ -1,220 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="cache-control" content="max-age=604800" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
 
-    <title>GreatKart | One of the Biggest Online Shopping Platform</title>
-
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
-    <!-- jQuery -->
-    <script
-      src="../static/js/jquery-2.0.0.min.js"
-      type="text/javascript"
-    ></script>
-
-    <!-- Bootstrap4 files-->
-    <script
-      src="../static/js/bootstrap.bundle.min.js"
-      type="text/javascript"
-    ></script>
-    <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" />
-
-    <!-- Font awesome 5 -->
-    <link
-      href="../static/fonts/fontawesome/css/all.min.css"
-      type="text/css"
-      rel="stylesheet"
-    />
-
-    <!-- custom style -->
-    <link href="css/ui.css" rel="stylesheet" type="text/css" />
-    <link
-      href="css/responsive.css"
-      rel="stylesheet"
-      media="only screen and (max-width: 1200px)"
-    />
-
-    <!-- custom javascript -->
-    <script src="../static/js/script.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-      /// some script
-
-      // jquery ready start
-      $(document).ready(function () {
-        // jQuery code
-      });
-      // jquery end
-    </script>
-  </head>
-  <body>
-    <header class="section-header">
-      <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
-        <div class="container">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarTop4"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTop4">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link"> English </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link"> USD </a>
-              </li>
-            </ul>
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item dropdown">
-                <p style="color: #00b2bd">
-                  Book your dream electric vehicle now & Get it in your porch
-                </p>
-              </li>
-            </ul>
-
-            <ul class="navbar-nav">
-              <li>
-                <a href="#" class="nav-link">
-                  <i class="fa fa-envelope"></i> Email
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link">
-                  <i class="fa fa-phone"></i> Call us
-                </a>
-              </li>
-            </ul>
-            <!-- list-inline //  -->
-          </div>
-          <!-- navbar-collapse .// -->
-        </div>
-        <!-- container //  -->
-      </nav>
-
-      <section
-        class="header-main border-bottom"
-        style="background-color: #00b2bd"
-      >
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-3 col-md-3 col-12">
-              <style>
-                @import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap");
-              </style>
-
-              <a>
-                <div class="d-flex align-items-center justify-content-left">
-                  <div class="">
-                    <img src="../static/lightning.svg" alt="" />
-                  </div>
-                  <div class="text-white">
-                    <span
-                      style="
-                        font-family: 'Mochiy Pop One', sans-serif;
-                        font-size: x-large;
-                      "
-                      >SHAZAM</span
-                    >
-                  </div>
-                </div>
-              </a>
-              <!-- brand-wrap.// -->
-            </div>
-            <!-- col.// -->
-
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-              <form action="#" class="search">
-                <div class="input-group w-60">
-                  <input
-                    type="text"
-                    class="form-control"
-                    style="
-                      width: 60%;
-                      border-top-left-radius: 1rem;
-                      border-bottom-left-radius: 1rem;
-                    "
-                    placeholder="Search"
-                  />
-
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-light"
-                      style="
-                        width: 60px;
-                        border-top-right-radius: 1rem;
-                        border-bottom-right-radius: 1rem;
-                      "
-                      type="submit"
-                    >
-                      <i class="fa fa-search"></i>
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <!-- search-wrap .end// -->
-            </div>
-            <!-- col.// -->
-            <div class="col-lg-3 col-sm-12 col-8 order-2 order-lg-3">
-              <div class="d-flex justify-content-end mb-3 mb-lg-0">
-                <div class="widget-header">
-                  <div class="d-flex" style="color: white">
-                    <div class="pr-3">
-                      <a href=""
-                        ><img
-                          src="../static/account_circle_white_36dp.svg"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="pr-3">
-                      <a href=""
-                        ><img
-                          src="../static/assignment_turned_in_white_36dp.svg"
-                          alt=""
-                        />
-                        <span class="badge badge-pill badge-danger notify"
-                          >2</span
-                        ></a
-                      >
-                    </div>
-                    <div class="pr-3">
-                      <a href=""
-                        ><img
-                          src="../static/pending_actions_white_36dp.svg"
-                          alt=""
-                        />
-                        <span class="badge badge-pill badge-danger notify"
-                          >0</span
-                        ></a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- widgets-wrap.// -->
-            </div>
-            <!-- col.// -->
-          </div>
-          <!-- row.// -->
-        </div>
-        <!-- container.// -->
-      </section>
-      <!-- header-main .// -->
-    </header>
-    <!-- section-header.// -->
+     
     <style>
       .btn-primary {
         background-color: #00b2bd;
@@ -247,50 +35,7 @@
                     </figure>
                   </div>
                   <!-- col.// -->
-                  <div class="col-md-6">
-                    <figure class="itemside mb-4">
-                      <div class="aside">
-                        <img
-                          src="../static/images/items/2.jpg"
-                          class="border img-sm"
-                        />
-                      </div>
-                      <figcaption class="info">
-                        <p>Apple iPad (2019) 32Gb Wi-Fi gold</p>
-                        <span class="text-muted">2x = $560 </span>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <!-- col.// -->
-                  <div class="col-md-6">
-                    <figure class="itemside mb-4">
-                      <div class="aside">
-                        <img
-                          src="../static/images/items/3.jpg"
-                          class="border img-sm"
-                        />
-                      </div>
-                      <figcaption class="info">
-                        <p>Apple iPad (2019) 32Gb Wi-Fi gold</p>
-                        <span class="text-muted">2x = $560 </span>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <!-- col.// -->
-                  <div class="col-md-6">
-                    <figure class="itemside mb-4">
-                      <div class="aside">
-                        <img
-                          src="../static/images/items/4.jpg"
-                          class="border img-sm"
-                        />
-                      </div>
-                      <figcaption class="info">
-                        <p>Apple iPad (2019) 32Gb Wi-Fi gold</p>
-                        <span class="text-muted">2x = $560 </span>
-                      </figcaption>
-                    </figure>
-                  </div>
+                 
                   <!-- col.// -->
                 </div>
                 <!-- row.// -->
@@ -299,107 +44,12 @@
             </article>
             <!-- card.// -->
 
-            <article class="card mb-4">
-              <div class="card-body">
-                <h4 class="card-title mb-4">Ownership info</h4>
-                <form action="">
-                  <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label>Frst name</label>
-                      <input
-                        type="text"
-                        placeholder="Type here"
-                        class="form-control"
-                      />
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <label>Last name</label>
-                      <input
-                        type="text"
-                        placeholder="Type here"
-                        class="form-control"
-                      />
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <label>Phone</label>
-                      <input type="text" value="+998" class="form-control" />
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <label>Email</label>
-                      <input
-                        type="email"
-                        placeholder="example@gmail.com"
-                        class="form-control"
-                      />
-                    </div>
-                  </div>
-                  <!-- row.// -->
-                </form>
-              </div>
-              <!-- card-body.// -->
-            </article>
-            <!-- card.// -->
-
-            <article class="card mb-4">
-              <div class="card-body">
-                <h4 class="card-title mb-4">Delivery info</h4>
-                <form action="">
-                  <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label>Country*</label>
-                      <select name="" class="form-control">
-                        <option value="">India</option>
-                        <option value="">United States</option>
-                        <option value="">France</option>
-                        <option value="">Italy</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <label>State*</label>
-                      <input
-                        type="text"
-                        placeholder="Type here"
-                        class="form-control"
-                      />
-                    </div>
-                    <div class="form-group col-sm-8">
-                      <label>Street*</label>
-                      <input
-                        type="text"
-                        placeholder="Type here"
-                        class="form-control"
-                      />
-                    </div>
-                    <div class="form-group col-sm-4">
-                      <label>Building</label>
-                      <input type="text" placeholder="" class="form-control" />
-                    </div>
-                    <div class="form-group col-sm-4">
-                      <label>House</label>
-                      <input
-                        type="text"
-                        placeholder="Type here"
-                        class="form-control"
-                      />
-                    </div>
-                    <div class="form-group col-sm-4">
-                      <label>Postal code</label>
-                      <input type="text" placeholder="" class="form-control" />
-                    </div>
-                    <div class="form-group col-sm-4">
-                      <label>Zip</label>
-                      <input type="text" placeholder="" class="form-control" />
-                    </div>
-                  </div>
-                  <!-- row.// -->
-                </form>
-              </div>
-              <!-- card-body.// -->
-            </article>
+           
+           
             <!-- card.// -->
             <article class="card mb-4">
               <div class="card-body">
-                <h4 class="card-title mb-4">Delivery info</h4>
+                <h4 class="card-title mb-4">Billing info</h4>
                 <form action="">
                   <div class="row">
                     <div class="form-group col-sm-6">
@@ -570,7 +220,7 @@
           <aside class="col-md-4">
             <div class="card">
               <div class="card-body">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
                   <form action="#" class="search">
                     <div class="input-group w-100">
                       <input
@@ -604,16 +254,17 @@
                 <!-- col.// -->
                 <dl class="dlist-align">
                   <dt>Total price:</dt>
-                  <dd class="text-right">$69.97</dd>
+                  <dd class="text-right">{{grand_total}}</dd>
                 </dl>
                 <dl class="dlist-align">
-                  <dt>Tax:</dt>
-                  <dd class="text-right">$10.00</dd>
+                  <dt>Discount price:</dt>
+                  <dd class="text-right">{{grand_total}}</dd>
                 </dl>
+                
                 <dl class="dlist-align">
                   <dt>Total:</dt>
                   <dd class="text-right text-dark b">
-                    <strong>$59.97</strong>
+                    <strong></strong>
                   </dd>
                 </dl>
                 <hr />
@@ -639,8 +290,4 @@
       </div>
       <!-- container .//  -->
     </section>
-    <!-- ========================= SECTION CONTENT END// ========================= -->
-
-    <!-- ========================= SECTION CONTENT END// ========================= -->
-  </body>
-</html>
+{% endblock %}

@@ -11,6 +11,8 @@ from . verify_sms import verify_sms
 from category.models import Category
 from category.forms import CategoryForm
 # Create your views here.
+from django.contrib.auth.decorators import user_passes_test
+# Create your views here.
 
 
 def superadmin_login(request):
@@ -146,12 +148,16 @@ def verify_vendor(request, pk):
 
     return redirect('vendor-list-for-verification')
 
+    
+
 
 def admin_check(request):
     if request.session.has_key('admin'):
         pass
     else:
         redirect('superadmin-login')
+
+
 
 def view_Categories(request):
     categories=Category.objects.all()
@@ -160,6 +166,8 @@ def view_Categories(request):
     context={'categories':categories}
     print(context)
     return render(request,'superadmin/view_categories.html',context)
+
+
 
 def add_Category(request):
     admin_check(request)
@@ -176,7 +184,10 @@ def add_Category(request):
         return redirect('view-categories')
 
     return render(request, 'superadmin/add_categories.html')
-        
+
+
+
+      
 def edit_category(request,pk):
     admin_check(request)
     if request.method=="POST":
@@ -197,3 +208,9 @@ def edit_category(request,pk):
     else:
         category=Category.objects.get(id=pk)
         return render(request,'superadmin/edit_category.html',{'category':category})
+
+ 
+def delete_category(request,pk):
+    print('category deleted-------------->>>>>>>>>>')
+    Category.objects.get(id=pk).delete()
+    return redirect('view-categories')

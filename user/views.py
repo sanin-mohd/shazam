@@ -6,7 +6,17 @@ from django.forms.widgets import PasswordInput
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages, auth
-
+from cart.models import CartItem
+from cart.views import _cart_id
+from category.models import Category
+from showroom.models import Variant, Vehicle
+from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string, get_template
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMessage
 
 from user.forms import RegistrationForm
 from user.models import Account
@@ -16,12 +26,18 @@ from send_code import send_code
 from check_code import check_code
 # Create your views here.
 
-
+@login_required(login_url='login')
+def user_dashboard(request):
+    return render(request, 'user_dashboard.html')
 def home(request):
-    if request.user.is_staff or not request.user.is_active:
-        auth.logout(request)
-
-    return render(request, 'index.html')
+    # if request.user.is_staff or not request.user.is_active:
+    #     auth.logout(request)
+    categories = Category.objects.all()
+    vehicles = Vehicle.objects.filter(is_available=True).order_by('-created_date')
+    paginator=Paginator(vehicles,8)
+    page=request.GET.get('page')
+    paged_vehicles=paginator.get_page(page)
+    return render(request, 'index.html', {'categories': categories, 'vehicles': paged_vehicles})
 
 
 def login(request):
@@ -85,7 +101,7 @@ def register(request):
             password = form.cleaned_data['password']
             try:
                 user = Account.objects.create_user(
-                first_name=first_name, last_name=last_name, email=email, gender=gender, mobile=mobile, password=password)
+                    first_name=first_name, last_name=last_name, email=email, gender=gender, mobile=mobile, password=password)
 
                 user.save()
 
@@ -95,10 +111,9 @@ def register(request):
                 request.session['mobile'] = mobile
                 return redirect('send-otp')
             except:
-                messages.success(request,'Account already exists..')
+                messages.success(request, 'Account already exists..')
                 return redirect('register')
 
-            
         print('form not valid')
     else:
         form = RegistrationForm()
@@ -141,7 +156,7 @@ def otp_login(request):
 
         try:
             mobile = request.POST['mobile']
-            user = Account.objects.get(mobile=mobile)
+            user = Account.objects.get(mobile=mobile, is_staff=False)
         except:
             user = None
         if user is not None:
@@ -179,3 +194,124 @@ def check_login_otp(request):
             return redirect('otp-login')
     else:
         return render(request, 'otp-check.html')
+
+
+def view_category_store(request, pk=None):
+    print("------------>>>>>>>>>")
+    # try:
+    vehicles = Vehicle.objects.filter(category=pk,is_available=True)
+    if pk==None:
+        vehicles_count=vehicles.count()
+        categories=Category.objects.all()
+        paginator=Paginator(vehicles,6)
+        page=request.GET.get('page')
+        paged_vehicles=paginator.get_page(page)
+
+        return render(request, 'store.html', {'vehicles': paged_vehicles,'categories':categories,'vehicles_count':vehicles_count})
+
+
+    vehicles_count=vehicles.count()
+    categories=Category.objects.all()
+    category_title=Category.objects.get(id=pk).category_name
+    paginator=Paginator(vehicles,6)
+    page=request.GET.get('page')
+    paged_vehicles=paginator.get_page(page)
+    return render(request, 'store.html', {'vehicles': paged_vehicles,'categories':categories,'category_title':category_title,'vehicles_count':vehicles_count})
+    # except:
+        # return redirect('/')
+    
+def showroom(request,pk):
+    vehicle=Vehicle.objects.get(id=pk)
+    variants=Variant.objects.filter(vehicle_id=pk,is_available=True)
+    
+
+    return render(request,'showroom.html',{'variants':variants,'vehicle':vehicle})
+
+def showroom_variant(request,pk):
+    print('showroom variant ---->>>>>>>>>>>>')
+    variant=Variant.objects.get(id=pk)
+    variants=Variant.objects.filter(vehicle_id=variant.vehicle_id.id)
+    vehicle=Vehicle.objects.get(id=variant.vehicle_id.id)
+
+    in_cart=CartItem.objects.filter(cart_id__cart_id=_cart_id(request),variant=pk).exists()
+    
+    context={
+        'variant':variant,
+        'variants':variants,
+        'vehicle':vehicle,
+        'in_cart':in_cart
+        }
+
+    return render(request,'showroom_variant.html',context)
+def staff_only(request):
+    return render(request, 'restricted.html')
+
+
+def admin_only(request):
+    return render(request, 'restricted.html')
+
+def search(request):
+    if 'keyword' in request.GET:
+        vehicles_count=0
+        keyword=request.GET['keyword']
+        if keyword is None:
+            return render('store.html')
+
+        
+        vehicles=Vehicle.objects.order_by('-created_date').filter(vehicle_name__icontains=keyword)
+        vehicles_count=vehicles.count()
+        context={
+            'vehicles':vehicles,
+            'vehicles_count':vehicles_count
+        }
+        return render(request,'store.html',context)
+        
+        
+# def reset_password_link(request):
+#     if request.method=="POST":
+#         email=request.POST['email']
+#         print("<<<<<<<<<<<<11111>>>>>>>>>")
+#         if email==request.user.email:
+#             user=Account.objects.get(email=request.user)
+
+#             current_site = get_current_site(request)
+#             mail_subject = 'SHAZAM account : Change Password'
+#             message = render_to_string('reset_password.html',{
+#                 'user':user.first_name,
+#                 'domain':current_site,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token': default_token_generator.make_token(user),
+
+
+#             })
+            
+#             to_email=user.email
+#             send_email=EmailMessage(mail_subject,message,to=[to_email])
+#             send_email.send()
+            
+#             messages.success(request,"Password changed successfully")
+#             return redirect('user_dashboard')
+#         else:
+#             messages.error(request,"Email does not matching")
+#             return redirect('reset_password_link')
+
+
+        
+        
+    
+#     return render(request,'change_password.html')
+
+        
+# def reset_password(request,uidb64,token):
+#     try:
+#         uid=urlsafe_base64_decode(uidb64).decode()
+#         user=Account._default_manager.get(pk=uid)
+#     except(TypeError,ValueError,OverflowError,Account.DoesNotExist):
+#         user=None
+#     if user is not None and default_token_generator.check_token(user,token):
+#         request.session['uid']=uid
+#         messages.success(request,'please reset your password')
+#         return redirect('add_new_password')
+#     return HttpResponse("ok..")
+# def add_new_password(request):
+#     pass

@@ -25,7 +25,11 @@
       </div>
       
       <div class="submit " style="margin-top:40px">
-        <a href="{% url 'view-categories'%}"><input type="submit" value="Cancel" id="button-blue"/></a>
+        <a href="{% url 'view-categories'%}"><input type="button" value="Cancel" id="button-blue"/></a>
+        <div class="ease"></div>
+      </div>
+      <div class=" " style="margin-top:40px">
+        <a href="{% url 'delete-category' category.id %}"><input type="button" style="background-color: red;" value="Delete" id="button-blue"/></a>
         <div class="ease"></div>
       </div>
     </form>

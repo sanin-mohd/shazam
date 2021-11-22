@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from codescandy.com/dashui/components/collapse.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Nov 2021 05:01:41 GMT -->
+<head>
+  <!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+<!-- Favicon icon-->
+<link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico">
+
+<!-- Libs CSS -->
+
+<link rel="stylesheet" href="../assets/libs/prismjs/themes/prism.css">
+<link rel="stylesheet" href="../assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.css">
+<link rel="stylesheet" href="../assets/libs/prismjs/plugins/toolbar/prism-toolbar.css">
+<link rel="stylesheet" href="../assets/libs/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="../assets/libs/dropzone/dist/dropzone.css" >
+<link href="../assets/libs/%40mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+
+
+
+
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="../assets/css/theme.min.css">
+  <title>Collapse | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
+</head>
+
+<body>
+  <div id="db-wrapper">
+     <!-- Sidebar -->
+ <nav class="navbar-vertical navbar">
+    <div class="nav-scroller">
+        <!-- Brand logo -->
+        <a class="navbar-brand" href="../index.html">
+            <img src="../assets/images/brand/logo/logo.svg" alt="" />
+        </a>
+        <!-- Navbar nav -->
+        <ul class="navbar-nav flex-column" id="sideNavbar">
+            <li class="nav-item">
+                <a class="nav-link has-arrow " href="../index.html">
+                    <i data-feather="home" class="nav-icon icon-xs me-2"></i>  Dashboard
+                </a>
+
+            </li>
+
+
+         <!-- Nav item -->
+         <li class="nav-item">
+            <div class="navbar-heading">Layouts & Pages</div>
+        </li>
+
+
+             <!-- Nav item -->
+             <li class="nav-item">
+                <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navPages" aria-expanded="false" aria-controls="navPages">
+                    <i
+                    data-feather="layers"
+
+                    class="nav-icon icon-xs me-2">
+                </i> Pages
+                </a>
+
+                <div id="navPages" class="collapse " data-bs-parent="#sideNavbar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link " href="../pages/profile.html">
+                                Profile
+                </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link has-arrow   "  href="../pages/settings.html" >
+                                Settings
+                                </a>
+
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="../pages/billing.html">
+                                Billing
+                </a>
+                        </li>
+
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="../pages/pricing.html">
+                               Pricing
+                </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="../pages/404-error.html">
+                                404 Error
+                </a>
+                        </li>
+                    </ul>
+                </div>
+
+                </li>
+
+
+                        <!-- Nav item -->
+                        <li class="nav-item">
+                            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navAuthentication" aria-expanded="false" aria-controls="navAuthentication">
+                                <i data-feather="lock" class="nav-icon icon-xs me-2">
+                                </i> Authentication
+                            </a>
+                            <div id="navAuthentication" class="collapse " data-bs-parent="#sideNavbar">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="../pages/sign-in.html"> Sign In</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link  " href="../pages/sign-up.html"> Sign Up</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="../pages/forget-password.html">
+                                             Forget Password
+                                </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="../pages/layout.html">
+                                <i
+                                    data-feather="sidebar"
+
+                                    class="nav-icon icon-xs me-2"
+                                >
+                                </i
+                                      >
+                                Layouts
+                            </a>
+                        </li>
+
+                        <!-- Nav item -->
+                        <li class="nav-item">
+                            <div class="navbar-heading">UI Components</div>
+                        </li>
+
+                        <!-- Nav item -->
+                        <li class="nav-item">
+                            <a class="nav-link has-arrow " href="#!" data-bs-toggle="collapse" data-bs-target="#navComponents" aria-expanded="false" aria-controls="navComponents">
+                                <i data-feather="database" class="nav-icon icon-xs me-2" >
+                            </i> Components
+                            </a>
+                            <div id="navComponents" class="collapse  show " data-bs-parent="#sideNavbar">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="accordions.html" aria-expanded="false">
+                                              Accordions
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="alerts.html" aria-expanded="false">
+                                              Alerts
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="badge.html" aria-expanded="false">
+                                             Badge
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="breadcrumb.html" aria-expanded="false">
+                                            Breadcrumb
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="button.html" aria-expanded="false">
+                                             Button
+                                        </a>
+                                    </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link " href="button-group.html" aria-expanded="false">
+                                        Button group
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="card.html" aria-expanded="false">
+                                          Card
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="carousel.html" aria-expanded="false">
+                                         Carousel
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link  active " href="collapse.html" aria-expanded="false">
+                                         Collapse
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="dropdowns.html" aria-expanded="false">
+                                         Dropdowns
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="forms.html" aria-expanded="false">
+                                         Forms
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="input-group.html" aria-expanded="false">
+                                         Input group
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="list-group.html" aria-expanded="false">
+                                         List group
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link " href="modal.html" aria-expanded="false">
+                                         Modal
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="navs.html" aria-expanded="false">
+                                        Navs
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="navbar.html" aria-expanded="false">
+                                         Navbar
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="offcanvas.html" aria-expanded="false">
+                                         Offcanvas
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="pagination.html" aria-expanded="false">
+                                         Pagination
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="popovers.html" aria-expanded="false">
+                                         Popovers
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="progress.html" aria-expanded="false">
+                                         Progress
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="scrollspy.html" aria-expanded="false">
+                                         Scrollspy
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="spinners.html" aria-expanded="false">
+                                         Spinners
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="toasts.html" aria-expanded="false">
+                                         Toasts
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="tooltips.html" aria-expanded="false">
+                                         Tooltips
+                                    </a>
+                                </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="../pages/tables.html">
+                                <i
+
+
+                                    class="nav-icon icon-xs me-2 bi bi-table"
+                                >
+                                </i
+                                      >
+                                Tables
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevel" aria-expanded="false" aria-controls="navMenuLevel">
+                                <i
+                                data-feather="corner-left-down"
+
+                                class="nav-icon icon-xs me-2"
+                            >
+                            </i
+                                      > Menu Level
+                            </a>
+                            <div id="navMenuLevel" class="collapse " data-bs-parent="#sideNavbar">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link has-arrow " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevelSecond" aria-expanded="false" aria-controls="navMenuLevelSecond">
+                                    Two Level
+                                </a>
+                                        <div id="navMenuLevelSecond" class="collapse" data-bs-parent="#navMenuLevel">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link " href="#!">  NavItem 1</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link " href="#!">  NavItem 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link has-arrow  collapsed  " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevelThree" aria-expanded="false" aria-controls="navMenuLevelThree">
+                                    Three Level
+                                </a>
+                                        <div id="navMenuLevelThree" class="collapse " data-bs-parent="#navMenuLevel">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevelThreeOne" aria-expanded="false" aria-controls="navMenuLevelThreeOne">
+                                                         NavItem 1
+                                            </a>
+                                                    <div id="navMenuLevelThreeOne" class="collapse collapse " data-bs-parent="#navMenuLevelThree">
+                                                        <ul class="nav flex-column">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link " href="#!">
+                                                                     NavChild Item 1
+                                                        </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link " href="#!">  Nav Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                                         <!-- Nav item -->
+                        <li class="nav-item">
+                            <div class="navbar-heading">Documentation</div>
+                        </li>
+
+                        <!-- Nav item -->
+                        <li class="nav-item">
+                            <a class="nav-link has-arrow " href="../docs/index.html" >
+                                <i data-feather="clipboard" class="nav-icon icon-xs me-2" >
+                            </i>  Docs
+                            </a>
+                         </li>
+
+
+
+
+                    </ul>
+
+                </div>
+</nav>
+
+    <div id="page-content">
+      <div class="header @@classList">
+  <!-- navbar -->
+  <nav class="navbar-classic navbar navbar-expand-lg">
+    <a id="nav-toggle" href="#"><i
+        data-feather="menu"
+
+        class="nav-icon me-2 icon-xs"></i></a>
+    <div class="ms-lg-3 d-none d-md-none d-lg-block">
+      <!-- Form -->
+      <form class="d-flex align-items-center">
+        <input type="search" class="form-control" placeholder="Search" />
+      </form>
+    </div>
+    <!--Navbar nav -->
+    <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
+      <li class="dropdown stopevent">
+        <a class="btn btn-light btn-icon rounded-circle indicator
+          indicator-primary text-muted" href="#" role="button"
+          id="dropdownNotification" data-bs-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="icon-xs" data-feather="bell"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"
+          aria-labelledby="dropdownNotification">
+          <div>
+            <div class="border-bottom px-3 pt-2 pb-3 d-flex
+              justify-content-between align-items-center">
+              <p class="mb-0 text-dark fw-medium fs-4">Notifications</p>
+              <a href="#" class="text-muted">
+                <span>
+                  <i class="me-1 icon-xxs" data-feather="settings"></i>
+                </span>
+              </a>
+            </div>
+            <!-- List group -->
+            <ul class="list-group list-group-flush notification-list-scroll">
+              <!-- List group item -->
+              <li class="list-group-item bg-light">
+
+
+                <a href="#" class="text-muted">
+                    <h5 class="fw-bold mb-1">Rishi Chopra</h5>
+                    <p class="mb-0">
+                      Mauris blandit erat id nunc blandit, ac eleifend dolor pretium.
+                    </p>
+                </a>
+
+
+
+          </li>
+             <!-- List group item -->
+             <li class="list-group-item">
+
+
+              <a href="#" class="text-muted">
+                  <h5 class="fw-bold mb-1">Neha Kannned</h5>
+                  <p class="mb-0">
+                    Proin at elit vel est condimentum elementum id in ante. Maecenas et sapien metus.
+                  </p>
+              </a>
+
+
+
+        </li>
+              <!-- List group item -->
+              <li class="list-group-item">
+
+
+                <a href="#" class="text-muted">
+                    <h5 class="fw-bold mb-1">Nirmala Chauhan</h5>
+                    <p class="mb-0">
+                      Morbi maximus urna lobortis elit sollicitudin sollicitudieget elit vel pretium.
+                    </p>
+                </a>
+
+
+
+          </li>
+              <!-- List group item -->
+              <li class="list-group-item">
+
+
+                    <a href="#" class="text-muted">
+                        <h5 class="fw-bold mb-1">Sina Ray</h5>
+                        <p class="mb-0">
+                          Sed aliquam augue sit amet mauris volutpat hendrerit sed nunc eu diam.
+                        </p>
+                    </a>
+
+
+
+              </li>
+            </ul>
+            <div class="border-top px-3 py-2 text-center">
+              <a href="#" class="text-inherit fw-semi-bold">
+                View all Notifications
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- List -->
+      <li class="dropdown ms-2">
+        <a class="rounded-circle" href="#" role="button" id="dropdownUser"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="avatar avatar-md avatar-indicators avatar-online">
+            <img alt="avatar" src="../assets/images/avatar/avatar-1.jpg"
+              class="rounded-circle" />
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="dropdownUser">
+          <div class="px-4 pb-0 pt-2">
+
+
+            <div class="lh-1 ">
+              <h5 class="mb-1"> John E. Grainger</h5>
+              <a href="#" class="text-inherit fs-6">View my profile</a>
+            </div>
+            <div class=" dropdown-divider mt-3 mb-2"></div>
+          </div>
+
+          <ul class="list-unstyled">
+
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="me-2 icon-xxs dropdown-item-icon" data-feather="user"></i>Edit
+                Profile
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item"
+                href="#">
+                <i class="me-2 icon-xxs dropdown-item-icon"
+                  data-feather="activity"></i>Activity Log
+              </a>
+
+
+            </li>
+
+            <li>
+              <a class="dropdown-item text-primary" href="#">
+                <i class="me-2 icon-xxs text-primary dropdown-item-icon"
+                  data-feather="star"></i>Go Pro
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="me-2 icon-xxs dropdown-item-icon"
+                  data-feather="settings"></i>Account Settings
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="../index.html">
+                <i class="me-2 icon-xxs dropdown-item-icon"
+                  data-feather="power"></i>Sign Out
+              </a>
+            </li>
+          </ul>
+
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+      <div class="container-fluid py-12 px-6 px-xl-0">
+        <div class="row">
+          <div class="offset-xl-1 col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Content  -->
+            <div class="docs-content">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="mb-7" id="intro">
+                    <h1 class="mb-2">Collapse</h1>
+                    <p class="mb-0 lead text-dark">Toggle the visibility of content across your project with a few classes and our JavaScript plugins.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- collapse-default -->
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div id="collapse" class="mb-4">
+                    <h2>Example</h2>
+                    <p>Click the buttons below to show and hide another element via class changes:
+                    </p>
+                    <ul>
+                      <li><code class="highlighter-rouge">.collapse</code> hides content</li>
+                      <li><code class="highlighter-rouge">.collapsing</code> is applied during transitions
+                      </li>
+                      <li><code class="highlighter-rouge">.collapse.show</code> shows content</li>
+                    </ul>
+                    <p>You can use a link with the <code class="highlighter-rouge">href</code> attribute, or a button with the <code class="highlighter-rouge">data-bs-target</code> attribute. In both cases, the <code class="highlighter-rouge">data-bs-toggle="collapse"</code>                      is required.
+                    </p>
+                  </div>
+                  <!-- Card  -->
+                  <div class="card">
+                    <ul class="nav nav-line-bottom " id="pills-tabOne" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="pills-collapse-default-design-tab" data-bs-toggle="pill" href="#pills-collapse-default-design" role="tab" aria-controls="pills-collapse-default-design" aria-selected="true">Design</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="pills-collapse-default-html-tab" data-bs-toggle="pill" href="#pills-collapse-default-html" role="tab" aria-controls="pills-collapse-default-html" aria-selected="false">HTML</a>
+                      </li>
+                    </ul>
+                    <!-- Tab content  -->
+                    <div class="tab-content p-4" id="pills-tabOneContent">
+                      <div class="tab-pane tab-example-design fade show active" id="pills-collapse-default-design" role="tabpanel" aria-labelledby="pills-collapse-default-design-tab">
+                        <p>
+                          <a class="btn btn-primary mb-2 mb-md-0" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Link with href
+                          </a>
+                          <button class="btn btn-primary " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Button with data-bs-target
+                          </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                          <div class="card card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane tab-example-html fade " id="pills-collapse-default-html" role="tabpanel" aria-labelledby="pills-collapse-default-html-tab">
+                        <div class="copy-content copy-content-height">
+                          <div class="code-toolbar">
+                            <pre class="line-numbers language-markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#collapseExample<span class="token punctuation">"</span></span> <span class="token attr-name">role</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapseExample<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    Link with href
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#collapseExample<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapseExample<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    Button with data-bs-target
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapseExample<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card card-body<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- collapse-default -->
+              <hr class="my-10">
+              <!-- Multiple targets -->
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div id="multiple-targets" class="mb-4">
+                    <h2>Multiple targets</h2>
+                    <p>A <code class="highlighter-rouge">&lt;button&gt;</code> or <code class="highlighter-rouge">&lt;a&gt;</code> can show and hide multiple elements by referencing them with a JQuery selector in its <code class="highlighter-rouge">href</code>                      or <code class="highlighter-rouge">data-bs-target</code> attribute. Multiple <code class="highlighter-rouge">&lt;button&gt;</code> or <code class="highlighter-rouge">&lt;a&gt;</code> can show and hide an element if they each reference
+                      it with their <code class="highlighter-rouge">href</code> or <code class="highlighter-rouge">data-bs-target</code> attribute</p>
+                  </div>
+                  <!-- Card  -->
+                  <div class="card">
+                    <ul class="nav nav-line-bottom " id="pills-tab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="pills-multiple-collapse-design-tab" data-bs-toggle="pill" href="#pills-multiple-collapse-design" role="tab" aria-controls="pills-multiple-collapse-design" aria-selected="true">Design</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="pills-multiple-collapse-html-tab" data-bs-toggle="pill" href="#pills-multiple-collapse-html" role="tab" aria-controls="pills-multiple-collapse-html" aria-selected="false">HTML</a>
+                      </li>
+                    </ul>
+                    <!-- Tab content  -->
+                    <div class="tab-content p-4" id="pills-tabContent">
+                      <div class="tab-pane tab-example-design fade show active" id="pills-multiple-collapse-design" role="tabpanel" aria-labelledby="pills-multiple-collapse-design-tab">
+                        <p>
+                          <a class="btn btn-primary mb-2 mb-md-0" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
+                          <button class="btn btn-primary mb-2 mb-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second
+                            element</button>
+                          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle
+                            both elements</button>
+                        </p>
+                        <div class="row">
+                          <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                              <div class="card card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                              <div class="card card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane tab-example-html fade " id="pills-multiple-collapse-html" role="tabpanel" aria-labelledby="pills-multiple-collapse-html-tab">
+                        <div class="copy-content copy-content-height">
+                          <div class="code-toolbar">
+                            <pre class="line-numbers language-markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#multiCollapseExample1<span class="token punctuation">"</span></span> <span class="token attr-name">role</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multiCollapseExample1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Toggle first element<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#multiCollapseExample2<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multiCollapseExample2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Toggle second element<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.multi-collapse<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multiCollapseExample1 multiCollapseExample2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Toggle both elements<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse multi-collapse<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multiCollapseExample1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card card-body<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>collapse multi-collapse<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multiCollapseExample2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card card-body<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Multiple targets -->
+              <hr class="my-10">
+              <!-- Accordion example -->
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div id="accordion-example" class="mb-4">
+                    <h2>Accordion example</h2>
+                    <p>Using the <a href="card.html">card</a> component, you can extend the default collapse behavior to create an accordion. To properly achieve the accordion style, be sure to use
+                      <code class="highlighter-rouge">.accordion</code> as a wrapper.</p>
+                  </div>
+                  <!-- Card  -->
+                  <div class="card">
+                    <ul class="nav nav-line-bottom " id="pills-tabTwo" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="pills-accordions-design-tab" data-bs-toggle="pill" href="#pills-accordions-design" role="tab" aria-controls="pills-accordions-design" aria-selected="true">Design</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="pills-accordions-html-tab" data-bs-toggle="pill" href="#pills-accordions-html" role="tab" aria-controls="pills-accordions-html" aria-selected="false">HTML</a>
+                      </li>
+                    </ul>
+                    <!-- Tab Content  -->
+                    <div class="tab-content p-4" id="pills-tabTwoContent">
+                      <div class="tab-pane tab-example-design fade show active" id="pills-accordions-design" role="tabpanel" aria-labelledby="pills-accordions-design-tab">
+                        <div class="accordion" id="accordionExample">
+                          <div class="card">
+                            <div class="card-header" id="headingOne">
+                              <h4 class="mb-0">
+                                <a href="#" class="d-flex align-items-center text-inherit text-decoration-none active" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+                                  <span class="me-auto">
+                                    Collapsible Group Item #1
+                                  </span>
+                                  <span class="chevron-arrow ms-4">
+                                    <i class="fe fe-chevron-down fs-4"></i>
+                                  </span>
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                              <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                                on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                                beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Card  -->
+                          <div class="card">
+                            <!-- Card header  -->
+                            <div class="card-header" id="headingTwo">
+                              <h4 class="mb-0">
+                                <a href="#" class="d-flex align-items-center text-inherit text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  <span class="me-auto">
+                                    Collapsible Group Item #2
+                                  </span>
+                                  <span class="chevron-arrow ms-4">
+                                    <i class="fe fe-chevron-down fs-4"></i>
+                                  </span>
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                              <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                                on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                                beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Card  -->
+                          <div class="card">
+                            <!-- Card header  -->
+                            <div class="card-header" id="headingThree">
+                              <h4 class="mb-0">
+                                <a href="#" class="d-flex align-items-center text-inherit text-decoration-none active" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  <span class="me-auto">
+                                    Collapsible Group Item #3
+                                  </span>
+                                  <span class="chevron-arrow ms-4">
+                                    <i class="fe fe-chevron-down fs-4"></i>
+                                  </span>
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                              <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                                on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                                beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane tab-example-html fade " id="pills-accordions-html" role="tabpanel" aria-labelledby="pills-accordions-html-tab">
+                        <div class="copy-content copy-content-height">
+                          <div class="code-toolbar">
+                            <pre class="line-numbers language-markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>accordion<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>accordionExample<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card-header<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>headingOne<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>d-flex align-items-center text-inherit text-decoration-none active<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#collapseOne<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapseOne<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>me-auto<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-0<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> Collapsible Group Item #1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">&gt;</span></span>
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>chevron-arrow ms-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fe fe-chevron-down fs-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapseOne<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapse show<span class="token punctuation">"</span></span> <span class="token attr-name">aria-labelledby</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>headingOne<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-parent</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#accordionExample<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card-body<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                                                                        on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                                                                        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card-header<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>headingTwo<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>d-flex align-items-center text-inherit text-decoration-none <span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#collapseTwo<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapseTwo<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>me-auto<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-0<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> Collapsible Group Item #2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">&gt;</span></span>
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>chevron-arrow ms-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fe fe-chevron-down fs-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapseTwo<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">aria-labelledby</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>headingTwo<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-parent</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#accordionExample<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card-body<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                                                                        on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                                                                        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card-header<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>headingThree<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>d-flex align-items-center text-inherit text-decoration-none <span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-toggle</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#collapseThree<span class="token punctuation">"</span></span> <span class="token attr-name">aria-expanded</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">aria-controls</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapseThree<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>me-auto<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-0<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> Collapsible Group Item #3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">&gt;</span></span>
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>chevron-arrow ms-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fe fe-chevron-down fs-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
+                                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapseThree<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>collapse<span class="token punctuation">"</span></span> <span class="token attr-name">aria-labelledby</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>headingThree<span class="token punctuation">"</span></span> <span class="token attr-name">data-bs-parent</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#accordionExample<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card-body<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                                                                        on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                                                                        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+                                                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Accordion example -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <!-- Scripts -->
+  <!-- Libs JS -->
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../assets/libs/feather-icons/dist/feather.min.js"></script>
+<script src="../assets/libs/prismjs/components/prism-core.min.js"></script>
+<script src="../assets/libs/prismjs/components/prism-markup.min.js"></script>
+<script src="../assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="../assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+
+
+<!-- clipboard -->
+<script src="../../../cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+
+
+
+<!-- Theme JS -->
+<script src="../assets/js/theme.min.js"></script>
+</body>
+
+
+<!-- Mirrored from codescandy.com/dashui/components/collapse.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Nov 2021 05:01:41 GMT -->
+</html>

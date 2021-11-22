@@ -1,0 +1,83 @@
+{% extends 'vendor/index.html'%} 
+{% load static %}
+{% load humanize %}
+ {% block content%}
+<link rel="stylesheet" href="{% static 'vendor/view_vehicles.css' %}">
+<script src="{% static 'vendor/view_vehicle.js' %}"></script>
+
+
+<a href="{% url 'add-variant' vehicle.id %}"><div class="btn btn-primary m-5 ">Add variant</div></a>
+
+<ul class="card-list">
+  
+	{% for variant in variants %}
+
+	<li class="card">
+		<a class="card-image"   style="background-image: url({{variant.image1.url}});" data-image-full="https://s3-us-west-2.amazonaws.com/s.cdpn.io/310408/psychopomp-500.jpg">
+			
+		</a>
+		<a href="{% url 'edit-variant' variant.id %}" class="card-description">
+			<h3>{{vehicle}}</h3>
+      
+      <div class="d-flex "> 
+        
+        
+    
+    </div>
+    <label for="color" class="feedback-input" id="name">Color <span class="color-picker">
+      <label class="btn btn-light">
+            
+        <div class="" style="width: 30px;height:20px;background-color:{{variant.color}};"></div>
+    </label>
+    </span></label>
+            
+            <p>Price :₹ {{variant.price | intcomma }}</p>
+            <p>Stocks: {{variant.remaining}}</p>
+            <p></h4>
+			
+		</a>
+	</li>
+
+	{% endfor %}
+	
+	
+</ul>
+<!-- <link rel="stylesheet" href="{% static 'admin/view_category.css'%}" />
+<h4 class="mt-5 p-5">Vehicles</h4>
+<div class="cards-list">
+
+  {% for vehicle in vehicles %}
+
+ 
+  
+  <a href="{% url 'view-variants' vehicle.id %}">
+    <div class="card">
+      <div class="card_image">
+        <img
+          src="{{vehicle.gif}}"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>{{vehicle.vehicle_name}}</p>
+        
+        
+      </div>
+      
+        
+      
+      
+    </div>
+
+
+  </a>
+  
+  
+
+  {% endfor %}
+  
+
+ 
+</div> -->
+
+{% endblock %}
+

@@ -42,8 +42,11 @@ INSTALLED_APPS = [
     'vendor',
     'superadmin',
     'crispy_forms',
-    'showroom',
+    'showroom.apps.ShowroomConfig',
     'colorfield',
+    'django.contrib.humanize',
+    'cart',
+    
     
 
     
@@ -76,6 +79,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'category.context_processors.menu_links',
+                'cart.context_processors.counter',
+
+
             ],
         },
     },

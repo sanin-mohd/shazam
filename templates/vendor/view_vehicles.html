@@ -1,0 +1,67 @@
+{% extends 'vendor/index.html'%} 
+{% load static %}
+
+ {% block content%}
+<link rel="stylesheet" href="{% static 'vendor/view_vehicles.css' %}">
+<script src="{% static 'vendor/view_vehicle.js' %}"></script>
+ 
+<ul class="card-list">
+	{% for vehicle in vehicles %}
+
+	<li class="card">
+		<a class="card-image" href="{% url 'view-variants' vehicle.id %}"  style="background-image: url({{vehicle.gif}});" data-image-full="https://s3-us-west-2.amazonaws.com/s.cdpn.io/310408/psychopomp-500.jpg">
+			
+		</a>
+		<a class="card-description" href="{% url 'edit-vehicle' vehicle.id %}" >
+			<h2>{{vehicle}}</h2>
+      <p>Category : {{vehicle.category}}</p>
+      <p>Top Speed : {{vehicle.top_speed}} km/h</p>
+      <p>Range : {{vehicle.range}} km</p>
+      <p>No of seats : {{vehicle.no_of_seats}}</p>
+			
+		</a>
+	</li>
+
+	{% endfor %}
+	
+	
+</ul>
+<!-- <link rel="stylesheet" href="{% static 'admin/view_category.css'%}" />
+<h4 class="mt-5 p-5">Vehicles</h4>
+<div class="cards-list">
+
+  {% for vehicle in vehicles %}
+
+ 
+  
+  <a href="{% url 'view-variants' vehicle.id %}">
+    <div class="card">
+      <div class="card_image">
+        <img
+          src="{{vehicle.gif}}"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>{{vehicle.vehicle_name}}</p>
+        
+        
+      </div>
+      
+        
+      
+      
+    </div>
+
+
+  </a>
+  
+  
+
+  {% endfor %}
+  
+
+ 
+</div> -->
+
+{% endblock %}
+

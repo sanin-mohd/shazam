@@ -1,0 +1,90 @@
+
+{% extends 'vendor/index.html'%} 
+{% load static %} 
+
+
+{% block content %}
+<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
+<div id="form-main ">
+  <div id="form-div">
+    <form method="post" action="{% url 'edit-vehicle' vehicle.id %}" class="form" id="form1">
+        {% csrf_token %}
+      
+      <p class="name">
+        <input name="vehicle_name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" value="{{vehicle.vehicle_name}}" id="name" />
+      </p>
+      <select name="category"   class="form-select validate[required,custom[onlyLetter],length[0,100]] feedback-input" aria-label="Default select example">
+        <option selected>{{vehicle.category}}</option>
+        {% for category in categories %}
+
+        <option value="{{category}}">{{category}}</option>
+
+        {% endfor %}
+        
+      </select>
+      <p class="name">
+        <input name="range" type="number" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" value="{{vehicle.range}}" id="name" />
+      </p>
+      
+      
+      <p class="name">
+        <input name="top_speed" type="number" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" value="{{vehicle.top_speed}}" id="name" />
+      </p>
+      <p class="name">
+        <input name="no_of_seats" type="number" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" value="{{vehicle.no_of_seats}}" id="name" />
+      </p>
+    
+      
+      <p class="name">
+        <img id="blah" style="width: 270px; height: 220px;" src="{{vehicle.gif}}" alt="your image" />
+        <input onchange="readURL(this);" name="gif" type="url" class="validate[required,custom[email]] feedback-input" id="name" value="{{vehicle.gif}}" />
+      </p>
+      
+      
+      <div class="submit">
+        <input type="submit" value="Save" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+      
+      <div class="submit " style="margin-top:40px">
+        <a href="{% url 'view-vehicles' %}"><input type="button" value="Cancel" id="button-blue"/></a>
+         <div class="ease"></div>
+      </div>
+      <div class=" " style="margin-top:40px">
+        <a href="{% url 'delete-vehicle' vehicle.id %}"><input type="button" style="background-color: red;" value="Delete" id="button-blue"/></a>
+        <div class="ease"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block script%}
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+  
+        reader.onload = function (e) {
+            $('#blah')
+                .attr('src', e.target.result)
+                .width(150)
+                .height(200);
+        };
+  
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+  
+
+</script>
+
+{% endblock %}

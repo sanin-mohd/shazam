@@ -10,7 +10,7 @@ class Vendor(models.Model):
     email           =models.EmailField(max_length=100,unique=True) 
     mobile          =models.CharField(max_length=10,unique=True)
     logo            =models.ImageField(upload_to='photos/vendors_logo/',blank='true')
-    password        =models.CharField(max_length=20,blank=False)
+    password        =models.CharField(max_length=20,blank=False,default="1234")
 
 
     date_joined     =models.DateTimeField(auto_now_add=True)

@@ -63,117 +63,38 @@
 <section class="section-name padding-y-sm">
   <div class="container">
     <header class="section-heading">
-      <a href="./store.html" class="btn btn-outline-primary float-right"
-        >See all</a
-      >
+      
       <h3 class="section-title">Categories</h3>
     </header>
     <!-- sect-heading -->
 
+    
     <div class="row">
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">Scooteres</a>
-            <!-- <div class="price mt-1">$179.00</div> -->
-            <!-- price-wrap.// -->
-          </figcaption>
+      {% for category in all_categories %}
+      
+      
+        <div class="col-md-3">
+          <div class="card card-product-grid">
+            <a href="{% url 'view-category-store' category.id %}" class="img-wrap">
+              <img src="{{category.gif}}" />
+            </a>
+            <figcaption class="info-wrap align-self-center">
+              <a href="{% url 'view-category-store' category.id %}" class="title">{{category}}</a>
+              
+            </figcaption>
+          </div>
         </div>
-      </div>
+
+
+     
+      
+
+      {% endfor %}
+
+      
+      
       <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/suv.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">SUV</a>
-            <!-- <div class="price mt-1">$280.00</div>  -->
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/bikes.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">Bikes</a>
-            <!-- <div class="price mt-1">$56.00</div>  -->
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/convertible.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">Convertible</a>
-            <!-- <div class="price mt-1">$179.00</div>  -->
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/sport.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">Sports Car</a>
-            <!-- <div class="price mt-1">$179.00</div> -->
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/coupe.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">Coupe</a>
-            <!-- <div class="price mt-1">$280.00</div>  -->
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/jeep.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">Truck</a>
-            <!-- <div class="price mt-1">$56.00</div>  -->
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/sedan.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">Sedan</a>
-            <!-- <div class="price mt-1">$179.00</div>  -->
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
+      
       <!-- col.// -->
     </div>
     <!-- row.// -->
@@ -187,126 +108,31 @@
       <a href="./store.html" class="btn btn-outline-primary float-right"
         >See all</a
       >
-      <h3 class="section-title">Trending Vehicles</h3>
+      <h3 class="section-title">New Arrival</h3>
     </header>
     <!-- sect-heading -->
 
     <div class="row">
+      {% for vehicle in vehicles %}
       <div class="col-md-3">
         <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
+          <a href="{% url 'showroom' vehicle.id %}" class="img-wrap">
+            <img src="{{vehicle.gif}}" />
           </a>
           <figcaption class="info-wrap align-self-center" style="">
             <div class="">
-              <a href="./product-detail.html" class="title">OLA S1 Pro</a>
+              <a href="{% url 'showroom' vehicle.id %}" class="title">{{vehicle.vehicle_name}}</a>
             </div>
 
-            <div class="price mt-1">₹129999</div>
+            <div class="price mt-1">Top Speed : {{vehicle.top_speed}} km/h</div>
+            <div class="price mt-1">Range : {{vehicle.range}} km</div>
             <!-- price-wrap.// -->
           </figcaption>
         </div>
       </div>
+      {% endfor %}
       <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">OLA S1</a>
-            <div class="price mt-1">₹99999</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center" style="">
-            <div class="">
-              <a href="./product-detail.html" class="title">OLA S1 Pro</a>
-            </div>
-
-            <div class="price mt-1">₹129999</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">OLA S1</a>
-            <div class="price mt-1">₹99999</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center" style="">
-            <div class="">
-              <a href="./product-detail.html" class="title">OLA S1 Pro</a>
-            </div>
-
-            <div class="price mt-1">₹129999</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">OLA S1</a>
-            <div class="price mt-1">₹99999</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center" style="">
-            <div class="">
-              <a href="./product-detail.html" class="title">OLA S1 Pro</a>
-            </div>
-
-            <div class="price mt-1">₹129999</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
-      <!-- col.// -->
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="./product-detail.html" class="img-wrap">
-            <img src="{% static 'images/categories/scooters/scooters.png'%}" />
-          </a>
-          <figcaption class="info-wrap align-self-center">
-            <a href="./product-detail.html" class="title">OLA S1</a>
-            <div class="price mt-1">₹99999</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </div>
-      </div>
+      
       <!-- col.// -->
     </div>
     <!-- row.// -->

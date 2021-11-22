@@ -1,0 +1,76 @@
+
+{% extends 'vendor/index.html'%} 
+{% load static %} 
+
+
+{% block content %}
+<style>
+    select {
+        padding: .5em;
+      }
+</style>
+
+ <link rel="stylesheet" href="{% static 'vendor/image_upload.css'%}">
+<link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
+<div id="form-main ">
+  <div id="form-div">
+    <form method="post" action="{% url 'edit-variant' variant.id %}" enctype="multipart/form-data" class="form" id="form1">
+        {% csrf_token %}
+      
+      <p class="name">
+        <label for="color" class="feedback-input" id="name">Color <span class="color-picker">
+            <label for="colorPicker">
+              <input type="color" name="color" value="{{variant.color}}" id="colorPicker">
+            </label>
+          </span></label>
+        </p>
+      
+      
+      
+      <p class="name">
+          <label for="">Price <input name="price" type="number" value="{{variant.price}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Price" id="name" />
+          </label>
+        </p>
+      <p class="name">
+          <label for="">No of Stocks</label>
+        <input name="remaining" type="number" value="{{variant.remaining}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="No Of Stocks" id="name" />
+      </p>
+      <p class="name">
+          
+          <label for="">Image 1</label>
+          <img src="{{variant.image1.url}}" style="width: 100px;height: 100px;" alt="">
+        <input name="image1" type="file" value="{{variant.image1.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 1" id="name" />
+      </p>
+      <p class="name">
+        <label for="">Image 2</label>
+        <img src="{{variant.image1.url}}" style="width: 100px;height: 100px;" alt="">
+        <input name="image2" type="file"  value="{{variant.image2.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 2" id="name" />
+      </p>
+      <p class="name">
+        <label for="">Image 3</label>
+        <img src="{{variant.image1.url}}" style="width: 100px;height: 100px;" alt="">
+        <input name="image3" type="file"  value="{{variant.image3.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 3" id="name" />
+      </p>
+    
+      
+      <div class="submit">
+        <input type="submit" value="Save" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+      
+      <div class="submit " style="margin-top:40px">
+        <a href="{% url 'view-variants' vehicle.id %}"><input type="button" value="Cancel" id="button-blue"/></a>
+         <div class="ease"></div>
+      </div>
+      <div class="submit " style="margin-top:40px">
+        <a href="{% url 'delete-variant' variant.id %}"><input type="button" style="background-color: red;" value="Delte" id="button-blue"/></a>
+         <div class="ease"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{% static 'vendor/image_upload.js'%}"></script>
+
+
+{% endblock %}

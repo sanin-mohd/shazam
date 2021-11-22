@@ -49,9 +49,9 @@
          <!-- col.// -->
         
         <div class="col-lg-6  col-md-6 col-sm-12 col-12">
-            <form action="#" class="search">
+            <form action="{% url 'search' %}" class="search">
                 <div class="input-group w-60">
-                    <input type="text" class="form-control " style="width:60%;border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" placeholder="Search">
+                    <input type="text" class="form-control " style="width:60%;border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" name='keyword' placeholder="Search">
                     
                     <div class="input-group-append " >
                       <button  class="btn btn-light" style="width:60px;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;"  	 type="submit">
@@ -71,10 +71,18 @@
                                 <a style="color: white;"href="{% url 'register'%}"> Register</a>
                             </div>
                         </div>
-                        <a href="./cart.html" class="widget-header pl-3 ml-3">
-                            <div id="cart" class="icon icon-sm rounded-circle border"onMouseOver="this.style.background-color='#000'" onMouseOut="this.style.background-color='#FFF'"><i onMouseOver="this.style.color='#000'" onMouseOut="this.style.color='#FFF'" style="color: white;" class="fa fa-shopping-cart"></i></div>
-                            <span class="badge badge-pill badge-danger notify">0</span>
-                        </a>
+                        <div class="ml-5">
+                          <a href="{% url 'cart' %}">
+
+                            <img src="{% static 'pending_actions_white_36dp.svg'%}"alt=""/>
+                            
+                          </a>
+                          <br>
+                          <small class="title text-white">Pending</small>
+                          
+                          
+                        </div>
+                           <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
                         
                         {% else %}
                         
@@ -87,7 +95,7 @@
                               <div class="widget-header">
                                 <div class="d-flex" style="color: white">
                                   <div class="pr-3">
-                                    <a href=""
+                                    <a href="{% url 'user_dashboard' %}"
                                       ><img
                                         src="{% static 'account_circle_white_36dp.svg'%}"
                                         alt=""
@@ -108,32 +116,28 @@
                                     >
                                     <small class="title ">Bookings</small>
                                   </div>
-                                  <div class="pr-3">
-                                    <a href=""
-                                      ><img
-                                        src="{% static 'pending_actions_white_36dp.svg'%}"
-                                        alt=""
-                                      />
+                                  <div class="">
+                                    <a href="{% url 'cart' %}">
+                                      <img src="{% static 'pending_actions_white_36dp.svg'%}"alt=""/>
                                       
-                                      <!-- <span class="badge badge-pill badge-danger notify"
-                                        >0</span> -->
-                                        </a
-                                    >
-                                    <small class="title ">Pending</small>
+                                      
+                                      <small class="title text-white">Pending</small>
+                                    </a>
                                     
                                   </div>
-                                  <div class="pr-3">
+                                     <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
+                                       
+                                   <!-- <div class="pr-3">
                                     <a href="{% url 'logout'%}"
                                       ><img
                                         src="{% static 'logout_white_36dp.svg'%}"
                                         alt=""
                                       />
-                                      <!-- <span class="badge badge-pill badge-danger notify"
-                                        >2</span> -->
+                                      
                                         </a
                                     >
                                     <small class="title ">Logout</small>
-                                  </div>
+                                  </div> -->
                                 </div>
                               </div>
                             </div>

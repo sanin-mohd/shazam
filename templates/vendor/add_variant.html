@@ -1,0 +1,97 @@
+
+{% extends 'vendor/index.html'%} 
+{% load static %} 
+
+
+{% block content %}
+<style>
+    select {
+        padding: .5em;
+      }
+</style>
+
+ <link rel="stylesheet" href="{% static 'vendor/image_upload.css'%}">
+<link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
+<div id="form-main ">
+  <div id="form-div">
+    <form method="post" action="{% url 'add-variant' vehicle.id %}" enctype="multipart/form-data" class="form" id="form1">
+        {% csrf_token %}
+      
+      <p class="name">
+        <label for="color" class="feedback-input" id="name">Color <span class="color-picker">
+            <label for="colorPicker">
+              <input type="color" name="color" value="#1DB8CE" id="colorPicker">
+            </label>
+          </span></label>
+        </p>
+      
+      
+      
+      <p class="name">
+          <label for="">Price </label>
+          <input name="price" type="number" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+          
+        </p>
+      <p class="name">
+          <label for="">No of Stocks</label>
+        <input name="remaining" type="number" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+      </p>
+      <p class="name">
+          <label for="">Image 1</label>
+          <div id="image-box" class="image-container"></div>
+          <button class="btn btn-outline-info" id="crop-btn" style="width: 100%; margin-top: 10px; display: none;" type="button">Crop</button>
+    
+          <p><img id="output1" width="200"  /></p>
+        <input name="image1" type="file" id="id_image" accept="image/*" onchange="loadFile1(event)" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+      </p>
+      
+      <p class="name">
+        <label for="">Image 2</label>
+        <p><img id="output2" width="200"/></p>
+        <input name="image2" type="file" accept="image/*" onchange="loadFile2(event)" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+      </p>
+      <p class="name">
+        <label for="">Image 3</label>
+        <p><img id="output3" width="200"/></p>
+        <input name="image3" type="file" accept="image/*" onchange="loadFile3(event)" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+      </p>
+    
+      
+      <div class="submit">
+        <input type="submit" value="Save" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+      
+      <div class="submit " style="margin-top:40px">
+        <a href="{% url 'view-variants'  vehicle.id %}"><input type="button" value="Cancel" id="button-blue"/></a>
+         <div class="ease"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{% static 'vendor/image_upload.js'%}"></script>
+
+<script>
+    var loadFile1 = function(event) {
+        var image = document.getElementById('output1');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    var loadFile2 = function(event) {
+        var image = document.getElementById('output2');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    var loadFile3 = function(event) {
+        var image = document.getElementById('output3');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+
+
+    </script>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+{% endblock %}
+
