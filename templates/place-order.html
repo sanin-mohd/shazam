@@ -333,14 +333,18 @@
                   <dd class="text-right"> ₹{{booking_price |floatformat:"0"}}</dd>
                 </dl>
                 <dl class="dlist-align">
+                  <dt>Tax (5%) :</dt>
+                  <dd class="text-right"> ₹{{total_tax |floatformat:"0"}}</dd>
+                </dl>
+                <dl class="dlist-align">
                   <dt>Discount price:</dt>
                   <dd class="text-right"> ₹0</dd>
                 </dl>
                 
                 <dl class="dlist-align">
-                  <dt>Total:</dt>
+                  <dt>Grand Total:</dt>
                   <dd class="text-right text-dark b">
-                    <strong> ₹{{booking_price |floatformat:"0"}}</strong>
+                    <strong> ₹{{grand_total |floatformat:"0"}}</strong>
                   </dd>
                 </dl>
                 <hr />

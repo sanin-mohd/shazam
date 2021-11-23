@@ -61,21 +61,41 @@ def add_quantity(request,variant_id):
 
 
 def decrement_quantity(request,variant_id):
-    cart=Cart.objects.get(cart_id=_cart_id(request))
+    
     variant=get_object_or_404(Variant,id=variant_id)
-    cart_item=CartItem.objects.get(variant=variant_id,cart_id=cart)
-
-    if cart_item.quantity > 1:
-        cart_item.quantity -= 1
-        cart_item.save()
-    else:
-        cart_item.delete()
+    
+    try:
+        if request.user.is_authenticated:
+            cart_item=CartItem.objects.get(variant=variant_id,user=request.user)
+            
+        else:
+            cart=Cart.objects.get(cart_id=_cart_id(request))
+            cart_item=CartItem.objects.get(variant=variant_id,cart_id=cart)
+            
+        
+        if cart_item.quantity > 1:
+            cart_item.quantity -= 1
+            cart_item.save()
+        else:
+            cart_item.delete()
+        
+    except:
+        pass
     return redirect('cart')
 
 def remove_cart_item(request,variant_id):
-    cart=Cart.objects.get(cart_id=_cart_id(request))
+    
+    
     variant=get_object_or_404(Variant,id=variant_id)
-    cart_item=CartItem.objects.get(variant=variant_id,cart_id=cart)
+
+    if request.user.is_authenticated:
+        cart_item=CartItem.objects.get(variant=variant_id,user=request.user)
+    else:
+        cart=Cart.objects.get(cart_id=_cart_id(request))
+        cart_item=CartItem.objects.get(variant=variant_id,cart_id=cart)
+
+
+    
     cart_item.delete()
     return redirect('cart')
 
@@ -101,7 +121,12 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
             booking_price=booking_price+999*cart_item.quantity
         total_tax=booking_price*0.05
         grand_total=total_tax+booking_price
+        
+        
+        request.session['booking_price']=booking_price
+        request.session['total_tax']=total_tax
         request.session['grand_total']=grand_total
+
         print("cart line 3 working...")
 
     
@@ -127,10 +152,26 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
 
 @login_required(login_url='login')
 def checkout(request):
-    cart=Cart.objects.get(cart_id=_cart_id(request))
-    print("cart line 1 working...")
-    cart_items=CartItem.objects.filter(cart_id__cart_id=_cart_id(request),is_active=True)
+    if request.user.is_authenticated:
+        cart_items=CartItem.objects.filter(user=request.user,is_active=True)
+    else:
+        cart=Cart.objects.get(cart_id=_cart_id(request))
+        print("cart line 1 working...")
+        cart_items=CartItem.objects.filter(cart_id__cart_id=_cart_id(request),is_active=True)
 
-    booking_price=request.session['grand_total']
+        
     
-    return render(request,'place-order.html',{'cart_items':cart_items,'cart':cart,'booking_price':booking_price})
+
+    booking_price=request.session['booking_price']
+    total_tax=request.session['total_tax']
+    grand_total=request.session['grand_total']
+    context={
+
+        'cart_items':cart_items,
+        'booking_price':booking_price,
+        'grand_total':grand_total,
+        'total_tax':total_tax
+
+        }
+    
+    return render(request,'place-order.html',context)

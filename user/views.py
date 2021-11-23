@@ -70,7 +70,7 @@ def login(request):
                         
                         if is_cart_item_exists:
                             cart_items=CartItem.objects.filter(cart_id=cart)
-                            
+                            cart_items_user=CartItem.objects.filter(user=user)
                             variant_list=[]
                             
                             for item in cart_items:
@@ -95,7 +95,8 @@ def login(request):
                                     index=ex_var_list.index(vr)
                                     item_id=id[index]
                                     item=CartItem.objects.get(id=item_id)
-                                    item.quantity += 1
+                                    count=CartItem.objects.get(variant=vr,cart_id=cart).quantity
+                                    item.quantity += count
                                     print(str(item.quantity)+ ': count')
                                     item.user=user
                                     item.save()
@@ -104,6 +105,8 @@ def login(request):
                                     for item in cart_items:
                                         item.user=user
                                         item.save()
+                            auth.login(request,user)
+                            return redirect('cart')
                             
 
                     except:
