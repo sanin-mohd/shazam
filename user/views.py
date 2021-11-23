@@ -17,6 +17,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from cart.models import Cart
 
 from user.forms import RegistrationForm
 from user.models import Account
@@ -63,6 +64,51 @@ def login(request):
                 return redirect('vendor')
             else:
                 if user.is_active:
+                    try:
+                        cart=Cart.objects.get(cart_id=_cart_id(request))
+                        is_cart_item_exists=CartItem.objects.filter(cart_id=cart).exists()
+                        
+                        if is_cart_item_exists:
+                            cart_items=CartItem.objects.filter(cart_id=cart)
+                            
+                            variant_list=[]
+                            
+                            for item in cart_items:
+                                variant=item.variant
+                                variant_list.append(variant)
+                            
+                            cart_items=CartItem.objects.filter(user=user)
+                            print("Try working------>>>>>>>>>>>>>>>>>>")
+                            
+                            
+                            ex_var_list = []
+                            id = []
+                            
+                            for item in cart_items:
+                                existing_variants=item.variant
+                                ex_var_list.append(existing_variants)
+                                id.append(item.id)
+
+                            
+                            for vr in variant_list:
+                                if vr in ex_var_list:
+                                    index=ex_var_list.index(vr)
+                                    item_id=id[index]
+                                    item=CartItem.objects.get(id=item_id)
+                                    item.quantity += 1
+                                    print(str(item.quantity)+ ': count')
+                                    item.user=user
+                                    item.save()
+                                else:
+                                    cart_items=CartItem.objects.filter(cart_id=cart)
+                                    for item in cart_items:
+                                        item.user=user
+                                        item.save()
+                            
+
+                    except:
+                        print("Entered to except block ------>>>>>>>>>>>>>>>>>>")
+                        pass
                     request.session['mobile'] = mobile
                     auth.login(request, user)
                     return redirect('home')

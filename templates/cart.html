@@ -80,7 +80,7 @@
 							<div class="input-group-prepend">
 							<a href="{% url 'decrement_quantity' cart_item.variant.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
 							</div>
-							<input type="text" class="form-control p-2"  value="{{cart_item.quantity}}">
+							<input type="text" disabled class="form-control p-2"  value="{{cart_item.quantity}}">
 							<div class="input-group-append">
 							<a href="{% url 'add_quantity' cart_item.variant.id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </a>
 							</div>

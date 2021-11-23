@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
-{% block content %}
+{% load humanize %}
 {% load static %}
+{% block content %}
+
 
      
     <style>
@@ -20,20 +22,71 @@
               <div class="card-body">
                 <h4 class="card-title mb-4">Review cart</h4>
                 <div class="row">
-                  <div class="col-md-6">
-                    <figure class="itemside mb-4">
-                      <div class="aside">
-                        <img
-                          src="../static/images/items/1.jpg"
-                          class="border img-sm"
-                        />
-                      </div>
-                      <figcaption class="info">
-                        <p>Apple iPad (2019) 32Gb Wi-Fi gold</p>
-                        <span class="text-muted">2x = $560 </span>
-                      </figcaption>
-                    </figure>
-                  </div>
+                  <table class="table table-borderless table-shopping-cart">
+                    <thead class="text-muted">
+                    <tr class="small text-uppercase">
+                      <th scope="col">Vehicle</th>
+                      <th scope="col" width="120">Quantity</th>
+                      <th scope="col" width="120">Booking</th>
+                      <th scope="col" width="120">Vehicle</th>
+                      <th scope="col" class="text-right" width="200"> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for cart_item in cart_items %}
+                    <tr>
+                      <td>
+                        <figure class="itemside align-items-center">
+                          <a href="{% url 'showroom-variant' cart_item.variant.id %}">
+                    
+                            <div class="aside"><img src="{{cart_item.variant.image1.url}}" class="img-sm"></div>
+                            <figcaption class="info">
+                              
+                              <div class="d-flex flex-row">
+                                <div class="">
+                                  <a href="{% url 'showroom-variant' cart_item.variant.id %}" class="title font-weight-bold text-dark">{{cart_item.variant.vehicle_id}}</a>
+                                  
+                                </div>
+                                <div class="ml-4">
+                                  <p  style="width: 45px;height: 20px;background-color: {{cart_item.variant.color}};"></p>
+                                </div>
+                              </div> 
+                              <p> <span  class="font-weight-bold"> Range: </span>{{cart_item.variant.vehicle_id.range}} km <br> <span class="font-weight-bold">Top Speed : </span> {{cart_item.variant.vehicle_id.top_speed}} km/h</p>
+                            </figcaption>
+                          </a>
+                        </figure>
+                      </td>
+                      <td> 
+                        <!-- col.// -->
+                              <div class="col"> 
+                                <div class="input-group input-spinner">
+                                  
+                                  <input type="text" disabled class="form-control p-2"  value="{{cart_item.quantity}}">
+                                  
+                                </div> <!-- input-group.// -->
+                              </div> <!-- col.// -->
+                      </td>
+                      <td> 
+                        <div class="price-wrap"> 
+                          <var class="price">₹{{cart_item.booking_price}}</var>
+                          <small class="text-muted">₹ 999 each </small> 
+                        </div> <!-- price-wrap .// -->
+                      </td>
+                      <td> 
+                        <div class="price-wrap"> 
+                          <var class="price">₹{{cart_item.sub_total | intcomma}}</var> 
+                          <small class="text-muted"> ₹{{cart_item.variant.price | intcomma}} each </small> 
+                        </div> <!-- price-wrap .// -->
+                      </td>
+                    
+                      
+                    </tr>
+                    
+                    {% endfor %}
+                    
+                    </tbody>
+                    </table>
+                  
                   <!-- col.// -->
                  
                   <!-- col.// -->
@@ -50,19 +103,19 @@
             <article class="card mb-4">
               <div class="card-body">
                 <h4 class="card-title mb-4">Billing info</h4>
-                <form action="">
+                <form action="" method="POST" >
+                  {% csrf_token %}
                   <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label>Country*</label>
-                      <select name="" class="form-control">
-                        <option value="">India</option>
-                        <option value="">United States</option>
-                        <option value="">France</option>
-                        <option value="">Italy</option>
-                      </select>
+                    <div class="form-group col-sm-12">
+                      <label>Full Name</label>
+                      <input
+                        type="text"
+                        placeholder="Type here"
+                        class="form-control"
+                      />
                     </div>
-                    <div class="form-group col-sm-6">
-                      <label>State*</label>
+                    <div class="form-group col-sm-4">
+                      <label>House</label>
                       <input
                         type="text"
                         placeholder="Type here"
@@ -77,12 +130,21 @@
                         class="form-control"
                       />
                     </div>
-                    <div class="form-group col-sm-4">
-                      <label>Building</label>
+                    <div class="form-group col-sm-6">
+                      <label>City*</label>
+                      <input
+                        type="text"
+                        placeholder="Type here"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label>Postal code</label>
                       <input type="text" placeholder="" class="form-control" />
                     </div>
+                    
                     <div class="form-group col-sm-4">
-                      <label>House</label>
+                      <label>State*</label>
                       <input
                         type="text"
                         placeholder="Type here"
@@ -90,13 +152,135 @@
                       />
                     </div>
                     <div class="form-group col-sm-4">
-                      <label>Postal code</label>
-                      <input type="text" placeholder="" class="form-control" />
+                      <label>Country*</label>
+                      <select name="" class="form-control">
+                        <option value="">India</option>
+                        <option value="">United States</option>
+                        <option value="">France</option>
+                        <option value="">Italy</option>
+                      </select>
                     </div>
                     <div class="form-group col-sm-4">
-                      <label>Zip</label>
+                      <label>Mobile</label>
                       <input type="text" placeholder="" class="form-control" />
                     </div>
+                    
+                   
+                    <div class="form-group col-sm-12">
+                      <label>Landmark</label>
+                      <input type="text" placeholder="" class="form-control" />
+                    </div>
+                    <article class="accordion" id="accordion_pay">
+                      <div class="card">
+                        <header class="card-header">
+                          <img
+                            src="../static/images/misc/payment-paypal.png"
+                            class="float-right"
+                            height="24"
+                          />
+                          <label
+                            class="form-check collapsed"
+                            data-toggle="collapse"
+                            data-target="#pay_paynet"
+                          >
+                            <input
+                              class="form-check-input"
+                              name="payment-option"
+                              checked
+                              type="radio"
+                              value="option2"
+                            />
+                            <h6 class="form-check-label">Paypal</h6>
+                          </label>
+                        </header>
+                        <div
+                          id="pay_paynet"
+                          class="collapse show"
+                          data-parent="#accordion_pay"
+                        >
+                          <div class="card-body">
+                            <p class="text-center text-muted">
+                              Connect your PayPal account and use it to pay your bills.
+                              You'll be redirected to PayPal to add your billing
+                              information.
+                            </p>
+                            <p class="text-center">
+                              <a href="#"
+                                ><img
+                                  src="../static/images/misc/btn-paypal.png"
+                                  height="32"
+                              /></a>
+                              <br /><br />
+                            </p>
+                          </div>
+                          <!-- card body .// -->
+                        </div>
+                        <!-- collapse .// -->
+                      </div>
+                      <!-- card.// -->
+                      <div class="card">
+                        <header class="card-header">
+                          <img
+                            src="../static/images/misc/payment-card.png"
+                            class="float-right"
+                            height="24"
+                          />
+                          <label
+                            class="form-check"
+                            data-toggle="collapse"
+                            data-target="#pay_payme"
+                          >
+                            <input
+                              class="form-check-input"
+                              name="payment-option"
+                              type="radio"
+                              value="option2"
+                            />
+                            <h6 class="form-check-label">Razorpay</h6>
+                          </label>
+                        </header>
+                        <div
+                          id="pay_payme"
+                          class="collapse"
+                          data-parent="#accordion_pay"
+                        >
+                          <div class="card-body">
+                            <p class="alert alert-success">
+                              Some information or instruction
+                            </p>
+                            <form class="form-inline">
+                              <input
+                                type="text"
+                                class="form-control mr-2"
+                                placeholder="xxxx-xxxx-xxxx-xxxx"
+                                name=""
+                              />
+                              <input
+                                type="text"
+                                class="form-control mr-2"
+                                style="width: 100px"
+                                placeholder="dd/yy"
+                                name=""
+                              />
+                              <input
+                                type="number"
+                                maxlength="3"
+                                class="form-control mr-2"
+                                style="width: 100px"
+                                placeholder="cvc"
+                                name=""
+                              />
+                              <button class="btn btn btn-success">Button</button>
+                            
+                          </div>
+                          <!-- card body .// -->
+                        </div>
+                        <!-- collapse .// -->
+                      </div>
+                      <!-- card.// -->
+                    </article>
+                    
+                    
                   </div>
                   <!-- row.// -->
                 </form>
@@ -105,115 +289,7 @@
             </article>
             <!-- card.// -->
 
-            <article class="accordion" id="accordion_pay">
-              <div class="card">
-                <header class="card-header">
-                  <img
-                    src="../static/images/misc/payment-paypal.png"
-                    class="float-right"
-                    height="24"
-                  />
-                  <label
-                    class="form-check collapsed"
-                    data-toggle="collapse"
-                    data-target="#pay_paynet"
-                  >
-                    <input
-                      class="form-check-input"
-                      name="payment-option"
-                      checked
-                      type="radio"
-                      value="option2"
-                    />
-                    <h6 class="form-check-label">Paypal</h6>
-                  </label>
-                </header>
-                <div
-                  id="pay_paynet"
-                  class="collapse show"
-                  data-parent="#accordion_pay"
-                >
-                  <div class="card-body">
-                    <p class="text-center text-muted">
-                      Connect your PayPal account and use it to pay your bills.
-                      You'll be redirected to PayPal to add your billing
-                      information.
-                    </p>
-                    <p class="text-center">
-                      <a href="#"
-                        ><img
-                          src="../static/images/misc/btn-paypal.png"
-                          height="32"
-                      /></a>
-                      <br /><br />
-                    </p>
-                  </div>
-                  <!-- card body .// -->
-                </div>
-                <!-- collapse .// -->
-              </div>
-              <!-- card.// -->
-              <div class="card">
-                <header class="card-header">
-                  <img
-                    src="../static/images/misc/payment-card.png"
-                    class="float-right"
-                    height="24"
-                  />
-                  <label
-                    class="form-check"
-                    data-toggle="collapse"
-                    data-target="#pay_payme"
-                  >
-                    <input
-                      class="form-check-input"
-                      name="payment-option"
-                      type="radio"
-                      value="option2"
-                    />
-                    <h6 class="form-check-label">Razorpay</h6>
-                  </label>
-                </header>
-                <div
-                  id="pay_payme"
-                  class="collapse"
-                  data-parent="#accordion_pay"
-                >
-                  <div class="card-body">
-                    <p class="alert alert-success">
-                      Some information or instruction
-                    </p>
-                    <form class="form-inline">
-                      <input
-                        type="text"
-                        class="form-control mr-2"
-                        placeholder="xxxx-xxxx-xxxx-xxxx"
-                        name=""
-                      />
-                      <input
-                        type="text"
-                        class="form-control mr-2"
-                        style="width: 100px"
-                        placeholder="dd/yy"
-                        name=""
-                      />
-                      <input
-                        type="number"
-                        maxlength="3"
-                        class="form-control mr-2"
-                        style="width: 100px"
-                        placeholder="cvc"
-                        name=""
-                      />
-                      <button class="btn btn btn-success">Button</button>
-                    </form>
-                  </div>
-                  <!-- card body .// -->
-                </div>
-                <!-- collapse .// -->
-              </div>
-              <!-- card.// -->
-            </article>
+            
             <!-- accordion end.// -->
           </main>
           <!-- col.// -->
@@ -253,18 +329,18 @@
                 </div>
                 <!-- col.// -->
                 <dl class="dlist-align">
-                  <dt>Total price:</dt>
-                  <dd class="text-right">{{grand_total}}</dd>
+                  <dt>Booking price:</dt>
+                  <dd class="text-right"> ₹{{booking_price |floatformat:"0"}}</dd>
                 </dl>
                 <dl class="dlist-align">
                   <dt>Discount price:</dt>
-                  <dd class="text-right">{{grand_total}}</dd>
+                  <dd class="text-right"> ₹0</dd>
                 </dl>
                 
                 <dl class="dlist-align">
                   <dt>Total:</dt>
                   <dd class="text-right text-dark b">
-                    <strong></strong>
+                    <strong> ₹{{booking_price |floatformat:"0"}}</strong>
                   </dd>
                 </dl>
                 <hr />
@@ -272,11 +348,12 @@
                   <img src="../static/images/misc/payments.png" height="26" />
                 </p>
                 <a
-                  href="../static/place-order.html"
+                  href="" type="submit"
                   class="btn btn-primary btn-block"
                 >
                   Book Now
                 </a>
+              </form>
               </div>
               <!-- card-body.// -->
             </div>

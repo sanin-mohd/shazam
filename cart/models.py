@@ -11,13 +11,13 @@ class Cart(models.Model):
     date_added=models.DateTimeField(auto_now_add=True)
     
     
-    def __str__(self):
+    def __int__(self):
         return self.cart_id
     
 class CartItem(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     variant=models.ForeignKey(Variant,on_delete=models.CASCADE)
-    cart_id=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    cart_id=models.ForeignKey(Cart,on_delete=models.CASCADE,null=True)
     quantity=models.IntegerField()
     is_active=models.BooleanField(default=True)
 
@@ -26,5 +26,5 @@ class CartItem(models.Model):
     def booking_price(self):
         return self.quantity*999
 
-    def __str__(self):
-        return self.variant
+    def __int__(self):
+        return self.variant 
