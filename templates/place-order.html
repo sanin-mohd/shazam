@@ -14,10 +14,15 @@
       }
     </style>
     <section class="section-content padding-y bg">
+      
       <div class="container">
+        <form action="{% url 'book_now' %}" method="POST" >
+          {% csrf_token %}
         <!-- ============================ COMPONENT 2 ================================= -->
         <div class="row">
+          
           <main class="col-md-8">
+            
             <article class="card mb-4">
               <div class="card-body">
                 <h4 class="card-title mb-4">Review cart</h4>
@@ -103,8 +108,7 @@
             <article class="card mb-4">
               <div class="card-body">
                 <h4 class="card-title mb-4">Billing info</h4>
-                <form action="" method="POST" >
-                  {% csrf_token %}
+                
                   <div class="row">
                     <div class="form-group col-sm-12">
                       <label>Full Name</label>
@@ -112,22 +116,25 @@
                         type="text"
                         placeholder="Type here"
                         class="form-control"
+                        name='full_name'
                       />
                     </div>
-                    <div class="form-group col-sm-4">
-                      <label>House</label>
+                    <div class="form-group col-sm-6">
+                      <label>Address Line 1</label>
                       <input
                         type="text"
                         placeholder="Type here"
                         class="form-control"
+                        name='address_line_1'
                       />
                     </div>
-                    <div class="form-group col-sm-8">
-                      <label>Street*</label>
+                    <div class="form-group col-sm-6">
+                      <label>Address Line 2</label>
                       <input
                         type="text"
                         placeholder="Type here"
                         class="form-control"
+                        name='address_line_2'
                       />
                     </div>
                     <div class="form-group col-sm-6">
@@ -136,11 +143,13 @@
                         type="text"
                         placeholder="Type here"
                         class="form-control"
+                        name='city'
                       />
                     </div>
                     <div class="form-group col-sm-6">
                       <label>Postal code</label>
-                      <input type="text" placeholder="" class="form-control" />
+                      <input name='zip_code' type="text" placeholder="" class="form-control" />
+                      
                     </div>
                     
                     <div class="form-group col-sm-4">
@@ -149,141 +158,43 @@
                         type="text"
                         placeholder="Type here"
                         class="form-control"
+                        name='state'
+
                       />
                     </div>
                     <div class="form-group col-sm-4">
                       <label>Country*</label>
-                      <select name="" class="form-control">
-                        <option value="">India</option>
-                        <option value="">United States</option>
-                        <option value="">France</option>
-                        <option value="">Italy</option>
+                      <select name="country" class="form-control">
+                        <option value="India">India</option>
+                        <option value="United States">United States</option>
+                        <option value="France">France</option>
+                        <option value="Italy">Italy</option>
                       </select>
                     </div>
                     <div class="form-group col-sm-4">
                       <label>Mobile</label>
-                      <input type="text" placeholder="" class="form-control" />
+                      <input name='mobile' type="text" placeholder="" class="form-control" />
                     </div>
                     
                    
                     <div class="form-group col-sm-12">
                       <label>Landmark</label>
-                      <input type="text" placeholder="" class="form-control" />
+                      <input name='landmark' type="text" placeholder="" class="form-control" />
                     </div>
-                    <article class="accordion" id="accordion_pay">
-                      <div class="card">
-                        <header class="card-header">
-                          <img
-                            src="../static/images/misc/payment-paypal.png"
-                            class="float-right"
-                            height="24"
-                          />
-                          <label
-                            class="form-check collapsed"
-                            data-toggle="collapse"
-                            data-target="#pay_paynet"
-                          >
-                            <input
-                              class="form-check-input"
-                              name="payment-option"
-                              checked
-                              type="radio"
-                              value="option2"
-                            />
-                            <h6 class="form-check-label">Paypal</h6>
-                          </label>
-                        </header>
-                        <div
-                          id="pay_paynet"
-                          class="collapse show"
-                          data-parent="#accordion_pay"
-                        >
-                          <div class="card-body">
-                            <p class="text-center text-muted">
-                              Connect your PayPal account and use it to pay your bills.
-                              You'll be redirected to PayPal to add your billing
-                              information.
-                            </p>
-                            <p class="text-center">
-                              <a href="#"
-                                ><img
-                                  src="../static/images/misc/btn-paypal.png"
-                                  height="32"
-                              /></a>
-                              <br /><br />
-                            </p>
-                          </div>
-                          <!-- card body .// -->
-                        </div>
-                        <!-- collapse .// -->
-                      </div>
-                      <!-- card.// -->
-                      <div class="card">
-                        <header class="card-header">
-                          <img
-                            src="../static/images/misc/payment-card.png"
-                            class="float-right"
-                            height="24"
-                          />
-                          <label
-                            class="form-check"
-                            data-toggle="collapse"
-                            data-target="#pay_payme"
-                          >
-                            <input
-                              class="form-check-input"
-                              name="payment-option"
-                              type="radio"
-                              value="option2"
-                            />
-                            <h6 class="form-check-label">Razorpay</h6>
-                          </label>
-                        </header>
-                        <div
-                          id="pay_payme"
-                          class="collapse"
-                          data-parent="#accordion_pay"
-                        >
-                          <div class="card-body">
-                            <p class="alert alert-success">
-                              Some information or instruction
-                            </p>
-                            <form class="form-inline">
-                              <input
-                                type="text"
-                                class="form-control mr-2"
-                                placeholder="xxxx-xxxx-xxxx-xxxx"
-                                name=""
-                              />
-                              <input
-                                type="text"
-                                class="form-control mr-2"
-                                style="width: 100px"
-                                placeholder="dd/yy"
-                                name=""
-                              />
-                              <input
-                                type="number"
-                                maxlength="3"
-                                class="form-control mr-2"
-                                style="width: 100px"
-                                placeholder="cvc"
-                                name=""
-                              />
-                              <button class="btn btn btn-success">Button</button>
-                            
-                          </div>
-                          <!-- card body .// -->
-                        </div>
-                        <!-- collapse .// -->
-                      </div>
-                      <!-- card.// -->
-                    </article>
+                    <div class="form-group col-sm-12">
+                      <label for="">Choose Payment method</label>
+                      <select name="payment_option" class="form-control">
+                        <option value="Paypal">Paypal</option>
+                        <option value="Razorpay">Razorpay</option>
+                        
+                      </select>
+
+                    </div>
                     
                     
                   </div>
                   <!-- row.// -->
-                </form>
+                
               </div>
               <!-- card-body.// -->
             </article>
@@ -297,7 +208,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
-                  <form action="#" class="search">
+                  <form action="#" method="post" class="search">
                     <div class="input-group w-100">
                       <input
                         type="text"
@@ -349,15 +260,12 @@
                 </dl>
                 <hr />
                 <p class="text-center mb-3">
-                  <img src="../static/images/misc/payments.png" height="26" />
+                  <img src="{% static 'images/misc/payments.png' %}" height="26" />
                 </p>
-                <a
-                  href="" type="submit"
-                  class="btn btn-primary btn-block"
-                >
-                  Book Now
-                </a>
-              </form>
+                <input value="Book Now" type="submit"class="btn btn-primary btn-block">
+                  
+                
+              
               </div>
               <!-- card-body.// -->
             </div>
@@ -366,6 +274,7 @@
           <!-- col.// -->
         </div>
         <!-- row.// -->
+        </form>
 
         <!-- ============================ COMPONENT 2 END//  ================================= -->
       </div>

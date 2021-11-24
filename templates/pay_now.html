@@ -1,0 +1,211 @@
+
+{% extends 'base.html'%} {% load static%} {% block content%}
+{% load humanize %}
+<style>
+	.btn-primary{
+		background-color: #00B2BD;
+		color: rgb(255, 255, 255);
+	}
+	.btn-primary:hover{
+		background-color: rgb(255, 255, 255);
+		color: #00B2BD;
+	}
+	.btn-light{
+		background-color: rgb(255, 255, 255);
+		color: #00B2BD;
+	}
+	.btn-light:hover{
+		
+		background-color: #000000;
+		color: rgb(255, 255, 255);
+	}
+</style>
+
+
+<section class="section-content padding-y bg">
+<div class="container">
+	
+	
+	
+<!-- ============================ COMPONENT 1 ================================= -->
+<h4 class="text-center mb-10">Review your cart and Make payment</h4>
+<div class="row">
+	<aside class="col-lg-8">
+        <div class="card">
+            <h5 class="card-header">Booking Summary</h5>
+            <div class="card-body">
+              
+                <table class="table table-borderless table-shopping-cart">
+                    <thead class="text-muted">
+                    <tr class="small text-uppercase">
+                      <th scope="col">Vehicle</th>
+                      <th scope="col" width="120">Quantity</th>
+                      <th scope="col" width="120">Booking</th>
+                      <th scope="col" width="120">Price</th>
+                      <th scope="col" class="text-right" width="200"> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for cart_item in cart_items %}
+                    <tr>
+                      <td>
+                        <figure class="itemside align-items-center">
+                          <a href="{% url 'showroom-variant' cart_item.variant.id %}">
+                    
+                            <div class="aside"><img src="{{cart_item.variant.image1.url}}" class="img-sm"></div>
+                            <figcaption class="info">
+                              
+                              <div class="d-flex flex-row">
+                                <div class="">
+                                  <a href="{% url 'showroom-variant' cart_item.variant.id %}" class="title font-weight-bold text-dark">{{cart_item.variant.vehicle_id}}</a>
+                                  
+                                </div>
+                                <div class="ml-4">
+                                  <p  style="width: 45px;height: 20px;background-color: {{cart_item.variant.color}};"></p>
+                                </div>
+                              </div> 
+                              <p> <span  class="font-weight-bold"> Range: </span>{{cart_item.variant.vehicle_id.range}} km <br> <span class="font-weight-bold">Top Speed : </span> {{cart_item.variant.vehicle_id.top_speed}} km/h</p>
+                            </figcaption>
+                          </a>
+                        </figure>
+                      </td>
+                      <td> 
+                        <!-- col.// -->
+                              <div class="col"> 
+                                <div class="input-group input-spinner">
+                                  
+                                  <input type="text" disabled class="form-control p-2"  value="{{cart_item.quantity}}">
+                                  
+                                </div> <!-- input-group.// -->
+                              </div> <!-- col.// -->
+                      </td>
+                      <td> 
+                        <div class="price-wrap"> 
+                          <var class="price">₹{{cart_item.booking_price}}</var>
+                          <small class="text-muted">₹ 999 each </small> 
+                        </div> <!-- price-wrap .// -->
+                      </td>
+                      <td> 
+                        <div class="price-wrap"> 
+                          <var class="price">₹{{cart_item.sub_total | intcomma}}</var> 
+                          <small class="text-muted"> ₹{{cart_item.variant.price | intcomma}} each </small> 
+                        </div> <!-- price-wrap .// -->
+                      </td>
+                    
+                      
+                    </tr>
+                    
+                    {% endfor %}
+                    
+                    </tbody>
+                    </table>
+              </div>
+            
+          </div>
+        <div class="card">
+            <h5 class="card-header">Billing Address</h5>
+            <div class="card-body">
+              
+                <p class="card-text">{{order.full_name | title}} , {{order.mobile}}</p>
+                <p class="card-text">{{order.address_line_1 | title}}</p>
+                <p class="card-text">{{order.address_line_2 | title}}</p>
+                <p class="card-text">{{order.city | title}},{{order.zip_code}} </p>
+                <p class="card-text">{{order.state | title}},{{order.country | title}} </p>
+                <p class="card-text"><b>Landmark :</b>  {{order.landmark | title}}</p>
+                
+              </div>
+            
+          </div>
+          <div class="card">
+            <h5 class="card-header">Payment Method</h5>
+            <div class="card-body">
+                {% if paypal %}
+                <p class="card-text">Paypal</p>
+                {% else %}
+                <p class="card-text">Razorpay</p>
+                {% endif %}
+              
+              
+            </div>
+          </div>
+          
+
+	</aside> <!-- col.// -->
+	<aside class="col-lg-4">
+
+		<div class="card">
+		<div class="card-body">
+			<dl class="dlist-align">
+			  <dt>Total vehicle price:</dt>
+			  <dd class="text-right">₹{{ grand_total | intcomma }}</dd>
+			</dl>
+			<hr>
+			<dl class="dlist-align">
+				<dt>Booking price:</dt>
+				<dd class="text-right">₹{{ booking_price | intcomma }}</dd>
+			  </dl>
+			<dl class="dlist-align">
+			  <dt>Tax(5%):</dt>
+			  <dd class="text-right">₹{{ tax  | intcomma }}</dd>
+			</dl>
+			<dl class="dlist-align">
+			  <dt>Total:</dt>
+			  <dd class="text-right text-dark b"><strong>₹{{ grand_booking_total | intcomma }}</strong></dd>
+			</dl>
+			<hr>
+			<p class="text-center mb-3">
+				<img src="{% static './images/misc/payments.png'%}" height="26">
+			</p>
+            {% if paypal %}
+            <div id="paypal-button-container"></div>
+
+            {% else %}
+			<a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Pay Now </a>
+			{% endif %}
+		</div> <!-- card-body.// -->
+		</div> <!-- card.// -->
+
+</aside> <!-- col.// -->
+
+
+</div> <!-- row.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+</div> <!-- container .//  -->
+</section>
+<script>
+    // Render the PayPal button into #paypal-button-container
+    var amount = {{grand_booking_total_USD}}
+    paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: amount
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Successful capture! For demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}

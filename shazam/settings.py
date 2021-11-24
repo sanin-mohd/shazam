@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'colorfield',
     'django.contrib.humanize',
     'cart',
+    'orders',
+    
     
     
 
