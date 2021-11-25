@@ -191,8 +191,9 @@
     }
     
     // Render the PayPal button into #paypal-button-container
-    var amount = "{{grand_booking_total_USD}}"
-    var url    = "{% url 'update_payment' %}"
+    var amount      = "{{grand_booking_total_USD}}"
+    var url         = "{% url 'update_payment' %}"
+    var redirect_url= "{% url 'booking_reciept' %}"
     const csrftoken = getCookie('csrftoken');
     var orderID = "{{order.order_number}}"
     var payment_option="{{order.payment_option}}"
@@ -230,8 +231,14 @@
 
                         }),
                     })
-                   //   .then(response=>response.json())
-                //      .then(data=>console.log(data));
+                      .then((response)=>response.json())
+                      .then((data)=>{
+
+                        console.log("Success..",data);
+                        console.log("Transaction is completed.")
+                        window.location.href=redirect_url + '?order_number='+data.order_number+'&payment_id='+data.payment_id
+
+                      });
                 }
                
                 // Replace the above to show a success message within this page, e.g.

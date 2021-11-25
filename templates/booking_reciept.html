@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+	.btn-success{
+		background-color: #00B2BD;
+		color: rgb(255, 255, 255);
+	}
+	.btn-success:hover{
+		background-color: rgb(255, 255, 255);
+		color: #00B2BD;
+	}
+	
+</style>
+<div class="container" style="margin-top: 50px;">
+    <center><i class="fas fa-check-circle" style="font-size: 72px;margin-bottom: 20px;color: #00B2BD;"></i></center>
+    <h2 class="text-center">Payment Successful</h2>
+	<br>
+	<div class="text-center">
+		<a href="{% url 'home'%}" class="btn btn-success">Home page</a>
+	</div>
+</div>
+
+<div class="container" style="margin: 0 auto;width: 50%;padding: 50px;background: #f1f1f1;margin-top: 50px;margin-bottom: 50px;">
+    <div class="row invoice row-printable">
+        <div class="col-md-12">
+            <!-- col-lg-12 start here -->
+            <div class="panel panel-default plain" id="dash_0">
+                <!-- Start .panel -->
+                <div class="panel-body p30">
+                    <div class="row">
+                        <!-- Start .row -->
+                        <div class="col-lg-12">
+                            <!-- col-lg-6 start here -->
+                            <div class="invoice-logo">
+                                <div class=" ">
+                                    
+                                    <div class="text-dark"><span style="font-family: 'Mochiy Pop One', sans-serif; font-size:x-large" >SHAZAM</span><small>.com</small></div>
+                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mt-5">
+                            <div class="invoice-details ">
+                                <div class="well">
+                                    <ul class="list-unstyled mb0 text-left">
+                                        <li><strong>Order</strong> {{order.order_number}}</li>
+                                        <li><strong>Transaction</strong> {{payment_id}}</li>
+                                        <li><strong>Order Date:</strong> {{order.created_at}}</li>
+                                        <li><strong>Status:</strong> PAID</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- col-lg-6 end here -->
+                        <div class="col-lg-6">
+                            <!-- col-lg-6 start here -->
+                            <div class="invoice-from">
+                                <ul class="list-unstyled text-right">
+                                    <li><strong>Invoiced To</strong></li>
+                                    <li>{{order.full_name}}</li>
+                                    <li>{{order.address_line_1}}</li>
+                                    <li>{{order.address_line_2}}</li>
+                                    <li>{{order.city}} {{order.zip_code}}</li>
+                                    <li>{{order.state}} {{order.country}}</li>
+                                    <li>{{order.mobile}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- col-lg-6 end here -->
+                        <div class="col-lg-12">
+                            <!-- col-lg-12 start here -->
+                            
+                           
+                            <div class="invoice-items">
+                                <div class="table-responsive" style="overflow: hidden; outline: none;" tabindex="0">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="per40 text-center">Vehicle</th>
+                                                <th class="per40 text-center">Category</th>
+                                                <th class="per40 text-center">Color</th>
+                                                <th class="per40 text-center">Seller</th>
+                                                <th class="per5 text-center">Qty</th>
+                                                <th class="per10 text-center">Pending Amount</th>
+                                                <th class="per25 text-center">Booking Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for order_details in ordered_vehicle_details %}
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex justify-content-between">
+                                                    <div class="">
+                                                        {{order_details.vehicle.vehicle_name}} 
+
+                                                    </div>
+                                                    
+
+                                                </div>
+                                            </td>
+                                                <td class="text-center">{{order_details.vehicle.category}}</td>
+                                                <td class="text-center"><div class="" style="border-radius: 3px;width: 40px;height: 20px;background-color: {{order_details.variant}};">
+
+                                                </div></td>
+                                                <td class="text-center">{{order_details.vehicle.vendor_id}}</td>
+                                                <td class="text-center">{{order_details.quantity}}</td>
+                                                <td class="text-center">₹{{order_details.price}}</td>
+                                                <td class="text-center">₹{{order_details.paid}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="6" class="text-right">Sub Total:</th>
+                                                <th class="text-center">₹{{order.order_total}} INR</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="6" class="text-right">Tax:</th>
+                                                <th class="text-center">₹{{order.tax}}INR</th>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th colspan="6" class="text-right">Grand Total:</th>
+                                                <th class="text-center">₹{{grand_total_paid}} INR</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="invoice-footer mt25">
+                                <p class="text-center">Thank you for shopping with us!</p>
+                            </div>
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- End .row -->
+                </div>
+            </div>
+            <!-- End .panel -->
+        </div>
+        <!-- col-lg-12 end here -->
+    </div>
+    </div>
+{% endblock %}

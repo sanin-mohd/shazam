@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from cart.models import Cart,CartItem
 from orders.send_sms import send_sms
@@ -137,7 +137,7 @@ def update_payment(request):
         ordervehicle.vehicle    =   item.variant.vehicle_id
         ordervehicle.variant    =   item.variant
         ordervehicle.quantity   =   item.quantity
-        ordervehicle.price      =   item.variant.price
+        ordervehicle.price      =   item.variant.price*item.quantity
         ordervehicle.paid       =   item.quantity*999
         ordervehicle.ordered    =   True
         
@@ -169,8 +169,43 @@ def update_payment(request):
 
     # Send order number and payment id back to sendData via JsonResponse
 
+    data={
+        'order_number'   :order.order_number,
+        'payment_id'     :payment.payment_id
+    }
 
-    return redirect('home')
+    return JsonResponse(data)
+
+def booking_reciept(request):
+    order_number   =   request.GET.get('order_number')
+    payment_id     =   request.GET.get('payment_id')
+
+    try:
+        order           =   Order.objects.get(order_number=order_number,is_ordered=True)
+        ordered_vehicle_details=   OrderVehicle.objects.filter(order=order.id)
+        print(ordered_vehicle_details)
+        print("--------------------------")
+        grand_total_paid=order.order_total+order.tax
+
+        context         =   {
+
+            'order':order,
+            'ordered_vehicle_details':ordered_vehicle_details,
+            'payment_id':payment_id,
+            'grand_total_paid':grand_total_paid,
+        }
+
+
+        return render(request,'booking_reciept.html',context)
+    except(Payments.DoesNotExist,Order.DoesNotExist):
+        return redirect('home')
+
+
+
+
+
+    
+
 
 
 
