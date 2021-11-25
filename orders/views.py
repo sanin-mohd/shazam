@@ -1,10 +1,13 @@
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from cart.models import Cart,CartItem
+from orders.send_sms import send_sms
 from .forms import OrderForm
-from .models import Order,OrderVehicle
+from showroom.models import Vehicle,Variant
+from .models import Order,OrderVehicle, Payments
 import datetime
 import PyCurrency_Converter
+import json
 # Create your views here.
 
 def book_now(request):
@@ -39,6 +42,7 @@ def book_now(request):
         tax=.05*booking_price
         grand_booking_price=booking_price+tax 
         grand_booking_total_USD=round(grand_booking_price/75) 
+        pending_amount=grand_total
               
 
         if form.is_valid():
@@ -58,6 +62,7 @@ def book_now(request):
             data.payment_option =   request.POST.get('payment_option')
             data.tax            =   tax
             data.order_total    =   booking_price
+            data.pending_amount =   pending_amount
             data.ip             =   request.META.get('REMOTE_ADDR')
             
             
@@ -96,8 +101,76 @@ def book_now(request):
 
 
 def pay_now(request):
+    
 
     return render(request,'pay_now.html')
+
+def update_payment(request):
+    body=json.loads(request.body)
+    order=Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
+    print(body)
+    
+    #save transaction id inside payment table
+    payment=Payments(
+        user            =   request.user,
+        payment_id      =   body['transID'],
+        payment_method  =   body['payment_option'],
+        amount_paid     =   order.order_total,
+        status          =   body['status'],
+        )
+    payment.save()
+
+    order.payment       =   payment
+    order.is_ordered    =   True
+
+    order.save()
+
+    # Move cart items to bookings table 
+    cart_items=CartItem.objects.filter(user=request.user)
+
+    for item in cart_items:
+        
+        ordervehicle            =   OrderVehicle()
+        ordervehicle.order      =   order
+        ordervehicle.payment    =   payment
+        ordervehicle.user       =   request.user
+        ordervehicle.vehicle    =   item.variant.vehicle_id
+        ordervehicle.variant    =   item.variant
+        ordervehicle.quantity   =   item.quantity
+        ordervehicle.price      =   item.variant.price
+        ordervehicle.paid       =   item.quantity*999
+        ordervehicle.ordered    =   True
+        
+        ordervehicle.save()
+
+        # Reduce the quantity of sold variants
+        variant=Variant.objects.get(id=item.variant.id)
+
+        variant.remaining       -=   item.quantity
+
+        variant.save()
+
+
+    # Clear cart
+    CartItem.objects.filter(user=request.user).delete()
+
+    # Send booking confirmation message to user
+    username    =   str(order.full_name)
+    mobile      =   str(order.mobile)
+    orderID     =   str(body['orderID'])
+    paid        =   str(order.order_total)
+    pending     =   str(order.pending_amount)
+
+
+    print("order confirm message sending")
+    send_sms(username,mobile,orderID,paid,pending)
+    print("order confirm message sent")
+
+
+    # Send order number and payment id back to sendData via JsonResponse
+
+
+    return redirect('home')
 
 
 
