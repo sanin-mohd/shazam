@@ -1,5 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
+
+from orders.models import OrderVehicle
 from . models import Vendor
 from user.models import Account
 from django.contrib import messages, auth
@@ -289,4 +291,24 @@ def delete_variant(request,pk):
 
 def new_booking(request):
     vendor=Vendor.objects.get(email=request.user.email)
-    return render(request,'vendor/new_booking.html',{'vendor':vendor})
+    vendor_orders=OrderVehicle.objects.filter(vendor=vendor.id).order_by('-created_at')
+    context={
+        'vendor':vendor,
+        'vendor_orders':vendor_orders,
+
+        }
+    
+    return render(request,'vendor/new_booking.html',context)
+
+def verify_booking(request,ordervehicle):
+    ordervehicle=OrderVehicle.objects.get(id=ordervehicle)
+    ordervehicle.status='Delivery in Process'
+    ordervehicle.save()
+    return redirect('new_booking')
+
+def change_delivery_status(request,ordervehicle):
+    ordervehicle=OrderVehicle.objects.get(id=ordervehicle)
+    ordervehicle.status='Completed'
+    ordervehicle.save()
+    return redirect('new_booking')
+

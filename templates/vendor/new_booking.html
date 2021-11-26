@@ -1,106 +1,57 @@
 {% extends 'vendor/index.html'%}
 {% load static %}
+{% load humanize %}
 {% block content %}
-<link rel="stylesheet" href="">
-<script src="https://kit.fontawesome.com/766b3aafc5.js"></script>
+<h4 class="text-center mt-5">New Bookings</h4>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Booking ID</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Vehicle</th>
+            <th scope="col">Color</th>
+            <th scope="col">Pending Amount</th>
+            <th scope="col">Status</th>
+            <th scope="col">Change Status</th>
+    
+            
+    
+          </tr>
+        </thead>
+        <tbody>
+            {% for item in vendor_orders %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td><span style="color: cadetblue;">{{item.order.order_number}} </span><br>{{item.get_date}}</td>
+            <td>{{item.order.full_name}} <br>{{item.order.mobile}}</td>
+            <td>{{item.vehicle}} <br>{{item.vehicle.category}}</td>
+            <td><div class="mb-1" style="border-radius: 3px;width: 40px;height: 20px;background-color: {{item.variant}};"></div>{{item.quantity}} Vehicles</td>
+            <td>₹ {{item.price | intcomma}}</td>
+            <td>{{item.status}}</td>
+            {% if item.status == 'Offline verification Pending'%}
+            <td><a href="{% url 'verify_booking' item.id %}" class="btn btn-primary">Verified?</a></td>
+            {% else %} 
+                {% if item.status == 'Delivery in Process'%}
+                <td><a href="{% url 'change_delivery_status' item.id %}" class="btn btn-primary">Delivered?</a></td>
+                {% else %}
+                <td>Delivered<img class="p-2" src="{% static 'admin/verified_white_24dp.svg'%}" alt=""></td>
+
+                {% endif %}
+            {% endif %}
 
 
-<link rel="stylesheet" href="{% static 'vendor/new_booking.scss' %} ">
 
-<div class="container">
-    <h1 class="heading-lv1">Bookings</h1>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
 
-    <div class="table-app" id="product-table-app">
-      <div class="table-handler">
-        <div class="table-handler-dropdown-cell">
-          <div class="dropdown">
-            <h3 class="dropdown-heading">
-              <i class="fas fa-filter"></i> Brand
-            </h3>
-            <select
-              class="select js-handle-table js-filter"
-              id="filter-brand"
-            >
-              <option value="all">All</option>
-            </select>
-          </div>
-        </div>
+</div>
 
-        <div class="table-handler-dropdown-cell">
-          <div class="dropdown">
-            <h3 class="dropdown-heading">
-              <i class="fas fa-filter"></i> Category
-            </h3>
-            <select
-              class="select js-handle-table js-filter"
-              id="filter-category"
-            >
-              <option value="all">All</option>
-            </select>
-          </div>
-        </div>
 
-        <div class="table-handler-dropdown-cell">
-          <div class="dropdown">
-            <h3 class="dropdown-heading">
-              <i class="fas fa-sort-amount-up-alt"></i> Sort by
-            </h3>
-            <select class="select js-handle-table" id="sort-by">
-              <option value="none"> - </option>
-              <option value="price">Price</option>
-              <option value="created_at">Created at</option>
-              <option value="updated_at">Updated at</option>
-            </select>
-          </div>
-        </div>
 
-        <div class="table-handler-dropdown-cell">
-          <!-- TODO: add label and create style -->
-          <input
-            type="checkbox"
-            class="js-handle-table"
-            id="toggle"
-            value="hiding-out-of-stock"
-          />
-          <label for="toggle">Hiding out-of-stock products</label>
-        </div>
-      </div>
-      <!-- /.table-handler -->
 
-      <div class="table-wrapper">
-        <table class="table" id="table">
-          <thead>
-            <tr class="table-head">
-              <th class="table-cell align-right">ID</th>
-              <th class="table-cell align-left">Brand</th>
-              <th class="table-cell align-left">Name</th>
-              <th class="table-cell align-left">Category</th>
-              <th class="table-cell align-right">Price</th>
-              <th class="table-cell align-left">Status</th>
-              <th class="table-cell align-left">Created at</th>
-              <th class="table-cell align-left">Updated at</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <!-- Loop -->
-          </tbody>
-        </table>
-
-        <div class="no-results hidden" id="no-results">
-          <p class="no-results-message">
-            No results found.
-          </p>
-        </div>
-        <!-- /#no-results -->
-      </div>
-      <!-- /.table-wrapper -->
-    </div>
-    <!-- /.table-app -->
-  </div>
-  <!-- /.container -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-  <script src="{% static 'vnedor/new_booking.js'%}"></script>
 {% endblock %}

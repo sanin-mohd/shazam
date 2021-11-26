@@ -1,6 +1,9 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from user.models import Account
 from showroom.models import Variant,Vehicle
+from vendor.models import Vendor
+from datetime import datetime
 # Create your models here.
 
 class Payments(models.Model):
@@ -61,15 +64,31 @@ class OrderVehicle(models.Model):
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     payment=models.ForeignKey(Payments,on_delete=models.SET_NULL,blank=True,null=True)
     user=models.ForeignKey(Account,on_delete=models.CASCADE)
+    vendor=models.ForeignKey(Vendor,on_delete=models.CASCADE,default=None)
     vehicle=models.ForeignKey(Vehicle,on_delete=models.CASCADE)
     variant=models.ForeignKey(Variant,on_delete=models.CASCADE)
     quantity=models.IntegerField(default=0)
     price=models.FloatField(default=0)
     paid=models.FloatField(default=0)
     ordered=models.BooleanField(default=False)
+    status=models.CharField(max_length=100,default='Offline verification Pending')
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
+    def get_date(self):
+        time = datetime.now()
+        if self.created_at.day == time.day:
+            return str(time.hour - self.created_at.hour-5) + " hours ago"
+        else:
+            if self.created_at.month == time.month:
+                return str(time.day - self.created_at.day-0.25) + " days ago"
+            else:
+                if self.created_at.year == time.year:
+                    return str(time.month - self.created_at.month) + " months ago"
+        return self.created_at
+
+
+    
     def __int__(self):
         return self.vehicle
 

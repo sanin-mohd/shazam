@@ -134,6 +134,7 @@ def update_payment(request):
         ordervehicle.order      =   order
         ordervehicle.payment    =   payment
         ordervehicle.user       =   request.user
+        ordervehicle.vendor     =   item.variant.vehicle_id.vendor_id
         ordervehicle.vehicle    =   item.variant.vehicle_id
         ordervehicle.variant    =   item.variant
         ordervehicle.quantity   =   item.quantity
