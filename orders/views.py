@@ -122,7 +122,7 @@ def update_payment(request):
 
     order.payment       =   payment
     order.is_ordered    =   True
-
+    order.status        =   'Offline Verification Stage'
     order.save()
 
     # Move cart items to bookings table 
@@ -201,7 +201,31 @@ def booking_reciept(request):
         return redirect('home')
 
 
+def ordered_details(request):
+    user=request.user
+    orders              =   Order.objects.filter(user=user).order_by('-created_at')[:10]
+    ordered_vehicles    =   OrderVehicle.objects.filter(user=user)
+    context     = {
+        'orders':orders,
+        'ordered_vehicles':ordered_vehicles,
+        
+    }
+    print(ordered_vehicles)
+    return render(request,'user_orders.html',context)
 
+
+def cancel_booking(request,order_number):
+    try:
+        user=request.user
+        booking             =   Order.objects.get(user=user,order_number=order_number)
+        booking.is_ordered  =   False
+        booking.status      =   "Cancelled"
+        booking.save()
+        print("cancel successfully .>>>>>>>>>>>>>>>")
+    except:
+        print("cancel failed .>>>>>>>>>>>>>>>")
+        pass
+    return redirect('ordered_details')
 
 
     

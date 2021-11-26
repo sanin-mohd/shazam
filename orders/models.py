@@ -19,7 +19,7 @@ class Payments(models.Model):
 
 class Order(models.Model):
     STATUS=(
-        ('New','New'),('Accepted','Accepted'),('Completed','Completed'),('Cancelled','Cancelled'),
+        ('Offline Verification Stage','Offline Verification Stage'),('Vehicle Delivered','Vehicle Delivered'),('Offline verification Failed','Offline verification Failed'),('Cancelled','Cancelled'),
     )
     PAYMENTS=(
         ('Paypal','Paypal'),
@@ -45,7 +45,7 @@ class Order(models.Model):
     order_total=models.FloatField(default=1)
     pending_amount=models.IntegerField(null=True,default=0)
     tax=models.FloatField()
-    status=models.CharField(max_length=10,choices=STATUS,default='New')
+    status=models.CharField(max_length=100,default='Booking Payment pending')
     ip=models.CharField(blank=True,max_length=20)
     is_ordered=models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True)
@@ -70,6 +70,6 @@ class OrderVehicle(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.vehicle.vehicle_name
+    def __int__(self):
+        return self.vehicle
 

@@ -16,6 +16,8 @@ urlpatterns = [
     path('edit-variant/<int:pk>',views.edit_variant,name='edit-variant'),
     path('add-variant/<int:pk>',views.add_variant,name='add-variant'),
     path('delete-variant/<int:pk>',views.delete_variant,name='delete-variant'),
+    path('new_booking',views.new_booking,name='new_booking'),
+    
     
     
 

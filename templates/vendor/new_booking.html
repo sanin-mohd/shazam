@@ -1,0 +1,106 @@
+{% extends 'vendor/index.html'%}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="">
+<script src="https://kit.fontawesome.com/766b3aafc5.js"></script>
+
+
+<link rel="stylesheet" href="{% static 'vendor/new_booking.scss' %} ">
+
+<div class="container">
+    <h1 class="heading-lv1">Bookings</h1>
+
+    <div class="table-app" id="product-table-app">
+      <div class="table-handler">
+        <div class="table-handler-dropdown-cell">
+          <div class="dropdown">
+            <h3 class="dropdown-heading">
+              <i class="fas fa-filter"></i> Brand
+            </h3>
+            <select
+              class="select js-handle-table js-filter"
+              id="filter-brand"
+            >
+              <option value="all">All</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-handler-dropdown-cell">
+          <div class="dropdown">
+            <h3 class="dropdown-heading">
+              <i class="fas fa-filter"></i> Category
+            </h3>
+            <select
+              class="select js-handle-table js-filter"
+              id="filter-category"
+            >
+              <option value="all">All</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-handler-dropdown-cell">
+          <div class="dropdown">
+            <h3 class="dropdown-heading">
+              <i class="fas fa-sort-amount-up-alt"></i> Sort by
+            </h3>
+            <select class="select js-handle-table" id="sort-by">
+              <option value="none"> - </option>
+              <option value="price">Price</option>
+              <option value="created_at">Created at</option>
+              <option value="updated_at">Updated at</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-handler-dropdown-cell">
+          <!-- TODO: add label and create style -->
+          <input
+            type="checkbox"
+            class="js-handle-table"
+            id="toggle"
+            value="hiding-out-of-stock"
+          />
+          <label for="toggle">Hiding out-of-stock products</label>
+        </div>
+      </div>
+      <!-- /.table-handler -->
+
+      <div class="table-wrapper">
+        <table class="table" id="table">
+          <thead>
+            <tr class="table-head">
+              <th class="table-cell align-right">ID</th>
+              <th class="table-cell align-left">Brand</th>
+              <th class="table-cell align-left">Name</th>
+              <th class="table-cell align-left">Category</th>
+              <th class="table-cell align-right">Price</th>
+              <th class="table-cell align-left">Status</th>
+              <th class="table-cell align-left">Created at</th>
+              <th class="table-cell align-left">Updated at</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Loop -->
+          </tbody>
+        </table>
+
+        <div class="no-results hidden" id="no-results">
+          <p class="no-results-message">
+            No results found.
+          </p>
+        </div>
+        <!-- /#no-results -->
+      </div>
+      <!-- /.table-wrapper -->
+    </div>
+    <!-- /.table-app -->
+  </div>
+  <!-- /.container -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+  <script src="{% static 'vnedor/new_booking.js'%}"></script>
+{% endblock %}

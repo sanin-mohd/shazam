@@ -1,0 +1,155 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+{% load mathfilters %}
+{% block content%}
+<style>
+    .active{
+        background-color:#00B2BD !important;
+    }
+    .btn-primary{
+        
+        background-color: black;
+    }
+    .btn-primary:hover{
+        background-color:#00B2BD !important;
+        
+    }
+    .btn-success{
+        
+        background-color:#00B2BD ;
+    }
+    .btn-success:hover{
+        
+        background-color: black !important;
+        
+    }
+</style>
+<section class="section-conten padding-y bg">
+
+    <div class="container">
+        <div class="row">
+        <aside class="col-md-3">
+            <!--   SIDEBAR   -->
+            <ul class="list-group" >
+                <a style="color: black !important; font-weight: bold;" class="list-group-item " href="{% url 'user_dashboard' %}"> My Profile </a>
+                <a style="color: rgb(255, 255, 255) !important;" class="list-group-item active" href="{% url 'ordered_details' %}">Recent Bookings</a>
+                <a style="color: black !important;" class="list-group-item" href="#"> Recent Test Drives</a>
+                <a style="color: black !important;" class="list-group-item" href="#"> Vehicles Owned </a>
+                <a style="color: black !important;" class="list-group-item" href="#"> My Addresses </a>
+                <a style="color: black !important;" class="list-group-item" href="#"> Change Password </a>
+            </ul>
+            <br>
+            <a class="btn btn-primary btn-block" href="{% url 'logout'%}"> <i class="fas fa-sign-out-alt"></i> <span class="text">Log out</span> </a> 
+            <!--   SIDEBAR .//END   -->
+        </aside>
+        <main class="col-md-9">
+            {% for order in orders%}
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">Booking ID: {{order.order_number}}</strong>
+                <span>Booking Date: {{order.created_at}}</span>
+                {% if order.status == 'Cancelled'%}
+                {% else %}
+                  <a style="float: right;" onclick="cancelBooking(event)" href="{% url 'cancel_booking' order.order_number %}" class="btn btn-danger">Cancel</a> 
+                  {% endif %}
+                </header>
+            <div class="card-body">
+                <div class="row"> 
+                    <div class="col-md-8">
+                        <h6 class="text-muted">Contact address</h6>
+                        <p>{{order.full_name}} <br>  
+                        Phone +91{{order.mobile}} Email: {{request.user.email}} <br>
+                        Location: {{order.address_line_1}}, {{order.address_line_2}}, {{order.city}}, {{order.state}}, {{order.country}} <br> 
+                        P.O. Box:  {{order.zip_code}}
+                         </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-muted">Payment details</h6>
+                        
+                        <span class="text-success">
+                            <i class="fab fa-lg fa-cc-visa"></i>
+                            Paypal 
+                        </span>
+
+                       
+                        <p>Subtotal: {{order.order_total}} <br>
+                         Tax:  {{order.tax}} <br> 
+                         <span class="b">Total: {{ order.order_total|add:order.tax }} </span>
+                        </p>
+                    </div>
+                </div> 
+            </div> 
+            <div class="table-responsive">
+            <table class="table table-hover">
+                {% for vehicle in ordered_vehicles %}
+                {% if vehicle.order == order %}
+           
+                <tr>
+                    <td width="65">
+                        <img src="{{vehicle.variant.image1.url}}" class="img-xs border">
+                    </td>
+                    <td> 
+                        <div class="d-flex justify-content-between">
+                            <div class="">
+                                <p class="title mb-0">{{vehicle.vehicle}}</p>
+                            </div>
+                            <div class="" style="height: 20px;width: 40px;background-color: {{vehicle.variant}};border-radius: 3px;">
+
+                            </div>
+                        </div>
+                         
+                        <var class="price text-muted">{{vehicle.vehicle.category}}</var>
+                    </td>
+                    <td> 
+                        <p class="title mb-0">Booked {{vehicle.quantity}} </p>
+                        <var class="price text-muted text-center">vehicles</var>
+                    </td>
+                    <td> 
+                        <p class="title mb-0">Pending Amount </p>
+                        <var class="price text-muted">₹ {{vehicle.price | intcomma}}</var>
+                    </td>
+                    <td> Seller <br> {{vehicle.vehicle.vendor_id}} </td>
+                    <td ><strong style="color: #00B2BD;">STATUS</strong>  <br> <strong>{{order.status}} </strong></td>
+                    
+                </tr>
+                {% endif %}
+                {% endfor %}
+               
+                
+            </table>
+            </div> <!-- table-responsive .end// -->
+            </article> <!-- order-group.// --> 
+            {% endfor %}
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function cancelBooking(ev) {
+            ev.preventDefault();
+            var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+            console.log(urlToRedirect); // verify if this is the right URL
+            swal({
+              title: "Are you sure?",
+              text: "Once cancelled, you will not be able to recover this booking",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              // redirect with javascript here as per your logic after showing the alert using the urlToRedirect value
+              if (willDelete) {
+                swal("Poof! Your Booking has been cancelled!", {
+                  icon: "success",
+                });
+              } else {
+                swal("Your Booking is still valid..");
+              }
+            });
+            }
+    </script>
+{% endblock%}

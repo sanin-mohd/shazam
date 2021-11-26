@@ -286,3 +286,7 @@ def delete_variant(request,pk):
     except:
         messages.info("Somthing went wrong")
         return redirect('edit-variant',pk)
+
+def new_booking(request):
+    vendor=Vendor.objects.get(email=request.user.email)
+    return render(request,'vendor/new_booking.html',{'vendor':vendor})
