@@ -8,7 +8,9 @@
     }
     
 </style>
+
 <div class="bg-danger pt-10 pb-21"></div>
+
 <div class="container-fluid mt-n22 px-6">
   <div class="row">
    
@@ -21,7 +23,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Projects</h4>
+              <h4 class="mb-0">Total Bookings</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -30,8 +32,8 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">18</h1>
-            <p class="mb-0"><span class="text-dark me-2">2</span>Completed</p>
+            <h1 class="fw-bold">{{total_booking}}</h1>
+            <!-- <p class="mb-0"><span class="text-dark me-2">2</span>Completed</p> -->
           </div>
         </div>
       </div>
@@ -45,7 +47,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Active Task</h4>
+              <h4 class="mb-0">Completed</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -54,8 +56,8 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">132</h1>
-            <p class="mb-0"><span class="text-dark me-2">28</span>Completed</p>
+            <h1 class="fw-bold">{{completed}}</h1>
+            <!-- <p class="mb-0"><span class="text-dark me-2">28</span>Cancelled</p> -->
           </div>
         </div>
       </div>
@@ -69,7 +71,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Teams</h4>
+              <h4 class="mb-0">Pending</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -78,8 +80,8 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">12</h1>
-            <p class="mb-0"><span class="text-dark me-2">1</span>Completed</p>
+            <h1 class="fw-bold">{{pending}}</h1>
+            <!-- <p class="mb-0"><span class="text-dark me-2">1</span>Completed</p> -->
           </div>
         </div>
       </div>
@@ -94,7 +96,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Productivity</h4>
+              <h4 class="mb-0">Cancelled</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -103,8 +105,8 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">76%</h1>
-            <p class="mb-0"><span class="text-success me-2">5%</span>Completed</p>
+            <h1 class="fw-bold">{{cancelled}}</h1>
+            <!-- <p class="mb-0"><span class="text-success me-2">5%</span>Completed</p> -->
           </div>
         </div>
       </div>

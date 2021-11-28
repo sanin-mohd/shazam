@@ -12,7 +12,7 @@
             <th scope="col">Contact</th>
             <th scope="col">Vehicle</th>
             <th scope="col">Color</th>
-            <th scope="col">Pending Amount</th>
+            <th scope="col">Total Price</th>
             <th scope="col">Status</th>
             <th scope="col">Change Status</th>
     
@@ -29,16 +29,22 @@
             <td>{{item.vehicle}} <br>{{item.vehicle.category}}</td>
             <td><div class="mb-1" style="border-radius: 3px;width: 40px;height: 20px;background-color: {{item.variant}};"></div>{{item.quantity}} Vehicles</td>
             <td>₹ {{item.price | intcomma}}</td>
+            {% if item.order.status == "Cancelled" %}
+            <td>{{item.order.status}}</td>
+            <td>{{item.order.status}}</td>
+
+            {% else %}
             <td>{{item.status}}</td>
             {% if item.status == 'Offline verification Pending'%}
-            <td><a href="{% url 'verify_booking' item.id %}" class="btn btn-primary">Verified?</a></td>
+            <td><a onclick="verify(event)" href="{% url 'verify_booking' item.id %}" class="btn btn-primary">Verified?</a></td>
             {% else %} 
                 {% if item.status == 'Delivery in Process'%}
-                <td><a href="{% url 'change_delivery_status' item.id %}" class="btn btn-primary">Delivered?</a></td>
+                <td><a onclick="delivered(event)" href="{% url 'change_delivery_status' item.id %}" class="btn btn-primary">Delivered?</a></td>
                 {% else %}
                 <td>Delivered<img class="p-2" src="{% static 'admin/verified_white_24dp.svg'%}" alt=""></td>
 
                 {% endif %}
+            {% endif %}
             {% endif %}
 
 
@@ -52,6 +58,54 @@
 </div>
 
 
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function verify(ev) {
+            ev.preventDefault();
+            var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+            console.log(urlToRedirect); // verify if this is the right URL
+            swal({
+              title: "Are you sure?",
+              text: "",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              // redirect with javascript here as per your logic after showing the alert using the urlToRedirect value
+              if (willDelete) {
+                swal("Poof! verified successfully!", {
+                  icon: "success",
+                });
+                window.location.href = urlToRedirect;
+              } else {
+                swal("Not verified....");
+              }
+            });
+            }
+            function delivered(ev) {
+              ev.preventDefault();
+              var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+              console.log(urlToRedirect); // verify if this is the right URL
+              swal({
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                // redirect with javascript here as per your logic after showing the alert using the urlToRedirect value
+                if (willDelete) {
+                  swal("Poof! Status updated successfully!", {
+                    icon: "success",
+                  });
+                  window.location.href = urlToRedirect;
+                } else {
+                  swal("Status not changed");
+                }
+              });
+              }
+    </script>
 
 {% endblock %}

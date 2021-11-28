@@ -122,7 +122,7 @@ def update_payment(request):
 
     order.payment       =   payment
     order.is_ordered    =   True
-    order.status        =   'Offline Verification Stage'
+    order.status        =   'New'
     order.save()
 
     # Move cart items to bookings table 
@@ -222,6 +222,12 @@ def cancel_booking(request,order_number):
         booking.is_ordered  =   False
         booking.status      =   "Cancelled"
         booking.save()
+        ordervehicles       =   OrderVehicle.objects.filter(user=user,order=booking)
+
+        for ordervehicle in ordervehicles:
+            ordervehicle.status = "Cancelled"
+            ordervehicle.save()
+
         print("cancel successfully .>>>>>>>>>>>>>>>")
     except:
         print("cancel failed .>>>>>>>>>>>>>>>")

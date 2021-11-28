@@ -29,5 +29,8 @@ urlpatterns = [
 
     #orders
     path('orders/',include('orders.urls')),
+    #banners
+    path('banners/',include('banners.urls')),
+    
     
 ]+ static(settings.MEDIA_URL,document_root=MEDIA_ROOT)

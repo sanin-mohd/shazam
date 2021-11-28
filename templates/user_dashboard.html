@@ -3,6 +3,9 @@
 
 {% block content%}
 <style>
+    .bg-primary{
+        background-color:#00B2BD !important;
+    }
     .active{
         background-color:#00B2BD !important;
     }
@@ -15,6 +18,7 @@
         
     }
 </style>
+<link rel="stylesheet" href="{% static 'css/user_dashboard.css'%}">
 
 <section class="section-conten padding-y bg">
 
@@ -23,18 +27,119 @@
         <aside class="col-md-3">
             <!--   SIDEBAR   -->
             <ul class="list-group" >
-                <a style="color: rgb(255, 255, 255) !important; font-weight: bold;" class="list-group-item active" href="#"> My Profile </a>
+                <a style="color: rgb(255, 255, 255) !important; font-weight: bold;" class="list-group-item active" href="{% url 'user_dashboard' %}"> My Profile </a>
                 <a style="color: black !important;" class="list-group-item" href="{% url 'ordered_details' %}">Recent Bookings</a>
                 <a style="color: black !important;" class="list-group-item" href="#"> Recent Test Drives</a>
-                <a style="color: black !important;" class="list-group-item" href="#"> Vehicles Owned </a>
                 <a style="color: black !important;" class="list-group-item" href="#"> My Addresses </a>
-                <a style="color: black !important;" class="list-group-item" href="#"> Change Password </a>
+                <a style="color: black !important;" class="list-group-item" href="{% url 'password_otp'%}"> Change Password </a>
             </ul>
             <br>
             <a class="btn btn-primary btn-block" href="{% url 'logout'%}"> <i class="fas fa-sign-out-alt"></i> <span class="text">Log out</span> </a> 
             <!--   SIDEBAR .//END   -->
         </aside>
         <main class="col-md-9">
+            <div class="container">
+              {% include 'includes/alerts.html' %}
+                <div class="">
+                
+                      <!-- Breadcrumb -->
+                      
+                      <!-- /Breadcrumb -->
+                
+                      <div class="row gutters-sm">
+                        <div class="col-md-4 mb-3">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="d-flex flex-column align-items-center text-center">
+                                  {% if user.dp.url is not None %}
+                                  <img src="{{user.dp.url}}" alt="Admin" class="rounded-circle" width="150">
+                                  {% else %}
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                {% endif %}
+                                <div class="mt-3">
+                                  <h4>{{user.first_name}}_{{user.last_name}}</h4>
+                                  <p class="text-secondary mb-1">Total Bookings : {{order_count}}</p>
+                                  <p class="text-muted font-size-sm">Cancelled Bookings : {{cancelled_order_count}}</p>
+                                  
+                                  <h6 class="text-center">{{customer_rating}}/5</h6>
+                                  <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="{{customer_rating}}" aria-valuemin="0" aria-valuemax="5"></div>
+                                    
+                                  </div>
+                                  <p>Customer Rating </p>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                      <h6 class="mb-0">Full Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                      {{user.first_name}} {{user.last_name}}
+                                    </div>
+                                  </div>
+                                  <hr>
+
+                              
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                  {{user.email}}
+                                </div>
+                              </div>
+                              <hr>
+                             
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Mobile</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                  +91{{user.mobile}}
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Gender</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                  {{user.gender}}
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Joined</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                  {{user.get_date}} 
+                                </div>
+                              </div>
+                             
+
+                             
+                            </div>
+                          </div>
+            
+                         
+                          </div>
+            
+            
+            
+                        </div>
+                      </div>
+            
+                    </div>
+                </div>
           
             
         </main>

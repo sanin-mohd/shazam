@@ -18,27 +18,50 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from cart.models import Cart
-
+from banners.models import Banner
 from user.forms import RegistrationForm
 from user.models import Account
 from django.contrib.auth.decorators import login_required
-
+from orders.models import Order
 from send_code import send_code
 from check_code import check_code
 # Create your views here.
 
 @login_required(login_url='login')
 def user_dashboard(request):
-    return render(request, 'user_dashboard.html')
+    user=Account.objects.get(email=request.user)
+    order_count=Order.objects.filter(user=request.user).count()
+    
+    cancelled_order_count=Order.objects.filter(user=request.user,status='Cancelled').count()
+    import decimal
+
+    decimal.getcontext().prec = 2
+
+    
+    customer_rating=decimal.Decimal(order_count-cancelled_order_count)/decimal.Decimal(order_count)
+    customer_rating=customer_rating*5
+    context={
+        'user': user,
+        'order_count':order_count,
+        'cancelled_order_count':cancelled_order_count,
+        'customer_rating':customer_rating,
+    }
+    return render(request, 'user_dashboard.html',context)
 def home(request):
     # if request.user.is_staff or not request.user.is_active:
     #     auth.logout(request)
+    banners=Banner.objects.all()
     categories = Category.objects.all()
     vehicles = Vehicle.objects.filter(is_available=True).order_by('-created_date')
     paginator=Paginator(vehicles,8)
     page=request.GET.get('page')
     paged_vehicles=paginator.get_page(page)
-    return render(request, 'index.html', {'categories': categories, 'vehicles': paged_vehicles})
+    context={
+        'categories': categories,
+         'vehicles': paged_vehicles,
+         'banners':banners,
+    }
+    return render(request, 'index.html', context)
 
 
 def login(request):
@@ -315,7 +338,31 @@ def search(request):
         }
         return render(request,'store.html',context)
         
-        
+def password_otp(request):
+    if request.method=="POST":
+        otp=request.POST['otp']
+        if check_code(request.user.mobile,otp):
+            return redirect('new_password')
+        else:
+            redirect('user_dashboard')
+    send_code(request.user.mobile)
+    return render(request,'password_otp.html')  
+def new_password(request):
+    if request.method == "POST":
+        password       =    request.POST['password']
+        cpassword      =    request.POST['confirm_password']
+        if password == cpassword:
+            user=Account.objects.get(id=request.user.id)
+            user.set_password(password)
+            user.save()
+            auth.login(request, user)
+            messages.success(request,"Password Changed successfully..")
+            print("password changed >>>>>>>>>>>>>>>")
+            return redirect('user_dashboard')
+        else:
+            messages.error(request,"Password not matching... Try again")
+            return redirect('new_password')
+    return render(request,'new_password.html')    
 # def reset_password_link(request):
 #     if request.method=="POST":
 #         email=request.POST['email']

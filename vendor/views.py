@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 
-from orders.models import OrderVehicle
+from orders.models import Order, OrderVehicle
 from . models import Vendor
 from user.models import Account
 from django.contrib import messages, auth
@@ -20,7 +20,19 @@ def vendor_dashboard(request):
             vendor = Vendor.objects.get(email=request.user)
             request.session['mobile'] = vendor.mobile
             print('mobile-verified:'+str(vendor.is_mobile_verified))
-            return render(request, 'vendor/index.html', {'vendor': vendor})
+            booking         =   OrderVehicle.objects.filter(vendor=vendor)
+            completed       =   OrderVehicle.objects.filter(vendor=vendor,status='Completed').count()
+            total_booking   =   booking.count()
+            pending         =   OrderVehicle.objects.filter(vendor=vendor,status ='Offline verification Pending' or 'Delivery in Process').count()
+            cancelled       =   OrderVehicle.objects.filter(vendor=vendor,status='Cancelled').count()
+            context={
+                'vendor':vendor,
+                'total_booking':total_booking,
+                'completed':completed,
+                'pending':pending,
+                'cancelled':cancelled,
+            }
+            return render(request, 'vendor/dashboard.html', context)
         else:
             auth.logout(request)
             return redirect('home')
@@ -303,6 +315,10 @@ def new_booking(request):
 def verify_booking(request,ordervehicle):
     ordervehicle=OrderVehicle.objects.get(id=ordervehicle)
     ordervehicle.status='Delivery in Process'
+    order=Order.objects.get(id=ordervehicle.order.id)
+    order.status="Delivery in Process"
+    order.save()
+    print(ordervehicle.status)
     ordervehicle.save()
     return redirect('new_booking')
 

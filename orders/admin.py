@@ -12,7 +12,7 @@ class OrderAdmin(admin.ModelAdmin):
     inlines         =   [OrderVehicleInline]
 
 class OrderVehicleAdmin(admin.ModelAdmin):
-    list_display    =   ['order','payment','user','variant','price','paid']
+    list_display    =   ['order','payment','user','variant','price','paid','status']
     search_fields   =   ['order','user','payment']
     list_per_page   =   20
 

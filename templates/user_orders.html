@@ -32,12 +32,11 @@
         <aside class="col-md-3">
             <!--   SIDEBAR   -->
             <ul class="list-group" >
-                <a style="color: black !important; font-weight: bold;" class="list-group-item " href="{% url 'user_dashboard' %}"> My Profile </a>
-                <a style="color: rgb(255, 255, 255) !important;" class="list-group-item active" href="{% url 'ordered_details' %}">Recent Bookings</a>
+                <a style="color: black !important; " class="list-group-item " href="{% url 'user_dashboard' %}"> My Profile </a>
+                <a style="color: rgb(255, 255, 255) !important;font-weight: bold;" class="list-group-item active" href="{% url 'ordered_details' %}">Recent Bookings</a>
                 <a style="color: black !important;" class="list-group-item" href="#"> Recent Test Drives</a>
-                <a style="color: black !important;" class="list-group-item" href="#"> Vehicles Owned </a>
-                <a style="color: black !important;" class="list-group-item" href="#"> My Addresses </a>
-                <a style="color: black !important;" class="list-group-item" href="#"> Change Password </a>
+               <a style="color: black !important;" class="list-group-item" href="#"> My Addresses </a>
+                <a style="color: black !important;" class="list-group-item" href="{% url 'password_otp'%}"> Change Password </a>
             </ul>
             <br>
             <a class="btn btn-primary btn-block" href="{% url 'logout'%}"> <i class="fas fa-sign-out-alt"></i> <span class="text">Log out</span> </a> 
@@ -49,10 +48,14 @@
             <header class="card-header">
                 <strong class="d-inline-block mr-3">Booking ID: {{order.order_number}}</strong>
                 <span>Booking Date: {{order.created_at}}</span>
-                {% if order.status == 'Cancelled'%}
+                
+                
+                {% if order.status != 'New' %}
+                  
                 {% else %}
-                  <a style="float: right;" onclick="cancelBooking(event)" href="{% url 'cancel_booking' order.order_number %}" class="btn btn-danger">Cancel</a> 
-                  {% endif %}
+                <a style="float: right;" onclick="cancelBooking(event)" href="{% url 'cancel_booking' order.order_number %}" class="btn btn-danger">Cancel</a> 
+                
+                {% endif %}
                 </header>
             <div class="card-body">
                 <div class="row"> 
@@ -110,7 +113,15 @@
                         <var class="price text-muted">₹ {{vehicle.price | intcomma}}</var>
                     </td>
                     <td> Seller <br> {{vehicle.vehicle.vendor_id}} </td>
-                    <td ><strong style="color: #00B2BD;">STATUS</strong>  <br> <strong>{{order.status}} </strong></td>
+                    <td >
+                        <strong style="color: #00B2BD;">STATUS</strong>  <br> <strong>
+                            {% if vehicle.order.status == "Cancelled" %}
+            
+                            {{vehicle.order.status}} 
+
+                            {% else %}
+                            {{vehicle.status}} </strong></td>
+                            {% endif %}
                     
                 </tr>
                 {% endif %}
@@ -132,7 +143,7 @@
         function cancelBooking(ev) {
             ev.preventDefault();
             var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
-            console.log(urlToRedirect); // verify if this is the right URL
+            
             swal({
               title: "Are you sure?",
               text: "Once cancelled, you will not be able to recover this booking",
@@ -146,10 +157,14 @@
                 swal("Poof! Your Booking has been cancelled!", {
                   icon: "success",
                 });
+                window.location.href = urlToRedirect;
               } else {
                 swal("Your Booking is still valid..");
               }
             });
+            console.log(urlToRedirect); // verify if this is the right URL
+            console.log("-----------------------")
+            
             }
     </script>
 {% endblock%}

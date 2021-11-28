@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.base import Model
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from datetime import datetime
 # Create your models here.
 GENDER_CHOICES = (
         ('Male', 'Male'),
@@ -87,6 +88,18 @@ class Account(AbstractBaseUser):
     REQUIRED_FIELDS =['first_name', 'last_name', 'gender', 'mobile']
     
     objects=MyAccountManager()
+
+    def get_date(self):
+        time = datetime.now()
+        if self.date_joined.day == time.day:
+            return str(time.hour - self.date_joined.hour) + " hours ago"
+        else:
+            if self.date_joined.month == time.month:
+                return str(time.day - self.date_joined.day) + " days ago"
+            else:
+                if self.date_joined.year == time.year:
+                    return str(time.month - self.date_joined.month) + " months ago"
+        return self.date_joined
 
     def __str__(self):
         return self.email
