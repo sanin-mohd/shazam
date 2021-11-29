@@ -1,11 +1,13 @@
 from django.db import models
 from datetime import datetime
+from showroom.models import Variant, Vehicle
 
 from vendor.models import Vendor
 # Create your models here.
 class Banner(models.Model):
     vendor      =   models.ForeignKey(Vendor,on_delete=models.CASCADE)
     name        =   models.CharField(max_length=250)
+    vehicle     =   models.ForeignKey(Vehicle,on_delete=models.CASCADE,null=True)
     poster      =   models.ImageField(upload_to='photos/banners/',blank=True)
     status      =   models.CharField(max_length=20,default='Active')
 

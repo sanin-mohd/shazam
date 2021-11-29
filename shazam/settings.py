@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'orders',
     'mathfilters',
     'banners',
-    
+    'offers',
     
     
 

@@ -32,12 +32,16 @@
         </div>
         {% for banner in banners %}
         <div class="carousel-item">
-          <img
+          <a href="{% url 'showroom' banner.vehicle.id %}">
+            <img
             class="d-block w-100"
             src="{{banner.poster.url}}"
             style="height: 230px;width: 700px;"
             alt="Third slide"
           />
+
+          </a>
+          
         </div>
         {% endfor %}
       </div>

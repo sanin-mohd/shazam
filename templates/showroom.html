@@ -45,6 +45,13 @@
 		<h6>{{vehicle.range}} km</h6>
 
 	</div>
+	{% if vehicle.vehicleoffer.is_active %}
+	<div class="">
+		<h5>OFFER by seller</h5>
+		<h6>{{vehicle.vehicleoffer.discount}}% discount</h6>
+
+	</div>
+	{% endif %}
 	
 	
 </div>

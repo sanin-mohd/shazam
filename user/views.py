@@ -39,12 +39,15 @@ def user_dashboard(request):
 
     
     customer_rating=decimal.Decimal(order_count-cancelled_order_count)/decimal.Decimal(order_count)
+    customer_rating_percent = customer_rating*100
     customer_rating=customer_rating*5
+    
     context={
         'user': user,
         'order_count':order_count,
         'cancelled_order_count':cancelled_order_count,
         'customer_rating':customer_rating,
+        'customer_rating_percent':customer_rating_percent,
     }
     return render(request, 'user_dashboard.html',context)
 def home(request):

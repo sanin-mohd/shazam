@@ -87,8 +87,8 @@
                       </td>
                       <td> 
                         <div class="price-wrap"> 
-                          <var class="price">₹{{cart_item.sub_total | intcomma}}</var> 
-                          <small class="text-muted"> ₹{{cart_item.variant.price | intcomma}} each </small> 
+                          <var class="price">₹{{cart_item.sub_total |floatformat:0| intcomma}}</var> 
+                          <small class="text-muted"> ₹{{cart_item.variant.price |floatformat:0| intcomma}} each </small> 
                         </div> <!-- price-wrap .// -->
                       </td>
                     
@@ -137,20 +137,20 @@
 		<div class="card-body">
 			<dl class="dlist-align">
 			  <dt>Total vehicle price:</dt>
-			  <dd class="text-right">₹{{ grand_total | intcomma }}</dd>
+			  <dd class="text-right">₹{{ grand_total |floatformat:0  | intcomma }}</dd>
 			</dl>
 			<hr>
 			<dl class="dlist-align">
 				<dt>Booking price:</dt>
-				<dd class="text-right">₹{{ booking_price | intcomma }}</dd>
+				<dd class="text-right">₹{{ booking_price |floatformat:0 | intcomma }}</dd>
 			  </dl>
 			<dl class="dlist-align">
 			  <dt>Tax(5%):</dt>
-			  <dd class="text-right">₹{{ tax  | intcomma }}</dd>
+			  <dd class="text-right">₹{{ tax  |floatformat:0 | intcomma }}</dd>
 			</dl>
 			<dl class="dlist-align">
 			  <dt>Total:</dt>
-			  <dd class="text-right text-dark b"><strong>₹{{ grand_booking_total | intcomma }}</strong></dd>
+			  <dd class="text-right text-dark b"><strong>₹{{ grand_booking_total |floatformat:0 | intcomma }}</strong></dd>
 			</dl>
 			<hr>
 			<p class="text-center mb-3">
@@ -160,7 +160,7 @@
             <div id="paypal-button-container"></div>
 
             {% else %}
-			<a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Pay Now </a>
+			<!-- <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Pay Now </a> -->
 			{% endif %}
 		</div> <!-- card-body.// -->
 		</div> <!-- card.// -->

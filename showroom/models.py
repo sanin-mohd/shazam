@@ -18,7 +18,7 @@ class Vehicle(models.Model):
     category        =models.ForeignKey(Category,on_delete=models.CASCADE)
     gif             =models.URLField(max_length=200,default=None)
     no_of_seats     =models.IntegerField(default=5)
-
+    #no need to mention foreignkey of offer since offer tabel has OneToOne field to vehicle 
     created_date    =models.DateTimeField(auto_now_add=True)
     modified_date   =models.DateTimeField(auto_now_add=True)
     is_available    =models.BooleanField(default=True)
@@ -27,7 +27,6 @@ class Vehicle(models.Model):
         return self.vehicle_name
     class Meta:
         ordering = ('created_date',)
-
 
 class Variant(models.Model):
     vehicle_id      =models.ForeignKey(Vehicle,on_delete=models.CASCADE)
@@ -40,6 +39,16 @@ class Variant(models.Model):
     price           =models.IntegerField()
     remaining       =models.IntegerField()
     is_available    =models.BooleanField(default=True)
-    def __str__(self):
-        return self.color
+    
+    def get_price(self):
+        try:
+            if self.vehicle_id.vehicleoffer.is_active:
+                offer_price = (self.price / 100) * self.vehicle_id.vehicleoffer.discount
+                discounted_price = self.price - offer_price
+                return discounted_price
+            raise
+        except:
+            pass
+            return self.price
+
 

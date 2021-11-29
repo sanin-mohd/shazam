@@ -30,7 +30,14 @@ def book_now(request):
         tax=0
         
         for cart_item in cart_items:
-            grand_total += (cart_item.variant.price*cart_item.quantity)
+            if cart_item.variant.vehicle_id.vehicleoffer.is_active:
+                print(cart_item.variant.get_price())
+                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                grand_total=grand_total+(cart_item.variant.get_price())*(cart_item.quantity)
+                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                
+            else:
+                grand_total=grand_total+cart_item.variant.price*cart_item.quantity
             booking_price += (999*cart_item.quantity)
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
             print(cart_item.variant.price)
@@ -138,8 +145,9 @@ def update_payment(request):
         ordervehicle.vehicle    =   item.variant.vehicle_id
         ordervehicle.variant    =   item.variant
         ordervehicle.quantity   =   item.quantity
-        ordervehicle.price      =   item.variant.price*item.quantity
+        ordervehicle.price      =   item.variant.get_price()*item.quantity
         ordervehicle.paid       =   item.quantity*999
+        
         ordervehicle.ordered    =   True
         
         ordervehicle.save()

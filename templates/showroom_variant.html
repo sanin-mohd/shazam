@@ -47,7 +47,13 @@
 	</div>
     <div class="">
 		<h5>RRICE</h5>
-		<h6>₹ {{variant.price | intcomma}} </h6>
+		{% if variant.vehicle_id.vehicleoffer.is_active %}
+            <h6>₹ {{variant.get_price |floatformat:0|intcomma }}</h6>
+            <span style="font-size: x-small;">₹ <strike> {{variant.price | intcomma }}</strike> {{variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}% off</span>
+            
+            {% else %}
+            <h6>₹ {{variant.price | intcomma }}</h6>
+            {% endif %}
 
 	</div>
     <div class="">

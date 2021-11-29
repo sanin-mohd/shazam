@@ -22,7 +22,7 @@ class CartItem(models.Model):
     is_active=models.BooleanField(default=True)
 
     def sub_total(self):
-        return self.variant.price*self.quantity
+        return self.variant.get_price()*self.quantity
     def booking_price(self):
         return self.quantity*999
 

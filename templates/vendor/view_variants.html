@@ -31,7 +31,14 @@
     </label>
     </span></label>
             
+            
+            {% if variant.vehicle_id.vehicleoffer.is_active %}
+            <p>Price :₹ {{variant.get_price |floatformat:0|intcomma }}</p>
+            <span> Price :₹ <strike> {{variant.price | intcomma }}</strike></span>
+            <p>Offer :{{variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}%</p>
+            {% else %}
             <p>Price :₹ {{variant.price | intcomma }}</p>
+            {% endif %}
             <p>Stocks: {{variant.remaining}}</p>
             <p></h4>
 			

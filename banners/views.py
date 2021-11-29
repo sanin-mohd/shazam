@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from showroom.models import Vehicle
 from vendor.models import Vendor
 from .models import Banner
 # Create your views here.
@@ -14,15 +15,20 @@ def banners_table(request):
     return render(request,'vendor/banners.html',context)
 def add_banner(request):
     vendor=Vendor.objects.get(email=request.user)
+    vehicles=Vehicle.objects.filter(vendor_id=vendor)
     context={
         'vendor':vendor,
+        'vehicles':vehicles,
     }
     if request.method=="POST":
         
         name     =   request.POST['name']
         poster   =   request.FILES.get('poster')
+        vehicle_id  =   request.POST['vehicle']
+        vehicle  =   Vehicle.objects.get(id=vehicle_id)
+
         
-        Banner.objects.create(vendor=vendor,name=name,poster=poster)
+        Banner.objects.create(vendor=vendor,name=name,poster=poster,vehicle=vehicle)
         return redirect('banners_table')
         
     return render(request,'vendor/add_banner.html',context)

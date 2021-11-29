@@ -116,7 +116,15 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
         
         print("cart line 2 working...")
         for cart_item in cart_items:
-            total_price=total_price+cart_item.variant.price*cart_item.quantity
+            
+            if cart_item.variant.vehicle_id.vehicleoffer.is_active:
+                print(cart_item.variant.get_price())
+                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                total_price=total_price+(cart_item.variant.get_price())*(cart_item.quantity)
+                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                
+            else:
+                total_price=total_price+cart_item.variant.price*cart_item.quantity
             total_quantity=total_quantity+cart_item.quantity
             booking_price=booking_price+999*cart_item.quantity
         total_tax=booking_price*0.05
