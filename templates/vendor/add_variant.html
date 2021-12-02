@@ -13,10 +13,39 @@
  <link rel="stylesheet" href="{% static 'vendor/image_upload.css'%}">
 <link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
 <div id="form-main ">
   <div id="form-div">
-    <form method="post" action="{% url 'add-variant' vehicle.id %}" enctype="multipart/form-data" class="form" id="form1">
+    <form action="{% url 'add-variant' vehicle.id %}"  enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Color</label>
+        <input type="color" name="color" value="#1DB8CE" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Price</label>
+        <input name="price" type="number" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">No of Stocks</label>
+        <input name="remaining" type="number" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Image1</label>
+        <input name="image1" type="file" class="form-control" accept="image/*" id="id_images_one">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Image2</label>
+        <input name="image2" type="file" class="form-control" accept="image/*" id="id_images_two">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Image3</label>
+        <input name="image3" type="file" class="form-control" accept="image/*" id="id_images_three">
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- <form method="post" action="{% url 'add-variant' vehicle.id %}" enctype="multipart/form-data" class="form" id="form1">
         {% csrf_token %}
       
       <p class="name">
@@ -44,37 +73,130 @@
           <button class="btn btn-outline-info" id="crop-btn" style="width: 100%; margin-top: 10px; display: none;" type="button">Crop</button>
     
           <p><img id="output1" width="200"  /></p>
-        <input name="image1" type="file" id="id_image" accept="image/*" onchange="loadFile1(event)" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+        <input name="image1" type="file" id="id_image" accept="image/*"  class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="id_images_one" />
       </p>
       
       <p class="name">
         <label for="">Image 2</label>
         <p><img id="output2" width="200"/></p>
-        <input name="image2" type="file" accept="image/*" onchange="loadFile2(event)" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+        <input name="image2" type="file" accept="image/*"  class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="id_images_two" />
       </p>
       <p class="name">
         <label for="">Image 3</label>
         <p><img id="output3" width="200"/></p>
-        <input name="image3" type="file" accept="image/*" onchange="loadFile3(event)" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+        <input name="image3" type="file" accept="image/*"  class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="id_images_three" />
       </p>
     
       
-      <div class="submit">
-        <input type="submit" value="Save" id="button-blue"/>
-        <div class="ease"></div>
-      </div>
+      
+      <div class="form-group">
+        <div id="image-box" class="image-container"></div>
+        <button class="btn btn-outline-info" id="crop-btn" style="width: 100%; margin-top: 10px; display: none;" type="button">Crop</button>
+        <button class="btn btn-outline-info" id="confirm-btn" style="width: 100%; margin-top: 10px;" type="submit">Save</button>
+    </div>
       
       <div class="submit " style="margin-top:40px">
         <a href="{% url 'view-variants'  vehicle.id %}"><input type="button" value="Cancel" id="button-blue"/></a>
          <div class="ease"></div>
       </div>
-    </form>
+      
+    </form> -->
   </div>
 </div>
 
-<script src="{% static 'vendor/image_upload.js'%}"></script>
 
 <script>
+    
+    
+  // When user uploads the image this event will get triggered
+// image-box is the id of the div element that will store our cropping image preview
+const imagebox = document.getElementById('image-box')
+// crop-btn is the id of button that will trigger the event of change original file with cropped file.
+const crop_btn = document.getElementById('crop-btn')
+// id_image is the id of the input tag where we will upload the image
+const input1 = document.getElementById('id_images_one')
+const input2 = document.getElementById('id_images_two')
+const input3 = document.getElementById('id_images_three')
+  
+function crop(input,img,images) {
+  input.addEventListener('change', () => {
+    // Getting image file object from the input variable
+    const img_data = input.files[0]
+    // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+    // The new object URL represents the specified File object or Blob object.
+    const url = URL.createObjectURL(img_data)
+
+    // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+    imagebox.innerHTML = `<img src="${url}" id=${images} style="width:100%;">`
+
+    // Storing that cropping view image in a variable
+    const image = document.getElementById(images)
+
+    // Displaying the image box
+    document.getElementById('image-box').style.display = 'block'
+    // Displaying the Crop buttton
+    document.getElementById('crop-btn').style.display = 'block'
+    // Hiding the Post button
+    document.getElementById('confirm-btn').style.display = 'none'
+
+    // Creating a croper object with the cropping view image
+    // The new Cropper() method will do all the magic and diplay the cropping view and adding cropping functionality on the website
+    // For more settings, check out their official documentation at https://github.com/fengyuanchen/cropperjs
+    const cropper = new Cropper(image, {
+      autoCropArea: 1,
+      viewMode: 1,
+      scalable: false,
+      zoomable: false,
+      movable: false,
+              aspectRatio: 20/16,
+      minCropBoxWidth: 220,
+      minCropBoxHeight: 180,
+    })
+
+    // When crop button is clicked this event will get triggered
+    crop_btn.addEventListener('click', () => {
+      // This method coverts the selected cropped image on the cropper canvas into a blob object
+      cropper.getCroppedCanvas().toBlob((blob) => {
+
+        // Gets the original image data
+        let fileInputElement = document.getElementById(img);
+        // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+        let file = new File([blob], img_data.name, {
+          type: "image/*",
+          lastModified: new Date().getTime()
+        });
+                  
+                  
+        // Create a new container
+        let container = new DataTransfer();
+                
+        // Add the cropped image file to the container
+        container.items.add(file);
+               
+        // Replace the original image file with the new cropped image file
+        fileInputElement.files = container.files;
+        // Hide the cropper box
+        document.getElementById('image-box').style.display = 'none'
+        // Hide the crop button
+        document.getElementById('crop-btn').style.display = 'none'
+        // Display the Post button
+        document.getElementById('confirm-btn').style.display = 'block'
+
+      });
+    });
+  });
+}
+
+crop(input1,'id_images_one','img1')
+crop(input2,'id_images_two','img2')
+crop(input3,'id_images_three','img3')
+</script>
+
+<!-- <script src="{% static 'vendor/image_upload.js'%}"></script> -->
+
+
+
+<!-- <script>
     var loadFile1 = function(event) {
         var image = document.getElementById('output1');
         image.src = URL.createObjectURL(event.target.files[0]);
@@ -89,9 +211,9 @@
     };
 
 
-    </script>
+    </script> -->
 
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+   
 {% endblock %}
 

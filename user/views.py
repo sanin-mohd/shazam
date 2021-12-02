@@ -9,7 +9,7 @@ from django.contrib import messages, auth
 from cart.models import CartItem
 from cart.views import _cart_id
 from category.models import Category
-from showroom.models import Variant, Vehicle
+from showroom.models import ReviewRating, Variant, Vehicle
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string, get_template
@@ -19,8 +19,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from cart.models import Cart
 from banners.models import Banner
+from showroom.views import review
 from user.forms import RegistrationForm
-from user.models import Account
+from user.models import Account, Address
 from django.contrib.auth.decorators import login_required
 from orders.models import Order
 from send_code import send_code
@@ -38,7 +39,10 @@ def user_dashboard(request):
     decimal.getcontext().prec = 2
 
     
-    customer_rating=decimal.Decimal(order_count-cancelled_order_count)/decimal.Decimal(order_count)
+    try:
+        customer_rating=decimal.Decimal(order_count-cancelled_order_count)/decimal.Decimal(order_count)
+    except:
+        customer_rating=1
     customer_rating_percent = customer_rating*100
     customer_rating=customer_rating*5
     
@@ -298,9 +302,26 @@ def view_category_store(request, pk=None):
 def showroom(request,pk):
     vehicle=Vehicle.objects.get(id=pk)
     variants=Variant.objects.filter(vehicle_id=pk,is_available=True)
-    
+    reviews=ReviewRating.objects.filter(vehicle=vehicle,status=True)
+    review_count=reviews.count()
+    rating=0
+    for review in reviews:
+        rating += review.rating
+    try:
+        rating=rating/review_count
+    except:
+        rating=0
+    print(reviews.count())
+    print("---------->>>>>>>>>>")
+    context={
+        'variants':variants,
+        'vehicle':vehicle,
+        'reviews':reviews,
+        'rating':rating,
+        'review_count':review_count,
+        }
 
-    return render(request,'showroom.html',{'variants':variants,'vehicle':vehicle})
+    return render(request,'showroom.html',context)
 
 def showroom_variant(request,pk):
     print('showroom variant ---->>>>>>>>>>>>')
@@ -310,11 +331,27 @@ def showroom_variant(request,pk):
 
     in_cart=CartItem.objects.filter(cart_id__cart_id=_cart_id(request),variant=pk).exists()
     
+    #rating
+    reviews=ReviewRating.objects.filter(vehicle=vehicle,status=True)
+    review_count=reviews.count()
+    rating=0
+    for review in reviews:
+        rating += review.rating
+    try:
+
+        rating=rating/review_count
+    except:
+        rating=0
+    print(reviews.count())
+    print("---------->>>>>>>>>>")
     context={
         'variant':variant,
         'variants':variants,
         'vehicle':vehicle,
-        'in_cart':in_cart
+        'in_cart':in_cart,
+        'reviews':reviews,
+        'rating':rating,
+        'review_count':review_count,
         }
 
     return render(request,'showroom_variant.html',context)
@@ -340,7 +377,8 @@ def search(request):
             'vehicles_count':vehicles_count
         }
         return render(request,'store.html',context)
-        
+
+          
 def password_otp(request):
     if request.method=="POST":
         otp=request.POST['otp']
@@ -352,6 +390,7 @@ def password_otp(request):
     return render(request,'password_otp.html')  
 def new_password(request):
     if request.method == "POST":
+        
         password       =    request.POST['password']
         cpassword      =    request.POST['confirm_password']
         if password == cpassword:
@@ -365,7 +404,90 @@ def new_password(request):
         else:
             messages.error(request,"Password not matching... Try again")
             return redirect('new_password')
-    return render(request,'new_password.html')    
+    return render(request,'new_password.html')  
+
+#Addresses
+
+def my_address(request):
+    addresses   =   Address.objects.filter(user=request.user)
+    context={
+        'addresses':addresses
+    }
+    return render(request,'my_address.html',context)
+def add_address(request):
+    if request.method=="POST":
+        user=Account.objects.get(email=request.user)
+        full_name=request.POST['full_name']
+        address_line_1=request.POST['address_line_1']
+        address_line_2=request.POST['address_line_2']
+        city=request.POST['city']
+        zip_code=request.POST['zip_code']
+        state=request.POST['state']
+        country=request.POST['country']
+        mobile=request.POST['mobile']
+        landmark=request.POST['landmark']
+        Address.objects.create(
+            user=user,
+            full_name=full_name,
+            address_line_1=address_line_1,
+            address_line_2=address_line_2,
+            city=city,
+            zip_code=zip_code,
+            state=state,
+            country=country,
+            mobile=mobile,
+            landmark=landmark,
+            
+            )
+        return redirect('my_address')
+def delete_address(request,id):
+    Address.objects.get(id=id).delete()
+    return redirect('my_address')
+def edit_address(request,id):
+    address=Address.objects.get(id=id)
+    if request.method=="POST":
+        
+        address.full_name=request.POST['full_name']
+        address.address_line_1=request.POST['address_line_1']
+        address.address_line_2=request.POST['address_line_2']
+        address.city=request.POST['city']
+        address.zip_code=request.POST['zip_code']
+        address.state=request.POST['state']
+        address.country=request.POST['country']
+        address.mobile=request.POST['mobile']
+        address.landmark=request.POST['landmark']
+        address.save()
+        return redirect('my_address')
+    else:
+
+        return render(request,'edit_address.html',{'address':address})
+def set_default(request,id):
+    user=Account.objects.get(email=request.user)
+    try:
+        address=Address.objects.get(default=True,user=user)
+        address.default=False
+        address.save()
+    except:
+        pass
+
+    address=Address.objects.get(id=id)
+    address.default=True
+    address.save()
+    return redirect('my_address')
+def set_default2(request,id):
+    user=Account.objects.get(email=request.user)
+    try:
+        address=Address.objects.get(default=True,user=user)
+        address.default=False
+        address.save()
+    except:
+        pass
+
+    address=Address.objects.get(id=id)
+    address.default=True
+    address.save()
+    return redirect('checkout')
+
 # def reset_password_link(request):
 #     if request.method=="POST":
 #         email=request.POST['email']

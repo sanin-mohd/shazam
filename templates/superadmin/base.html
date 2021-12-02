@@ -27,6 +27,7 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="{% static 'js/superadmin/script.js'%}"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
@@ -168,6 +169,24 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
+              data-bs-target="#navAuthentication22" aria-expanded="false" aria-controls="navAuthentication">
+              <i data-feather="lock" class="nav-icon icon-xs me-2">
+              </i> Booking Price
+            </a>
+            <div id="navAuthentication22" class="collapse " data-bs-parent="#sideNavbar">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'price_table' %}">Manage Price</a>
+                </li>
+                
+                
+                
+
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active has-arrow  collapsed " href="#!" data-bs-toggle="collapse"
               data-bs-target="#navAuthentication2" aria-expanded="false" aria-controls="navAuthentication">
               <i data-feather="lock" class="nav-icon icon-xs me-2">
               </i> Coupons
@@ -175,14 +194,9 @@
             <div id="navAuthentication2" class="collapse " data-bs-parent="#sideNavbar">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link " href="pages/sign-in.html">Add Coupon</a>
+                  <a class="nav-link " href="{% url 'coupons_table' %}">Manage Coupon</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link  " href="pages/sign-up.html">Active Coupon</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link  " href="pages/sign-up.html">Inactive Coupon</a>
-                </li>
+                
                 
                 
 

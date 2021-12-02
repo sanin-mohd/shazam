@@ -82,13 +82,19 @@
                       <td> 
                         <div class="price-wrap"> 
                           <var class="price">₹{{cart_item.booking_price}}</var>
-                          <small class="text-muted">₹ 999 each </small> 
+                          <small class="text-muted">₹ {{cart_item.variant.vehicle_id.category.bookingprice.booking_price}} each </small> 
                         </div> <!-- price-wrap .// -->
                       </td>
                       <td> 
                         <div class="price-wrap"> 
                           <var class="price">₹{{cart_item.sub_total |floatformat:0| intcomma}}</var> 
-                          <small class="text-muted"> ₹{{cart_item.variant.price |floatformat:0| intcomma}} each </small> 
+                          {% if cart_item.variant.vehicle_id.vehicleoffer.is_active %}
+                          <small>₹ {{cart_item.variant.get_price |floatformat:0|intcomma }} each</small> <br>
+                          <span style="font-size: small;">₹ <strike> <b>{{cart_item.variant.price | intcomma }}</b> </strike> <br> {{cart_item.variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}% off</span>
+            
+                          {% else %}
+                          <small>₹ {{cart_item.variant.price |floatformat:0| intcomma }} each</small>
+        	                {% endif %} 
                         </div> <!-- price-wrap .// -->
                       </td>
                     

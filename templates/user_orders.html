@@ -35,7 +35,7 @@
                 <a style="color: black !important; " class="list-group-item " href="{% url 'user_dashboard' %}"> My Profile </a>
                 <a style="color: rgb(255, 255, 255) !important;font-weight: bold;" class="list-group-item active" href="{% url 'ordered_details' %}">Recent Bookings</a>
                 <a style="color: black !important;" class="list-group-item" href="#"> Recent Test Drives</a>
-               <a style="color: black !important;" class="list-group-item" href="#"> My Addresses </a>
+               <a style="color: black !important;" class="list-group-item" href="{% url 'my_address'%}"> My Addresses </a>
                 <a style="color: black !important;" class="list-group-item" href="{% url 'password_otp'%}"> Change Password </a>
             </ul>
             <br>
@@ -43,10 +43,11 @@
             <!--   SIDEBAR .//END   -->
         </aside>
         <main class="col-md-9">
+            {% if orders %}
             {% for order in orders%}
             <article class="card">
             <header class="card-header">
-                <strong class="d-inline-block mr-3">Booking ID: {{order.order_number}}</strong>
+                <strong class="d-inline-block mr-3">Booking ID: <a href="{% url 'old_reciept' order.order_number %}">{{order.order_number}}</a> </strong>
                 <span>Booking Date: {{order.created_at}}</span>
                 
                 
@@ -60,7 +61,7 @@
             <div class="card-body">
                 <div class="row"> 
                     <div class="col-md-8">
-                        <h6 class="text-muted">Contact address</h6>
+                        <h6 class="text-muted">Billing address</h6>
                         <p>{{order.full_name}} <br>  
                         Phone +91{{order.mobile}} Email: {{request.user.email}} <br>
                         Location: {{order.address_line_1}}, {{order.address_line_2}}, {{order.city}}, {{order.state}}, {{order.country}} <br> 
@@ -110,19 +111,32 @@
                     </td>
                     <td> 
                         <p class="title mb-0">Pending Amount </p>
-                        <var class="price text-muted">₹ {{vehicle.price | intcomma}}</var>
+                        <var class="price text-muted">₹ {{vehicle.price |floatformat:0 | intcomma}}</var>
                     </td>
                     <td> Seller <br> {{vehicle.vehicle.vendor_id}} </td>
                     <td >
-                        <strong style="color: #00B2BD;">STATUS</strong>  <br> <strong>
-                            {% if vehicle.order.status == "Cancelled" %}
-            
-                            {{vehicle.order.status}} 
-
+                        
+                            
+                            {% if vehicle.status == "Completed" %}
+                            <strong style="color: #00B2BD;">STATUS</strong>  <br> <strong></strong>
+                            {{vehicle.status}} </strong>
+                            <a style="float: right;" href="{% url 'review' vehicle.vehicle.id %}" class="btn btn-success mr-2">Review</a>
+                        
+                            
+                            
+                            
                             {% else %}
-                            {{vehicle.status}} </strong></td>
+                            {% if vehicle.order.status == "Cancelled" %}
+                            <strong style="color: #00B2BD;">STATUS</strong>  <br> <strong></strong>
+                            
+                            {{vehicle.order.status}}
+                            {% else %}
+                            <strong style="color: #00B2BD;">STATUS</strong>  <br> <strong></strong>
+                            {{vehicle.status}} </strong>
                             {% endif %}
-                    
+                            {% endif %}
+                            
+                        </td>
                 </tr>
                 {% endif %}
                 {% endfor %}
@@ -132,6 +146,15 @@
             </div> <!-- table-responsive .end// -->
             </article> <!-- order-group.// --> 
             {% endfor %}
+            
+            {% else %}
+            
+            <h2  class="text-center">Your Book Is Empty </h2>
+            <br>
+            <div class="text-center">
+                <a href="{% url 'home' %}" class="btn btn-primary">Explore now</a>
+            </div>
+            {% endif %}
         </main>
     </div> <!-- row.// -->
     </div>

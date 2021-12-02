@@ -30,15 +30,16 @@ def book_now(request):
         tax=0
         
         for cart_item in cart_items:
-            if cart_item.variant.vehicle_id.vehicleoffer.is_active:
-                print(cart_item.variant.get_price())
-                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                grand_total=grand_total+(cart_item.variant.get_price())*(cart_item.quantity)
-                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            try:
                 
-            else:
+                if cart_item.variant.vehicle_id.vehicleoffer.is_active:
+                    print(cart_item.variant.get_price())
+                    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                    grand_total=grand_total+(cart_item.variant.get_price())*(cart_item.quantity)
+                    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            except:
                 grand_total=grand_total+cart_item.variant.price*cart_item.quantity
-            booking_price += (999*cart_item.quantity)
+            booking_price += (cart_item.variant.vehicle_id.category.bookingprice.booking_price*cart_item.quantity)
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
             print(cart_item.variant.price)
             print(cart_item.quantity)
@@ -146,7 +147,7 @@ def update_payment(request):
         ordervehicle.variant    =   item.variant
         ordervehicle.quantity   =   item.quantity
         ordervehicle.price      =   item.variant.get_price()*item.quantity
-        ordervehicle.paid       =   item.quantity*999
+        ordervehicle.paid       =   item.quantity*item.variant.vehicle_id.category.bookingprice.booking_price
         
         ordervehicle.ordered    =   True
         
@@ -172,7 +173,7 @@ def update_payment(request):
 
 
     print("order confirm message sending")
-    send_sms(username,mobile,orderID,paid,pending)
+    # send_sms(username,mobile,orderID,paid,pending)
     print("order confirm message sent")
 
 
@@ -209,7 +210,29 @@ def booking_reciept(request):
     except(Payments.DoesNotExist,Order.DoesNotExist):
         return redirect('home')
 
+def old_reciept(request,order_number):
+    order          =   Order.objects.get(order_number=order_number,is_ordered=True)
+    payment_id     =   order.payment.payment_id
 
+    try:
+        
+        ordered_vehicle_details=   OrderVehicle.objects.filter(order=order.id)
+        print(ordered_vehicle_details)
+        print("--------------------------")
+        grand_total_paid=order.order_total+order.tax
+
+        context         =   {
+
+            'order':order,
+            'ordered_vehicle_details':ordered_vehicle_details,
+            'payment_id':payment_id,
+            'grand_total_paid':grand_total_paid,
+        }
+
+
+        return render(request,'old_reciept.html',context)
+    except(Payments.DoesNotExist,Order.DoesNotExist):
+        return redirect('home')
 def ordered_details(request):
     user=request.user
     orders              =   Order.objects.filter(user=user).order_by('-created_at')[:10]

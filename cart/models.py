@@ -24,7 +24,7 @@ class CartItem(models.Model):
     def sub_total(self):
         return self.variant.get_price()*self.quantity
     def booking_price(self):
-        return self.quantity*999
+        return self.quantity*self.variant.vehicle_id.category.bookingprice.booking_price
 
     def __int__(self):
         return self.variant 

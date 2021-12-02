@@ -2,6 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from category.models import Category
 from showroom.models import Vehicle,Variant
+from user.models import Account, Address
 from .models import Cart,CartItem
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -116,17 +117,23 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
         
         print("cart line 2 working...")
         for cart_item in cart_items:
-            
-            if cart_item.variant.vehicle_id.vehicleoffer.is_active:
-                print(cart_item.variant.get_price())
-                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                total_price=total_price+(cart_item.variant.get_price())*(cart_item.quantity)
-                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                
-            else:
+            try:
+                if cart_item.variant.vehicle_id.vehicleoffer.is_active:
+                    print(cart_item.variant.get_price())
+                    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                    total_price=total_price+(cart_item.variant.get_price())*(cart_item.quantity)
+                    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                raise
+            except:
                 total_price=total_price+cart_item.variant.price*cart_item.quantity
+            print(">>>>11>>>>>")
             total_quantity=total_quantity+cart_item.quantity
-            booking_price=booking_price+999*cart_item.quantity
+            booking_price=booking_price+cart_item.variant.vehicle_id.category.bookingprice.booking_price*cart_item.quantity
+            print("booking_price : ")
+            print(booking_price)
+
+
+                
         total_tax=booking_price*0.05
         grand_total=total_tax+booking_price
         
@@ -140,7 +147,7 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
     
     except :
         pass
-    print("cart called--------->>>>>>>>>")
+    print("cart called------last--->>>>>>>>>")
     print(total_price)
     context={
         'total_price':total_price,
@@ -160,6 +167,10 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
 
 @login_required(login_url='login')
 def checkout(request):
+    user=Account.objects.get(email=request.user)
+    
+        
+    
     if request.user.is_authenticated:
         cart_items=CartItem.objects.filter(user=request.user,is_active=True)
     else:
@@ -173,13 +184,32 @@ def checkout(request):
     booking_price=request.session['booking_price']
     total_tax=request.session['total_tax']
     grand_total=request.session['grand_total']
-    context={
+    addresses   =   Address.objects.filter(user=user)
+    try:
+
+        address =   Address.objects.get(user=user,default=True)
+        context={
 
         'cart_items':cart_items,
         'booking_price':booking_price,
         'grand_total':grand_total,
-        'total_tax':total_tax
+        'total_tax':total_tax,
+        'addresses':addresses,
+        'address':address,
 
         }
+        
+    except:
+        
+        context={
+
+            'cart_items':cart_items,
+            'booking_price':booking_price,
+            'grand_total':grand_total,
+            'total_tax':total_tax,
+            'addresses':addresses,
+            
+
+            }
     
     return render(request,'place-order.html',context)

@@ -33,6 +33,10 @@ urlpatterns = [
     path('banners/',include('banners.urls')),
     #offermanagement
     path('offers/',include('offers.urls')),
+    #review
+    path('review/',include('showroom.urls')),
+    #coupon
+    path('coupon/',include('coupons.urls')),
     
     
 ]+ static(settings.MEDIA_URL,document_root=MEDIA_ROOT)

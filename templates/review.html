@@ -1,0 +1,97 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block content %}
+
+<style>
+    .active{
+        background-color:#00B2BD !important;
+    }
+    .btn-primary{
+        
+        background-color: black;
+    }
+    .btn-primary:hover{
+        background-color:#00B2BD !important;
+        
+    }
+    .btn-success{
+        
+        background-color:#00B2BD ;
+    }
+    .btn-success:hover{
+        
+        background-color: black !important;
+        
+    }
+</style>
+<section class="section-conten padding-y bg">
+    <div class="container">
+        <div class="row">
+            <aside class="col-md-3">
+                <!--   SIDEBAR   -->
+                <ul class="list-group" >
+                    <a style="color: black !important; " class="list-group-item " href="{% url 'user_dashboard' %}"> My Profile </a>
+                    <a style="color: rgb(255, 255, 255) !important;font-weight: bold;" class="list-group-item active" href="{% url 'ordered_details' %}">Recent Bookings</a>
+                    <a style="color: black !important;" class="list-group-item" href="#"> Recent Test Drives</a>
+                   <a style="color: black !important;" class="list-group-item" href="#"> My Addresses </a>
+                    <a style="color: black !important;" class="list-group-item" href="{% url 'password_otp'%}"> Change Password </a>
+                </ul>
+                <br>
+                <a class="btn btn-primary btn-block" href="{% url 'logout'%}"> <i class="fas fa-sign-out-alt"></i> <span class="text">Log out</span> </a> 
+                <!--   SIDEBAR .//END   -->
+            </aside>
+            <main class="col-md-9">
+                {% include 'includes/alerts.html' %}
+                <div class="d-flex justify-content-right">
+                    
+                    
+                    <div class="col-6">
+                        <form action="{% url 'review' vehicle_id %}" method="post">
+                            {% csrf_token %}
+                            <h5>Write your review</h5>
+                            <div class="">
+                                <label>How do you rate this Vehicle?</label>
+                            <br>
+                            <div class="rate">
+                                <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+                                <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+                                <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+                                <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+                                <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+                                <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+                                <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+                                <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+                                <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+                                <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+                            </div>
+                            <br>
+                                <!-- Rating stars -->
+                                Review Title :  
+                                <input type="text" class="form-control" name="subject" id="">
+                                <br>
+                                Review:
+                                <textarea name="review" id="" class="form-control"  rows="4"></textarea>
+                                <br>
+                                <input type="submit" value="Submit" class="btn btn-success" name="" id="">
+        
+                            </div>
+                            
+        
+            
+                        </form>
+                    </div>
+                    <div class="col-3 ">
+                        <img style="width: 550px; height: auto;" src="{{vehicle.gif}}" alt="">
+                    </div>
+
+                </div>
+                
+                
+
+            </main>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock %}

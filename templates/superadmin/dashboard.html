@@ -1,5 +1,6 @@
 {% extends 'superadmin/base.html'%}
 {% load static%}
+{% load humanize%}
 {% block content%}
 <style>
     .bg-danger{
@@ -12,7 +13,7 @@
 
 <div class="container-fluid mt-n22 px-6">
   <div class="row">
-   
+    <h3>Monthly Report</h3>
     <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
       <!-- card -->
       <div class="card rounded-3">
@@ -22,7 +23,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Projects</h4>
+              <h4 class="mb-0">Total Revenue</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -31,8 +32,8 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">18</h1>
-            <p class="mb-0"><span class="text-dark me-2">2</span>Completed</p>
+            <h3 class="fw-bold">₹ {{total_revenue.order_total__sum | floatformat:0 | intcomma}}</h3>
+            <p class="mb-0"><span class="text-dark me-2">{{new_total_revenue_perc | floatformat:0}}%</span>Growth(daily)</p>
           </div>
         </div>
       </div>
@@ -46,7 +47,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Active Task</h4>
+              <h4 class="mb-0">Listed Vehicles</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -55,8 +56,8 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">132</h1>
-            <p class="mb-0"><span class="text-dark me-2">28</span>Completed</p>
+            <h3 class="fw-bold">{{vehicle_count}}</h3>
+            <p class="mb-0"><span class="text-dark me-2">Best selling : {{best_booking_vehicle}}</span></p>
           </div>
         </div>
       </div>
@@ -70,7 +71,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Teams</h4>
+              <h4 class="mb-0">Total sellers</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -79,8 +80,8 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">12</h1>
-            <p class="mb-0"><span class="text-dark me-2">1</span>Completed</p>
+            <h3 class="fw-bold">{{seller_count}}</h3>
+            <p class="mb-0"><span class="text-dark me-2">{{booking_count.quantity__sum}}</span>Bookings Generated</p>
           </div>
         </div>
       </div>
@@ -95,7 +96,7 @@
           <div class="d-flex justify-content-between align-items-center
               mb-3">
             <div>
-              <h4 class="mb-0">Productivity</h4>
+              <h4 class="mb-0">Total Customers</h4>
             </div>
             <div class="icon-shape icon-md bg-light-primary text-primary
                 rounded-1">
@@ -104,17 +105,80 @@
           </div>
           <!-- project number -->
           <div>
-            <h1 class="fw-bold">76%</h1>
-            <p class="mb-0"><span class="text-success me-2">5%</span>Completed</p>
+            <h3 class="fw-bold">{{customer_count}}</h3>
+            <p class="mb-0"><span class="text-success me-2">{{new_customer_count_perc |floatformat:0 }}%</span>Growth(weekly)</p>
           </div>
         </div>
       </div>
     </div>
   </div>
   <!-- row  -->
- 
+  <div class="container m-5">
+    <div class="row">
+      <div class="col-12 col-lg-6 col-md-12  ">
+        <div style="background-color: white;border-radius: 2%;margin:0 auto;">
+          <canvas id="myChart"></canvas>
+        </div>
+
+      </div>
+      <div class="col-12 col-lg-6 col-md-12 ">
+        <div style="background-color: white;">
+          <canvas id="myChart2"></canvas>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  
   
 </div>
 
 </div>
+<script>
+  const labels = {{last_week_days | safe}};
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'Daily Bookings',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: {{lastweek_bookings | safe}},
+  }]
+};
+const config = {
+  type: 'line',
+  data: data,
+  options: {}
+};
+  // === include 'setup' then 'config' above ===
+
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+  //chart2
+  const labels2 = {{chart2labels | safe}};
+  const data2 = {
+    labels: labels2,
+    datasets: [{
+      label: 'Vehicle Trend',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: {{chart2data | safe}},
+    }]
+  };
+  const config2 = {
+    type: 'bar',
+    data: data2,
+    options: {}
+  };
+    // === include 'setup' then 'config' above ===
+  
+    const myChart2 = new Chart(
+      document.getElementById('myChart2'),
+      config2
+    );
+</script>
+
 {% endblock%}

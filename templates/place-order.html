@@ -74,13 +74,19 @@
                       <td> 
                         <div class="price-wrap"> 
                           <var class="price">₹{{cart_item.booking_price}}</var>
-                          <small class="text-muted">₹ 999 each </small> 
+                          <small class="text-muted">₹ {{cart_item.variant.vehicle_id.category.bookingprice.booking_price}} each </small> 
                         </div> <!-- price-wrap .// -->
                       </td>
                       <td>
                         <div class="price-wrap"> 
                           <var class="price">₹{{cart_item.sub_total |floatformat:0 | intcomma}}</var> 
-                          <small class="text-muted"> ₹{{cart_item.variant.get_price |floatformat:0 | intcomma}} each </small> 
+                          {% if cart_item.variant.vehicle_id.vehicleoffer.is_active %}
+                            <small>₹ {{cart_item.variant.get_price |floatformat:0|intcomma }} each</small><br>
+                          <span style="font-size: small;">₹ <strike> <b>{{cart_item.variant.price | intcomma }}</b> </strike> <br> {{cart_item.variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}% off</span>
+            
+                          {% else %}
+                         <small>₹ {{cart_item.variant.price |floatformat:0| intcomma }} each</small>
+        	                {% endif %}
                         </div> <!-- price-wrap .// -->
                       </td>
                     
@@ -106,7 +112,59 @@
            
             <!-- card.// -->
             <article class="card mb-4">
+              
+                
+               
+                
+              
               <div class="card-body">
+                <a class="btn btn-primary" href="{% url 'my_address' %}">Manage Address</a>
+                <div class="d-flex justify-content-around ">
+                        
+                        
+                  <div class="container">
+                      <div class="row">
+                        
+                          {% for address in addresses %}
+                          
+                          
+                          <div class="col-4  m-5 p-1" style="border-color:black;"><div class="" style="float: right;">
+                             
+                              
+                              <a href="{% url 'set_default2' address.id %}">SetDefault</a>
+                          </div>
+                          {% if address.default %}
+                          <h6 style="color: #00B2BD;">Selected</h6>
+                          {% endif %}
+                          
+                              <h5 class="card-title">{{address.full_name}}</h5>
+                              
+                              <h6 class="card-subtitle mb-2 text-muted">{{address.address_line_1}} , {{address.address_line_2}}</h6>
+                              <p class="card-text">{{address.city}} , {{address.zip_code}} , {{address.state}} ,{{address.country}} , {{address.landmark}} </p>
+                              <a href="#" class="card-link">{{address.mobile}}</a>
+                              
+                             
+                          </div>
+                          {% endfor %}                                
+                      </div>
+                  </div>
+                  
+                  <!-- <div class=" container m-3" style="width: 250px;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{address.full_name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{address.address_line_1}} , {{address.address_line_2}}</h6>
+                        <p class="card-text">{{address.city}} , {{address.zip_code}} , {{address.state}} ,{{address.country}} , {{address.landmark}} </p>
+                        <a href="#" class="card-link">{{address.mobile}}</a>
+                        
+                      </div>
+                      
+                      
+                  </div> -->
+                  
+                  
+                  
+
+              </div>
                 <h4 class="card-title mb-4">Billing info</h4>
                 
                   <div class="row">
@@ -117,6 +175,7 @@
                         placeholder="Type here"
                         class="form-control"
                         name='full_name'
+                        value="{{address.full_name}}"
                       />
                     </div>
                     <div class="form-group col-sm-6">
@@ -126,6 +185,7 @@
                         placeholder="Type here"
                         class="form-control"
                         name='address_line_1'
+                        value="{{address.address_line_1}}"
                       />
                     </div>
                     <div class="form-group col-sm-6">
@@ -135,6 +195,7 @@
                         placeholder="Type here"
                         class="form-control"
                         name='address_line_2'
+                        value="{{address.address_line_2}}"
                       />
                     </div>
                     <div class="form-group col-sm-6">
@@ -144,11 +205,12 @@
                         placeholder="Type here"
                         class="form-control"
                         name='city'
+                        value="{{address.city}}"
                       />
                     </div>
                     <div class="form-group col-sm-6">
                       <label>Postal code</label>
-                      <input name='zip_code' type="text" placeholder="" class="form-control" />
+                      <input name='zip_code' value="{{address.zip_code}}" type="text" placeholder="" class="form-control" />
                       
                     </div>
                     
@@ -159,12 +221,14 @@
                         placeholder="Type here"
                         class="form-control"
                         name='state'
+                        value="{{address.state}}"
 
                       />
                     </div>
                     <div class="form-group col-sm-4">
                       <label>Country*</label>
                       <select name="country" class="form-control">
+                        <option selected value="{{address.country}}">{{address.country}}</option>
                         <option value="India">India</option>
                         <option value="United States">United States</option>
                         <option value="France">France</option>
@@ -173,13 +237,13 @@
                     </div>
                     <div class="form-group col-sm-4">
                       <label>Mobile</label>
-                      <input name='mobile' type="text" placeholder="" class="form-control" />
+                      <input name='mobile' value="{{address.mobile}}" type="text" placeholder="" class="form-control" />
                     </div>
                     
                    
                     <div class="form-group col-sm-12">
                       <label>Landmark</label>
-                      <input name='landmark' type="text" placeholder="" class="form-control" />
+                      <input name='landmark' value="{{address.landmark}}" type="text" placeholder="" class="form-control" />
                     </div>
                     <div class="form-group col-sm-12">
                       <label for="">Choose Payment method</label>

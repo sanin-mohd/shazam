@@ -1,0 +1,38 @@
+
+{% extends 'superadmin/base.html'%} 
+{% load static %} 
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
+<div id="form-main ">
+  <div id="form-div">
+    <form method="post"  action="{% url 'edit_price' bookingprice.id %}" class="form" id="form1">
+        {% csrf_token %}
+        {% include 'includes/alerts.html' %}
+        <label for="">Category</label>
+      <select name="category"  class="form-select validate[required,custom[onlyLetter],length[0,100]] feedback-input" aria-label="Default select example">
+        <option selected>{{bookingprice.category.category_name}}</option>
+      </select>
+      <p class="name">
+        <label for="">Booking Price (₹)</label>
+        <input name="booking_price" value="{{bookingprice.booking_price}}" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="₹" id="name" />
+      </p>
+     
+      
+      <div class="submit">
+        <input type="submit" value="Save" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+      
+      <div class="submit " style="margin-top:40px">
+        <a href="{% url 'price_table' %}"><input type="button" value="Cancel" id="button-blue"/></a>
+         <div class="ease"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+{% endblock %}

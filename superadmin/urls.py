@@ -19,7 +19,16 @@ urlpatterns = [
     path('add-category',views.add_Category,name='add-category'),
     path('edit-category/<int:pk>',views.edit_category,name='edit-category'),
     path('delete-category/<int:pk>',views.delete_category,name='delete-category'),
+    path('price_table',views.price_table,name='price_table'),
+    path('add_price',views.add_price,name='add_price'),
+    path('edit_price/<str:id>',views.edit_price,name='edit_price'),
+    
     
 
 
 ]
+
+
+
+    
+

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from .models import Vehicle,Variant
+from .models import Vehicle,Variant,ReviewRating
 # Register your models here.
 
 class VehicleAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ admin.site.register(Variant,VariantAdmin)
 
 
 admin.site.register(Vehicle,VehicleAdmin)
+admin.site.register(ReviewRating)

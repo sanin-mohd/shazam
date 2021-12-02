@@ -12,6 +12,12 @@ import time
 from django.contrib.auth.decorators import user_passes_test
 from showroom.models import Vehicle,Variant
 from category.models import Category
+from django.db.models import Sum
+from django.utils import timezone
+
+from datetime import date
+from datetime import timedelta
+from django.db.models import Q
 
 @user_passes_test(lambda u: u.is_staff,login_url='staff-only')
 def vendor_dashboard(request):
@@ -20,17 +26,139 @@ def vendor_dashboard(request):
             vendor = Vendor.objects.get(email=request.user)
             request.session['mobile'] = vendor.mobile
             print('mobile-verified:'+str(vendor.is_mobile_verified))
-            booking         =   OrderVehicle.objects.filter(vendor=vendor)
-            completed       =   OrderVehicle.objects.filter(vendor=vendor,status='Completed').count()
+            month = timezone.now().month
+            #Monthly bookings details
+            booking         =   OrderVehicle.objects.filter(vendor=vendor,created_at__month=month)
+            completed       =   OrderVehicle.objects.filter(vendor=vendor,status='Completed',created_at__month=month).count()
             total_booking   =   booking.count()
-            pending         =   OrderVehicle.objects.filter(vendor=vendor,status ='Offline verification Pending' or 'Delivery in Process').count()
-            cancelled       =   OrderVehicle.objects.filter(vendor=vendor,status='Cancelled').count()
+            pending         =   OrderVehicle.objects.filter( vendor=vendor,created_at__month=month)
+            pending_count=0
+            for x in pending:
+                if x.status=="Offline verification Pending" or x.status=='Delivery in Process':
+                    pending_count+=x.quantity
+            # (Q(status ='Offline verification Pending' ) or Q(status ='Delivery in Process' ))
+            pending=pending_count
+            print(pending)
+            print('tefffsfsfdfs')
+            cancelled       =   OrderVehicle.objects.filter(vendor=vendor,status='Cancelled',created_at__month=month).count()
+            try:
+
+                completed_perc  =   completed*100/total_booking
+                pending_perc    =   pending*100/total_booking 
+                cancelled_perc  =   cancelled*100/total_booking
+            except:
+                completed_perc=0
+                pending_perc=0
+                cancelled_perc=0
+            
+            #Monthly Revenue data 
+            recieved_revenue=   OrderVehicle.objects.filter(vendor=vendor,status='Completed',created_at__month=month).aggregate(Sum('price'))
+            print("Recieved Revenue : ")
+            print(recieved_revenue)
+            max_revenue     =   OrderVehicle.objects.filter(vendor=vendor,created_at__month=month).aggregate(Sum('price'))
+            print("MAX Revenue : ")
+            print(max_revenue)
+            inventory=0
+            inventory_revenue=  OrderVehicle.objects.filter(vendor=vendor,created_at__month=month)
+            for x in inventory_revenue:
+                if x.status=="Offline verification Pending" or x.status=='Delivery in Process':
+                    inventory+=x.price
+            inventory_revenue=inventory
+            print("Inventory Revenue : ")
+            print(inventory_revenue)
+            #Monthly data for vehicle sales by vehicle_name chart
+            chart2labels    =   []
+            chart2data      =   []
+            vehicle_orders  =   OrderVehicle.objects.filter(vendor=vendor,ordered=True,created_at__month=month)
+            for vehicle_order in vehicle_orders:
+                if vehicle_order.vehicle.vehicle_name in chart2labels:
+                    i=chart2labels.index(vehicle_order.vehicle.vehicle_name)
+                    chart2data[i]+=vehicle_order.quantity
+                else:
+                    chart2labels.append(vehicle_order.vehicle.vehicle_name)
+                    chart2data.append(vehicle_order.quantity)
+            print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+            print(chart2labels)
+            print(chart2data)
+            print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
+            #Monthly Best selling vehicle
+
+            
+            try:
+                best_booking_vehicle=chart2labels[chart2data.index(max(chart2data))]
+                best_booking_count=max(chart2data)
+            except:
+                best_booking_vehicle=None
+                best_booking_count=0
+
+            #daily bookings
+            today = date.today()
+            tommorrow=today+timedelta(1)
+            
+            today_1 = today - timedelta(days=1)
+            today_2 = today - timedelta(days=2)
+            today_3 = today - timedelta(days=3)
+            today_4 = today - timedelta(days=4)
+            today_5 = today - timedelta(days=5)
+            today_6 = today - timedelta(days=6)
+            today_7 = today - timedelta(days=7)
+            print(today)
+            print(tommorrow)
+            print("---------------------------------------------")
+            last_week_days=[
+                today_6.strftime("%a %m/%d/%Y"),
+                today_5.strftime("%a %m/%d/%Y"),
+                today_4.strftime("%a %m/%d/%Y"),
+                today_3.strftime("%a %m/%d/%Y"),
+                today_2.strftime("%a %m/%d/%Y"),
+                today_1.strftime("%a %m/%d/%Y"),
+                today.strftime("%a %m/%d/%Y"),
+                
+                ]
+            
+
+            
+            today_bookings      =   OrderVehicle.objects.filter(vendor=vendor,created_at__range=[today,tommorrow]).count()
+            today_1_bookings    =   OrderVehicle.objects.filter(vendor=vendor,created_at__range=[today_1,today]).count()
+            today_2_bookings    =   OrderVehicle.objects.filter(vendor=vendor,created_at__range=[today_2,today_1]).count()
+            today_3_bookings    =   OrderVehicle.objects.filter(vendor=vendor,created_at__range=[today_3,today_2]).count()
+            today_4_bookings    =   OrderVehicle.objects.filter(vendor=vendor,created_at__range=[today_4,today_3]).count()
+            today_5_bookings    =   OrderVehicle.objects.filter(vendor=vendor,created_at__range=[today_5,today_4]).count()
+            today_6_bookings    =   OrderVehicle.objects.filter(vendor=vendor,created_at__range=[today_6,today_5]).count()
+
+            lastweek_bookings=[today_6_bookings,today_5_bookings,today_4_bookings,today_3_bookings,today_2_bookings,today_1_bookings,today_bookings]
+
+
             context={
                 'vendor':vendor,
+
+                #Monthly bookings details
                 'total_booking':total_booking,
                 'completed':completed,
                 'pending':pending,
                 'cancelled':cancelled,
+                'completed_perc':completed_perc,
+                'cancelled_perc':cancelled_perc,
+                'pending_perc':pending_perc,
+                'inventory_revenue':inventory_revenue,
+
+                #Monthly Revenue data 
+                'max_revenue':max_revenue,
+                'recieved_revenue':recieved_revenue,
+
+                #Monthly Best selling vehicle
+                'best_booking_vehicle':best_booking_vehicle,
+                'best_booking_count':best_booking_count,
+
+                #Monthly data for vehicle sales by vehicle_name chart
+                'chart2labels':chart2labels,
+                'chart2data':chart2data,
+                
+                #weekly_booking
+                'last_week_days':last_week_days,
+                'lastweek_bookings':lastweek_bookings,
+
             }
             return render(request, 'vendor/dashboard.html', context)
         else:
@@ -303,7 +431,7 @@ def delete_variant(request,pk):
 
 def new_booking(request):
     vendor=Vendor.objects.get(email=request.user.email)
-    vendor_orders=OrderVehicle.objects.filter(vendor=vendor.id).order_by('-created_at')
+    vendor_orders=OrderVehicle.objects.filter(vendor=vendor.id, status='Offline verification Pending').order_by('-created_at')
     context={
         'vendor':vendor,
         'vendor_orders':vendor_orders,
@@ -311,7 +439,36 @@ def new_booking(request):
         }
     
     return render(request,'vendor/new_booking.html',context)
+def approved_booking(request):
+    vendor=Vendor.objects.get(email=request.user.email)
+    vendor_orders=OrderVehicle.objects.filter(vendor=vendor.id,status = 'Delivery in Process').order_by('-created_at')
+    context={
+        'vendor':vendor,
+        'vendor_orders':vendor_orders,
 
+        }
+    
+    return render(request,'vendor/approved_bookings.html',context)
+def cancelled_booking(request):
+    vendor=Vendor.objects.get(email=request.user.email)
+    vendor_orders=OrderVehicle.objects.filter(vendor=vendor.id,status = 'Cancelled').order_by('-created_at')
+    context={
+        'vendor':vendor,
+        'vendor_orders':vendor_orders,
+
+        }
+    
+    return render(request,'vendor/cancelled_bookings.html',context)
+def completed_booking(request):
+    vendor=Vendor.objects.get(email=request.user.email)
+    vendor_orders=OrderVehicle.objects.filter(vendor=vendor.id,status = 'Completed').order_by('-created_at')
+    context={
+        'vendor':vendor,
+        'vendor_orders':vendor_orders,
+
+        }
+    
+    return render(request,'vendor/completed_bookings.html',context)
 def verify_booking(request,ordervehicle):
     ordervehicle=OrderVehicle.objects.get(id=ordervehicle)
     ordervehicle.status='Delivery in Process'

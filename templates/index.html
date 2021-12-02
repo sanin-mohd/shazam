@@ -127,9 +127,24 @@
       <div class="col-md-3">
         <div class="card card-product-grid">
           <a href="{% url 'showroom' vehicle.id %}" class="img-wrap">
+            {% if vehicle.vehicleoffer.is_active %}
+						<div class="card shadow-lg" style="background-color: #00B2BD; height: 25px; width: 75px;  position: absolute; left: 0px; top: 25px;  z-index: 1; border-radius: 0pt;">
+							<p style="color: whitesmoke; text-align: center; font-size: medium; font-family: sans-serif;">{{vehicle.vehicleoffer.discount}}% off</p>
+			  			</div>
+			  		{% endif %}
             <img src="{{vehicle.gif}}" />
           </a>
           <figcaption class="info-wrap align-self-center" style="">
+            <div class="rating-star">
+              <span>
+                <i class="fa fa-star{% if vehicle.rating < 0.5 %}-o{% elif vehicle.rating >= 0.5 and vehicle.rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if vehicle.rating < 1.5 %}-o{% elif vehicle.rating >= 1.5 and vehicle.rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if vehicle.rating < 2.5 %}-o{% elif vehicle.rating >= 2.5 and vehicle.rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if vehicle.rating < 3.5 %}-o{% elif vehicle.rating >= 3.5 and vehicle.rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if vehicle.rating < 4.5 %}-o{% elif vehicle.rating >= 4.5 and vehicle.rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+            <span>{{vehicle.review_count}} reviews</span>
+                </span>
+            </div>
             <div class="">
               <a href="{% url 'showroom' vehicle.id %}" class="title">{{vehicle.vehicle_name}}</a>
             </div>

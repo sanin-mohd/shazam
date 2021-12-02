@@ -20,7 +20,11 @@
 		<aside class="col-md-6">
 <article class="gallery-wrap"> 
 	<div class="img-big-wrap " >
-		
+		{% if vehicle.vehicleoffer.is_active %}
+						<div class="card shadow-lg" style="background-color: #00B2BD; height: 25px; width: 75px;  position: absolute; left: 0px; top: 25px;  z-index: 1; border-radius: 0pt;">
+							<p style="color: whitesmoke; text-align: center; font-size: medium; font-family: sans-serif;">{{vehicle.vehicleoffer.discount}}% off</p>
+			  			</div>
+		{% endif %}
 	   <a href="#"><img class="img-fluid" src="{{variant.image1.url}} "></a>
 	</div> <!-- img-big-wrap.// -->
 	
@@ -29,8 +33,23 @@
 		<main class="col-md-6 border-left">
 <article class="content-body">
 
-<h2 class="title">{{vehicle}} </h2>
-
+	<div class="d-flex justify-content-between">
+		<div class="">
+			<h2 class="title">{{vehicle}} </h2>
+			
+		</div>
+		<div class="rating-star">
+			<span>
+				<i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+		<span>{{review_count}} reviews</span>
+				</span>
+		</div>
+		
+	</div>
 <div class="mb-3">
 	<var class="price h4">Sold by <span style="color: #00B2BD;">{{vehicle.vendor_id}}</span> </var> 
 </div>
@@ -52,8 +71,8 @@
             <span style="font-size: x-small;">₹ <strike> {{variant.price | intcomma }}</strike> {{variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}% off</span>
             
             {% else %}
-            <h6>₹ {{variant.price | intcomma }}</h6>
-            {% endif %}
+            <h6>₹ {{variant.price |floatformat:0| intcomma }}</h6>
+        {% endif %}
 
 	</div>
     <div class="">
@@ -136,23 +155,34 @@
 		
 	</header>
 
+{% for review in reviews %}
 	<article class="box mb-3">
 		<div class="icontext w-100">
-			<img src="./images/avatars/avatar1.jpg" class="img-xs icon rounded-circle">
+			<img src="{% static 'images/avatars/avatar1.jpg'%} " class="img-xs icon rounded-circle">
 			<div class="text">
-				<span class="date text-muted float-md-right">24.04.2020 </span>  
-				<h6 class="mb-1">Mike John </h6>
+				<span class="date text-muted float-md-right">{{review.updated_at}} </span>  
+				<h6 class="mb-1">{{review.user.first_name}}</h6>
+				<div class="rating-star">
+					<span>
+						<i class="fa fa-star{% if review.rating < 0.5 %}-o{% elif review.rating >= 0.5 and review.rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if review.rating < 1.5 %}-o{% elif review.rating >= 1.5 and review.rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if review.rating < 2.5 %}-o{% elif review.rating >= 2.5 and review.rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if review.rating < 3.5 %}-o{% elif review.rating >= 3.5 and review.rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+						<i class="fa fa-star{% if review.rating < 4.5 %}-o{% elif review.rating >= 4.5 and review.rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+					
+					</span>	
+				</div>
 				
 			</div>
 		</div> <!-- icontext.// -->
 		<div class="mt-3">
+			<h6>{{review.subject}}</h6>
 			<p>
-				Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip
+				{{review.review}}
 			</p>	
 		</div>
 	</article>
+{% endfor %}
 
 	
 

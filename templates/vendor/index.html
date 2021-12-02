@@ -25,11 +25,12 @@
   <link href="{% static 'vendor/assets/libs/%40mdi/font/css/materialdesignicons.min.css' %}" rel="stylesheet" />
 
   <link rel="stylesheet" href="../../cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
 
 
 
-
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Theme CSS -->
   <link rel="stylesheet" href="{% static 'vendor/assets/css/theme.min.css' %}">
@@ -172,13 +173,13 @@
                   <a class="nav-link " href="{% url 'new_booking' %}"> New Bookings</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link  " href="pages/sign-up.html">Approved Bookings</a>
+                  <a class="nav-link  " href="{% url 'approved_booking' %}">Approved Bookings</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link  " href="pages/sign-up.html">Rejected Bookings</a>
+                  <a class="nav-link  " href="{% url 'cancelled_booking' %}">Cancelled Bookings</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link  " href="pages/sign-up.html">Completed Bookings</a>
+                  <a class="nav-link  " href="{% url 'completed_booking' %}">Completed Bookings</a>
                 </li>
                 
 
@@ -453,6 +454,8 @@
   <!-- Libs JS -->
   {%block script%}
   {% endblock%}
+
+
   <script src="{% static 'vendor/assets/libs/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'vendor/assets/libs/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>

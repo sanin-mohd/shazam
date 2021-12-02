@@ -17,6 +17,9 @@ urlpatterns = [
     path('add-variant/<int:pk>',views.add_variant,name='add-variant'),
     path('delete-variant/<int:pk>',views.delete_variant,name='delete-variant'),
     path('new_booking',views.new_booking,name='new_booking'),
+    path('approved_booking',views.approved_booking,name='approved_booking'),
+    path('cancelled_booking',views.cancelled_booking,name='cancelled_booking'),
+    path('completed_booking',views.completed_booking,name='completed_booking'),
     path('verify_booking/<int:ordervehicle>',views.verify_booking,name='verify_booking'),
     path('change_delivery_status/<int:ordervehicle>',views.change_delivery_status,name='change_delivery_status'),
 

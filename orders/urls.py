@@ -8,6 +8,8 @@ urlpatterns = [
     path('booking_reciept',views.booking_reciept,name='booking_reciept'),
     path('ordered_details',views.ordered_details,name='ordered_details'),
     path('cancel_booking/<int:order_number>',views.cancel_booking,name='cancel_booking'),
+    path('old_reciept/<str:order_number>',views.old_reciept,name='old_reciept'),
+    
     
 
 

@@ -159,11 +159,28 @@
 		<a href="{% url 'showroom' vehicle.id %}">
 			<figure class="card card-product-grid">
 				<div class="img-wrap"> 
+					{% if vehicle.vehicleoffer.is_active %}
+						<div class="card shadow-lg" style="background-color: #00B2BD; height: 25px; width: 75px;  position: absolute; left: 0px; top: 25px;  z-index: 1; border-radius: 0pt;">
+							<p style="color: whitesmoke; text-align: center; font-size: medium; font-family: sans-serif;">{{vehicle.vehicleoffer.discount}}% off</p>
+			  			</div>
+			  		{% endif %}
 					
 					<img src="{{vehicle.gif}}">
 					
 				</div> <!-- img-wrap.// -->
 				<figcaption class="info-wrap">
+					
+					
+					<div class="rating-star">
+						<span>
+							<i class="fa fa-star{% if vehicle.rating < 0.5 %}-o{% elif vehicle.rating >= 0.5 and vehicle.rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+							<i class="fa fa-star{% if vehicle.rating < 1.5 %}-o{% elif vehicle.rating >= 1.5 and vehicle.rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+							<i class="fa fa-star{% if vehicle.rating < 2.5 %}-o{% elif vehicle.rating >= 2.5 and vehicle.rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+							<i class="fa fa-star{% if vehicle.rating < 3.5 %}-o{% elif vehicle.rating >= 3.5 and vehicle.rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+							<i class="fa fa-star{% if vehicle.rating < 4.5 %}-o{% elif vehicle.rating >= 4.5 and vehicle.rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+					<span>{{vehicle.review_count}} reviews</span>
+							</span>
+					</div>
 					<div class="fix-height">
 						
 						<span class="price">{{vehicle.vehicle_name}} </span><span class="price">>> Sold by <span style="color: #00B2BD;">{{vehicle.vendor_id}}</span></span>
@@ -174,7 +191,9 @@
 							<span class="price">Top Speed : {{vehicle.top_speed}} km/h</span>
 							<br>
 							<span class="price">Range : {{vehicle.range}} km</span>
-							<del class="price-old">10% off</del>
+							{% if vehicle.vehicleoffer.is_active %}
+							<p style="color: #00B2BD; font-size: small;float: right;" class="price-old">{{vehicle.vehicleoffer.discount}}% off</p>
+							{% endif %}
 						</div> <!-- price-wrap.// -->
 					</div>
 					<a href="{% url 'showroom' vehicle.id %}" class="btn btn-block btn-success">ShowRoom</a>

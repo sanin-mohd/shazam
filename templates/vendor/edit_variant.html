@@ -43,12 +43,12 @@
       </p>
       <p class="name">
         <label for="">Image 2</label>
-        <img src="{{variant.image1.url}}" style="width: 100px;height: 100px;" alt="">
+        <img src="{{variant.image2.url}}" style="width: 100px;height: 100px;" alt="">
         <input name="image2" type="file"  value="{{variant.image2.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 2" id="name" />
       </p>
       <p class="name">
         <label for="">Image 3</label>
-        <img src="{{variant.image1.url}}" style="width: 100px;height: 100px;" alt="">
+        <img src="{{variant.image3.url}}" style="width: 100px;height: 100px;" alt="">
         <input name="image3" type="file"  value="{{variant.image3.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 3" id="name" />
       </p>
     
@@ -66,6 +66,7 @@
         <a href="{% url 'delete-variant' variant.id %}"><input type="button" style="background-color: red;" value="Delte" id="button-blue"/></a>
          <div class="ease"></div>
       </div>
+      
     </form>
   </div>
 </div>
