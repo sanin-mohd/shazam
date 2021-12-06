@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '=27pcagvl#4)(^)apefd%s@tehh1(c#!93%yz1iz0qlnx8p&hz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',cast=bool)
+DEBUG = True
 
 ALLOWED_HOSTS = []
 

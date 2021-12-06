@@ -1,2 +1,24 @@
 pass: reduf#@#45DASDGVFSDFs
 email: shahnansaneen@gmail.com
+
+
+"""razorpay API credentials"""
+
+RZORPAY_API_KEY=rzp_test_sLatQkqSJy9tS5
+RAZORPAY_API_SECRET_KEY=S9DODl1M2XJwjvTTSO2rR0k5
+
+
+
+DEBUG=TRUE
+
+
+
+"""Twilio credentials"""
+#(find here https://www.twilio.com/console)
+
+TWILIO_ACCOUNT_SID=AC4e3862af9d6a690cce17bba4a2db02ba
+TWILIO_AUTH_TOKEN=65127b5d2276705b0d3812175c8bb24f
+
+# (create one here https://www.twilio.com/console/verify/services)
+
+VERIFICATION_SID=VAebd16c7cf0b16e129cb5bbe762ce71f5
