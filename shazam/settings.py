@@ -157,6 +157,16 @@ RZORPAY_API_KEY = config('RZORPAY_API_KEY')
 RAZORPAY_API_SECRET_KEY = config('RAZORPAY_API_SECRET_KEY')
 
 
+# Twilio API credentials
+# (find here https://www.twilio.com/console)
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN')
+
+# Verification Service SID
+# (create one here https://www.twilio.com/console/verify/services)
+VERIFICATION_SID = config('VERIFICATION_SID')
+
+
 # from django.contrib.messages import constants as messages
 # MESSAGE_TAGS = {
 #     messages.INFO: '',

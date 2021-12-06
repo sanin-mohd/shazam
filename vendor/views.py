@@ -1,3 +1,5 @@
+from django.db import models
+from django.db.models.fields import CharField, FloatField, IntegerField
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.humanize.templatetags.humanize import intcomma
@@ -19,6 +21,12 @@ from django.utils import timezone
 from datetime import date
 from datetime import timedelta
 from django.db.models import Q
+
+#DTL dictionary value
+from django.template.defaulttags import register
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 
 import csv
@@ -530,13 +538,26 @@ def download_vendor_report(request):
     return response
     
 
-def vendor_sales(request):
-    month=timezone.now().month
+def vendor_sales(request,month=timezone.now().month):
+    
+    print("Month:",end =" ")
+    print(month)
     user=request.user
     vendor=Vendor.objects.get(email=user.email)
-    orders=OrderVehicle.objects.filter(vendor=vendor,created_at__month=month,status="Completed").distinct('vehicle','variant')
+    orders=OrderVehicle.objects.filter(vendor_id=vendor,created_at__month=month,status="Completed")
+    vehicles=Vehicle.objects.filter(vendor_id=vendor)
+    variants=Variant.objects.filter(vehicle_id__vendor_id=vendor)
+    
+
+    #renvenue by distinct vehicle
+    revenue_by_vehicles = (orders.values('variant').annotate(revenue=Sum('price')).order_by('vehicle__vehicle_name'))   
+    print(revenue_by_vehicles)
+    for variant in variants:
+        print(orders.filter(variant=variant).aggregate(Sum('price')))
     
     context={
+        'revenue_by_vehicles':revenue_by_vehicles,
+        'variants':variants,
         'vendor':vendor,
     }
     return render(request,'vendor/sales_report.html',context)

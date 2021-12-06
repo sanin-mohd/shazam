@@ -1,5 +1,8 @@
 from django.db import models
+from django.db.models.aggregates import Sum
 from django.db.models.deletion import CASCADE
+from django.http import request
+from django.utils import timezone
 from user.models import Account
 from showroom.models import Variant,Vehicle
 from vendor.models import Vendor
@@ -92,4 +95,10 @@ class OrderVehicle(models.Model):
     
     def __int__(self):
         return self.vehicle
+    
+    def get_renvenue(self,month=timezone.now().month, variant_id=0):
+        email=request.user.email
+        vendor=Vendor.objects.get(email=email)
+        orders=OrderVehicle.objects.filter(vendor_id=vendor,created_at__month=month,status="Completed",variant=variant_id)
+        return orders.values('variant').annotate(revenue=Sum('price'))
 

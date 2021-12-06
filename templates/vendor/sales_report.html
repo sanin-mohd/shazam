@@ -24,26 +24,23 @@
                   <th>No</th>
 
                 <th>Image</th>
-                <th>Vehicle Model</th>
-                <th>Category</th>
-                <th>Rating</th>
+                <th>Vehicle Model/Category</th>
                 <th>Variant</th>
-                <th>Price</th>
-                <th>Offer Given</th>
-                <th>Stocks</th>
+                <th>Revenue</th>
+                <th>Profit</th>
+                <th>Stocks Remaining</th>
 
               </tr>
             </thead>
             <tbody>
                 {% for x in variants %}
-              <tr {% if not x.remaining %} style= "background-color: rgb(255, 167, 167);" {% endif %}>
+              <tr >
                   <td>{{forloop.counter}}</td>
                 <td class="align-middle" > 
                         <img style="width: 80px;height: 60px;" src="{{x.image1.url}}" alt="">
                 </td>
-                <td class="align-middle">{{x.vehicle_id}}</td>
-                <td class="align-middle">{{x.vehicle_id.category}}</td>
-                <td class="align-middle">{{x.vehicle_id.rating| floatformat:1}}/5</td>
+                <td class="align-middle">{{x.vehicle_id}} <br> {{x.vehicle_id.category}}</td>
+                
                 <td class="align-middle">
                     <div class="d-flex
                       align-items-center">
@@ -57,8 +54,16 @@
                   </div>
                 </td>
                 
-                <td class="align-middle">₹ {{x.price | intcomma}}</td>
-                <td class="align-middle">{% if x.vehicle_id.vehicleoffer.discount%}{{x.vehicle_id.vehicleoffer.discount}}% {% else%}0%{% endif %}</td>
+                <td class="align-middle">{{x.remaining}}</td>
+                <td class="align-middle">{{x.remaining}}</td>
+                {% for revenue_by_vehicle in revenue_by_vehicles %}
+                <!-- {% for variant,revenue in revenue_by_vehicle.items%} -->
+                <!-- {% if variant is x.id %} -->
+                <td class="align-middle">{{revenue_by_vehicle}}</td>
+                <!-- {% endif %} -->
+                
+                <!-- {% endfor %} -->
+                {% endfor %}
                 <td class="align-middle">{{x.remaining}}</td>
                
                 

@@ -273,7 +273,7 @@ def update_payment(request):
 
 
     print("order confirm message sending")
-    # send_sms(username,mobile,orderID,paid,pending)
+    #send_sms(username,mobile,orderID,paid,pending)
     print("order confirm message sent")
 
 
