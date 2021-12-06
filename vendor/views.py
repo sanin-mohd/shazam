@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-
+from django.contrib.humanize.templatetags.humanize import intcomma
+from offers.models import VehicleOffer
 from orders.models import Order, OrderVehicle
 from . models import Vendor
 from user.models import Account
@@ -18,6 +19,9 @@ from django.utils import timezone
 from datetime import date
 from datetime import timedelta
 from django.db.models import Q
+
+
+import csv
 
 @user_passes_test(lambda u: u.is_staff,login_url='staff-only')
 def vendor_dashboard(request):
@@ -293,6 +297,7 @@ def add_vehicle(request):
 
         vehicle=Vehicle.objects.create(vendor_id=vendor,vehicle_name=vehicle_name,category=Category.objects.get(category_name=category_name),range=range,top_speed=top_speed,no_of_seats=no_of_seats,gif=gif)
         vehicle.save()
+        VehicleOffer.objects.create(vendor=vendor,discount=0,vehicle=vehicle,is_active=False)
         return redirect('view-vehicles')
     else:
         categories=Category.objects.all()
@@ -485,3 +490,53 @@ def change_delivery_status(request,ordervehicle):
     ordervehicle.save()
     return redirect('new_booking')
 
+def report(request):
+    user=request.user
+    vendor=Vendor.objects.get(email=user.email)
+    vehicles=Vehicle.objects.filter(vendor_id=vendor)
+    variants=Variant.objects.filter(vehicle_id__vendor_id=vendor)
+    context={
+        'vehicles':vehicles,
+        'vendor':vendor,
+        'variants':variants,
+
+    }
+
+    return render(request,'vendor/report.html',context)
+def download_vendor_report(request):
+    user=request.user
+    vendor=Vendor.objects.get(email=user.email)
+    vehicles=Vehicle.objects.filter(vendor_id=vendor)
+    variants=Variant.objects.filter(vehicle_id__vendor_id=vendor)
+    context={
+        'vehicles':vehicles,
+        'vendor':vendor,
+        'variants':variants,
+
+    }
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=showrooms.csv'
+
+    writer = csv.writer(response)
+    
+
+    writer.writerow(
+        ['Vehicle Model', 'Category', 'Rating', 'Variant', 'Price(INR)', 'Offer Given(%)', 'Stocks'])
+
+    for x in variants:
+        writer.writerow([x.vehicle_id, x.vehicle_id.category, x.vehicle_id.rating(),
+                         x.color, str(intcomma(x.price)), x.vehicle_id.vehicleoffer.discount,
+                         x.remaining])
+    return response
+    
+
+def vendor_sales(request):
+    month=timezone.now().month
+    user=request.user
+    vendor=Vendor.objects.get(email=user.email)
+    orders=OrderVehicle.objects.filter(vendor=vendor,created_at__month=month,status="Completed").distinct('vehicle','variant')
+    
+    context={
+        'vendor':vendor,
+    }
+    return render(request,'vendor/sales_report.html',context)

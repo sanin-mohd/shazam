@@ -48,6 +48,7 @@ class Order(models.Model):
     order_total=models.FloatField(default=1)
     pending_amount=models.IntegerField(null=True,default=0)
     tax=models.FloatField()
+    discount_price=models.FloatField(default=0)
     status=models.CharField(max_length=100,default='Booking Payment pending')
     ip=models.CharField(blank=True,max_length=20)
     is_ordered=models.BooleanField(default=False)

@@ -46,6 +46,62 @@
                     </tr>
                     </thead>
                     <tbody>
+                      {% if request.session.buy_now_variant_id %}
+                      <tr>
+                        <td>
+                          <figure class="itemside align-items-center">
+                            <a href="#">
+                      
+                              <div class="aside"><img src="{{variant.image1.url}}" class="img-sm"></div>
+                              <figcaption class="info">
+                                
+                                <div class="d-flex flex-row">
+                                  <div class="">
+                                    <a href="#" class="title font-weight-bold text-dark">{{variant.vehicle_id}}</a>
+                                    
+                                  </div>
+                                  <div class="ml-4">
+                                    <p  style="width: 45px;height: 20px;background-color: {{variant.color}};"></p>
+                                  </div>
+                                </div> 
+                                <p> <span  class="font-weight-bold"> Range: </span>{{variant.vehicle_id.range}} km <br> <span class="font-weight-bold">Top Speed : </span> {{variant.vehicle_id.top_speed}} km/h</p>
+                              </figcaption>
+                            </a>
+                          </figure>
+                        </td>
+                        <td> 
+                          <!-- col.// -->
+                                <div class="col"> 
+                                  <div class="input-group input-spinner">
+                                    
+                                    <input type="text" disabled class="form-control p-2"  value="{{1}}">
+                                    
+                                  </div> <!-- input-group.// -->
+                                </div> <!-- col.// -->
+                        </td>
+                        <td> 
+                          <div class="price-wrap"> 
+                            <var class="price">₹{{request.session.booking_price}}</var>
+                            
+                          </div> <!-- price-wrap .// -->
+                        </td>
+                        <td>
+                          <div class="price-wrap"> 
+                            
+                            {% if variant.vehicle_id.vehicleoffer.is_active %}
+                              <small>₹ {{request.session.pending_price |floatformat:0|intcomma }} each</small><br>
+                            <span style="font-size: small;">₹ <strike> <b>{{variant.price | intcomma }}</b> </strike> <br> {{variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}% off</span>
+              
+                            {% else %}
+                           <small>₹ {{variant.price |floatformat:0| intcomma }} each</small>
+                            {% endif %}
+                          </div> <!-- price-wrap .// -->
+                        </td>
+                      
+                        
+                      </tr>
+
+                      {% else %} 
                       {% for cart_item in cart_items %}
                     <tr>
                       <td>
@@ -102,6 +158,7 @@
                     </tr>
                     
                     {% endfor %}
+                    {% endif %}
                     
                     </tbody>
                     </table>
@@ -143,20 +200,28 @@
 		<div class="card-body">
 			<dl class="dlist-align">
 			  <dt>Total vehicle price:</dt>
-			  <dd class="text-right">₹{{ grand_total |floatformat:0  | intcomma }}</dd>
+			  <dd class="text-right">₹{{  request.session.pending_price |floatformat:0  | intcomma }}</dd>
 			</dl>
 			<hr>
 			<dl class="dlist-align">
 				<dt>Booking price:</dt>
-				<dd class="text-right">₹{{ booking_price |floatformat:0 | intcomma }}</dd>
+				<dd class="text-right">₹{{ request.session.booking_price |floatformat:0 | intcomma }}</dd>
 			  </dl>
 			<dl class="dlist-align">
 			  <dt>Tax(5%):</dt>
-			  <dd class="text-right">₹{{ tax  |floatformat:0 | intcomma }}</dd>
+			  <dd class="text-right">₹{{ request.session.total_tax  |floatformat:0 | intcomma }}</dd>
+			</dl>
+      <dl class="dlist-align">
+			  <dt>Coupon code:</dt>
+			  <dd style="color: green;" class="text-right">{{ request.session.code }}</dd>
+			</dl>
+      <dl class="dlist-align">
+			  <dt>Discount Price:</dt>
+			  <dd style="color: green;" class="text-right">-₹{{ request.session.coupon_discount_price  |floatformat:0 | intcomma }}</dd>
 			</dl>
 			<dl class="dlist-align">
 			  <dt>Total:</dt>
-			  <dd class="text-right text-dark b"><strong>₹{{ grand_booking_total |floatformat:0 | intcomma }}</strong></dd>
+			  <dd class="text-right text-dark b"><strong>₹{{ request.session.grand_total |floatformat:0 | intcomma }}</strong></dd>
 			</dl>
 			<hr>
 			<p class="text-center mb-3">
@@ -166,6 +231,9 @@
             <div id="paypal-button-container"></div>
 
             {% else %}
+            
+            <button id="rzp-button1" class="btn btn-primary btn-block">Pay through RazorPay</button>
+            
 			<!-- <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Pay Now </a> -->
 			{% endif %}
 		</div> <!-- card-body.// -->
@@ -197,7 +265,7 @@
     }
     
     // Render the PayPal button into #paypal-button-container
-    var amount      = "{{grand_booking_total_USD}}"
+    var amount      = "{{request.session.grand_booking_total_USD}}"
     var url         = "{% url 'update_payment' %}"
     var redirect_url= "{% url 'booking_reciept' %}"
     const csrftoken = getCookie('csrftoken');
@@ -257,5 +325,58 @@
 
 
     }).render('#paypal-button-container');
+</script>
+
+<script>
+
+
+document.getElementById('rzp-button1').onclick = function (e) {
+  rzp1.open();
+  e.preventDefault();
+}
+
+var options = {
+  "key": "{{ RZORPAY_API_KEY }}", // Enter the Key ID generated from the Dashboard
+  "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+  "currency": "INR",
+  "name": "Shazam",
+  "description": "Payment",
+  "order_id": "{{ payment_id }}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 2
+  "handler": function (response) {
+      
+      $.ajax({
+          type: 'POST',
+          url: "{% url 'razorpay_payment_verification' %}",
+          dataType: 'json',
+          data: {
+              csrfmiddlewaretoken: csrftoken,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+          },
+          success: function (data) {
+              console.log(data)
+              if (data.message === 'success') {
+                  
+                  window.location.replace("{% url 'booking_reciept' %}")
+              } else {
+                  window.location.replace("{% url 'payment_failed' %}")
+              }
+          }
+      })
+  },
+  "prefill": {
+      "name": "{{ request.user.first_name }}",
+      "email": "{{ request.user.email }}",
+      "contact": "{{ request.user.mobile }}"
+  },
+  "theme": {
+      "color": "#3399cc"
+  }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response) {
+  window.location.replace("{% url 'payment_failed' %}")
+});
 </script>
 {% endblock %}

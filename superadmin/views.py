@@ -1,9 +1,11 @@
 
+import csv
+from django.contrib.humanize.templatetags.humanize import intcomma
 from django.utils import timezone
 from django.db.models.aggregates import Sum
 from django.db.models.query import RawQuerySet
 from django.http import request
-from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from orders.models import OrderVehicle,Order
 from superadmin.models import BookingPrice
@@ -403,3 +405,31 @@ def edit_price(request,id):
         'bookingprice':bookingprice,
     }
     return render(request,'superadmin/edit_price.html',context)
+
+
+def admin_report(request):
+    month=timezone.now().month
+    orders=Order.objects.filter(created_at__month=month).order_by('-created_at')
+    context={
+        'orders':orders,
+    }
+    return render(request,'superadmin/report.html',context)
+
+def download_admin_report(request):
+    month=timezone.now().month
+    orders=Order.objects.filter(created_at__month=month).order_by('-created_at')
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=monthly_booking.csv'
+
+    writer = csv.writer(response)
+    
+
+    writer.writerow(
+        ['Booking ID', 'Billing name', 'Mobile', 'Paid', 'Discount', 'Created At'])
+
+    for x in orders:
+        writer.writerow([x.order_number, x.full_name, x.mobile,
+                         x.order_total, x.discount_price, x.created_at])
+    return response
+    

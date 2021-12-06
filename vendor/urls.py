@@ -22,6 +22,11 @@ urlpatterns = [
     path('completed_booking',views.completed_booking,name='completed_booking'),
     path('verify_booking/<int:ordervehicle>',views.verify_booking,name='verify_booking'),
     path('change_delivery_status/<int:ordervehicle>',views.change_delivery_status,name='change_delivery_status'),
+    path('report',views.report,name='report'),
+    path('download_vendor_report',views.download_vendor_report,name='download_vendor_report'),
+    path('vendor_sales',views.vendor_sales,name='vendor_sales'),
+    
+    
 
 
 

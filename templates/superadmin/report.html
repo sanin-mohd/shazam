@@ -1,0 +1,63 @@
+{% extends 'superadmin/base.html'%}
+{% load static %}
+{% load humanize%}
+{% block content%}
+
+<div class="row mt-6">
+    <div class="col-md-12 col-12">
+      <!-- card  -->
+      <div class="card">
+        <!-- card header  -->
+        <div class="card-header bg-white border-bottom-0 py-4 d-flex justify-content-between">
+          <div class="">
+            <h4 class="mb-0">Monthly Bookings Report</h4>
+          </div>
+          <div class="">
+            <a href="{% url 'download_admin_report' %}" style="float: right;" class="btn btn-info">Download Report</a>
+          </div>
+        </div>
+        <!-- table  -->
+        <div class="table-responsive">
+          <table id="example" class="table text-nowrap mb-0">
+            <thead class="table-light">
+              <tr>
+                  <th>No</th>
+                <th>Booking ID</th>
+                <th>Billing name</th>
+                <th>Mobile</th>
+                <th>Paid</th>
+                <th>Discount</th>
+                <th>Created At</th>
+
+              </tr>
+            </thead>
+            <tbody>
+                {% for x in orders %}
+              <tr >
+                <td>{{forloop.counter}}</td>
+                <td class="align-middle">{{x.order_number}}</td>
+                <td class="align-middle">{{x.full_name}}</td>
+                <td class="align-middle">{{x.mobile}}</td>
+                <td class="align-middle">{{x.order_total}}</td>
+                <td class="align-middle">{{x.discount_price}}</td>
+                <td class="align-middle">{{x.created_at}}</td>
+               
+                
+              </tr>
+                {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        <!-- card footer  -->
+        <div class="card-footer bg-white text-center">
+          <a href="#">Go to Top</a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+{% endblock %}

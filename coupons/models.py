@@ -7,14 +7,13 @@ from category.models import Category
 # Create your models here.
 class Coupon(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    category=models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
     code=models.CharField(max_length=10,unique=True)
     discount = models.PositiveIntegerField(help_text='Offer in percentage',default=0)
     is_active = models.BooleanField(default=True)
     created_at=models.DateTimeField(auto_now_add=True)
     
 
-    def __str__(self):
+    def __int__(self):
         return str(self.discount)
 
 class RedeemedCoupon(models.Model):

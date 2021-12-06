@@ -10,16 +10,6 @@
     <form method="post"  action="{% url 'add_coupon'%}" class="form" id="form1">
         {% csrf_token %}
         {% include 'includes/alerts.html' %}
-        <label for="">Category</label>
-      <select name="category"  class="form-select validate[required,custom[onlyLetter],length[0,100]] feedback-input" aria-label="Default select example">
-        <option selected>Category</option>
-        {% for category in categories %}
-
-        <option value="{{category.id}}">{{category.category_name}}</option>
-
-        {% endfor %}
-        
-      </select>
       <p class="name">
         <label for="">Coupon Code</label>
         <input name="code" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />

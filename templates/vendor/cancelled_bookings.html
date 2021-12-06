@@ -27,7 +27,7 @@
             <td><span style="color: cadetblue;">{{item.order.order_number}} </span><br>{{item.get_date}}</td>
             <td>{{item.order.full_name}} <br>{{item.order.mobile}}</td>
             <td>{{item.vehicle}} <br>{{item.vehicle.category}}</td>
-            <td><div class="mb-1" style="border-radius: 3px;width: 40px;height: 20px;background-color: {{item.variant}};"></div>{{item.quantity}} Vehicles</td>
+            <td><div class="mb-1" style="border-radius: 3px;width: 40px;height: 20px;background-color: {{item.variant.color}};"></div>{{item.quantity}} Vehicles</td>
             <td>₹ {{item.price | intcomma}}</td>
             {% if item.order.status == "Cancelled" %}
             <td>{{item.order.status}}</td>

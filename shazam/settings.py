@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '=27pcagvl#4)(^)apefd%s@tehh1(c#!93%yz1iz0qlnx8p&hz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG',cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -131,13 +131,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -149,6 +150,12 @@ STATIC_ROOT=BASE_DIR/'assets'
 
 STATIC_URL='/media/'
 MEDIA_ROOT= BASE_DIR/'media'
+
+
+# Razorpay API credentials
+RZORPAY_API_KEY = config('RZORPAY_API_KEY')
+RAZORPAY_API_SECRET_KEY = config('RAZORPAY_API_SECRET_KEY')
+
 
 # from django.contrib.messages import constants as messages
 # MESSAGE_TAGS = {

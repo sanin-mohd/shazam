@@ -134,7 +134,8 @@
 	<a href="#" class="btn  btn-light"> <span class="text">Added to Cart</span> <i class="fas fa-check"></i>  </a>
 	<a href="{% url 'cart' %}" class="btn  btn-primary"> <span class="text">View Cart</span> <i class="fas fa-shopping-cart"></i>  </a>
 	{% else %}
-	<a href="{% url 'add_quantity' variant.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+	<a href="{% url 'add_quantity' variant.id %}" class="btn  btn-primary"> <span class="text">Add To Cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+	<a href="{% url 'buy_now' variant.id %}" class="btn  btn-primary"> <span class="text">Buy Now</span> <i class="fas fa-shopping-cart"></i>  </a>
 	{% endif %}
 
 

@@ -1,10 +1,14 @@
+from django.core.checks import messages
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from category.models import Category
+from coupons.views import redeem_coupon
 from showroom.models import Vehicle,Variant
+from superadmin.models import BookingPrice
 from user.models import Account, Address
 from .models import Cart,CartItem
 from django.contrib.auth.decorators import login_required
+from coupons.models import Coupon, RedeemedCoupon
 # Create your views here.
 
 def _cart_id(request):
@@ -103,6 +107,8 @@ def remove_cart_item(request,variant_id):
 
 
 def cart(request,total_price=0,booking_price=0,total_quantity=0):
+    if request.session.has_key('buy_now_variant_id'):
+        del request.session['buy_now_variant_id']
     print("cart called--------->>>>>>>>>")
     try:
         if request.user.is_authenticated:
@@ -116,29 +122,35 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
 
         
         print("cart line 2 working...")
+        i=0
         for cart_item in cart_items:
+            print(cart_item.variant.get_price())
+            print(cart_item.quantity)
+            print("------------")
             try:
                 if cart_item.variant.vehicle_id.vehicleoffer.is_active:
-                    print(cart_item.variant.get_price())
-                    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                    total_price=total_price+(cart_item.variant.get_price())*(cart_item.quantity)
-                    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                raise
+                   
+                    total_price += cart_item.variant.get_price()*cart_item.quantity
+                
             except:
-                total_price=total_price+cart_item.variant.price*cart_item.quantity
-            print(">>>>11>>>>>")
+                
+                total_price += cart_item.variant.price*cart_item.quantity
+               
+
+            print(total_price)
             total_quantity=total_quantity+cart_item.quantity
             booking_price=booking_price+cart_item.variant.vehicle_id.category.bookingprice.booking_price*cart_item.quantity
-            print("booking_price : ")
-            print(booking_price)
+            
 
 
                 
         total_tax=booking_price*0.05
         grand_total=total_tax+booking_price
         
+        request.session['pending_price']=total_price
         
         request.session['booking_price']=booking_price
+        request.session['coupon_discount_price']=0
         request.session['total_tax']=total_tax
         request.session['grand_total']=grand_total
 
@@ -172,44 +184,150 @@ def checkout(request):
         
     
     if request.user.is_authenticated:
-        cart_items=CartItem.objects.filter(user=request.user,is_active=True)
+        if request.session.has_key('buy_now_variant_id'):
+            variant=Variant.objects.get(id=request.session['buy_now_variant_id'])
+            booking_price=BookingPrice.objects.get(category=variant.vehicle_id.category).booking_price
+            request.session['pending_price']=int(variant.get_price())
+            request.session['booking_price']=booking_price
+        else:
+            cart_items=CartItem.objects.filter(user=request.user,is_active=True)
+            booking_price=request.session['booking_price']
     else:
         cart=Cart.objects.get(cart_id=_cart_id(request))
-        print("cart line 1 working...")
+        
         cart_items=CartItem.objects.filter(cart_id__cart_id=_cart_id(request),is_active=True)
+        booking_price=request.session['booking_price']
 
         
     
 
-    booking_price=request.session['booking_price']
-    total_tax=request.session['total_tax']
-    grand_total=request.session['grand_total']
+    
+    
+    if request.session.has_key('coupon_discount_perc'):
+        
+        try:
+            coupon=Coupon.objects.get(id=request.session['coupon_id'])
+            
+            user=Account.objects.get(email=request.user)
+            try:
+                redeemed_coupon=RedeemedCoupon.objects.get(user=user,coupon=coupon)
+            except:
+                redeem_coupon=None
+            
+            if redeem_coupon is None:
+                if Coupon.objects.get(id=request.session['coupon_id']).is_active:
+
+                    coupon_discount_perc=request.session['coupon_discount_perc']
+                    coupon_discount_price=booking_price*(coupon_discount_perc)/100
+                    request.session['coupon_discount_price']=coupon_discount_price
+                else:
+                    print("This coupon is expired")
+                    coupon_discount_price=0
+                    messages.Error(request,"This coupon is expired")
+
+            else:
+                coupon_discount_price=0
+                messages.Error(request,"You have reedemed this coupon before")
+        except:
+            messages.Error(request,"Coupon not valid")
+            coupon_discount_price=0
+    else:
+        coupon_discount_price=0
     addresses   =   Address.objects.filter(user=user)
-    try:
 
-        address =   Address.objects.get(user=user,default=True)
-        context={
-
-        'cart_items':cart_items,
-        'booking_price':booking_price,
-        'grand_total':grand_total,
-        'total_tax':total_tax,
-        'addresses':addresses,
-        'address':address,
-
-        }
+    if request.session.has_key('buy_now_variant_id'):
+        total_tax=booking_price*0.05
         
-    except:
+        grand_total=booking_price+total_tax
+        print("*********************************************")
+        grand_total-=coupon_discount_price
+        print(grand_total)
+        request.session['coupon_discount_price']=coupon_discount_price
+        request.session['grand_total']=grand_total
+        request.session['total_tax']=total_tax
+        try:
+
+            address =   Address.objects.get(user=user,default=True)
+            context={
+
+            'variant':variant,
+            'booking_price':booking_price,
+            'grand_total':grand_total,
+            'total_tax':total_tax,
+            'addresses':addresses,
+            'coupon_discount_price':coupon_discount_price,
+            'address':address,
+
+            }
+            
+        except:
+            
+            context={
+
+                'variant':variant,
+                'booking_price':booking_price,
+                'grand_total':grand_total,
+                'total_tax':total_tax,
+                'addresses':addresses,
+                'coupon_discount_price':coupon_discount_price
+                
+
+                }
+    else:
+
+        total_tax=request.session['total_tax']
+        grand_total=booking_price+total_tax
+        print("*********************************************")
+        grand_total-=coupon_discount_price
+        print(grand_total)
+        request.session['coupon_discount_price']=coupon_discount_price
+        request.session['grand_total']=grand_total
+        request.session['total_tax']=total_tax
+
         
-        context={
+        try:
+
+            address =   Address.objects.get(user=user,default=True)
+            context={
 
             'cart_items':cart_items,
             'booking_price':booking_price,
             'grand_total':grand_total,
             'total_tax':total_tax,
             'addresses':addresses,
-            
+            'coupon_discount_price':coupon_discount_price,
+            'address':address,
 
             }
+            
+        except:
+            
+            context={
+
+                'cart_items':cart_items,
+                'booking_price':booking_price,
+                'grand_total':grand_total,
+                'total_tax':total_tax,
+                'addresses':addresses,
+                'coupon_discount_price':coupon_discount_price
+                
+
+                }
     
     return render(request,'place-order.html',context)
+
+def buy_now(request,variant_id):
+    user=request.user
+    if user.is_authenticated:
+        try:
+            del request.session['coupon_id']
+            del request.session['code']
+            del request.session['coupon_discount_perc']
+            del request.session['discount_price']
+        except:
+            pass
+        variant=Variant.objects.get(id=variant_id)
+        
+
+        request.session['buy_now_variant_id']=variant_id
+    return redirect('checkout')

@@ -38,6 +38,62 @@
                     </tr>
                     </thead>
                     <tbody>
+                      {% if request.session.buy_now_variant_id %}
+                      <tr>
+                        <td>
+                          <figure class="itemside align-items-center">
+                            <a href="{% url 'showroom-variant' variant.id %}">
+                      
+                              <div class="aside"><img src="{{variant.image1.url}}" class="img-sm"></div>
+                              <figcaption class="info">
+                                
+                                <div class="d-flex flex-row">
+                                  <div class="">
+                                    <a href="{% url 'showroom-variant' variant.id %}" class="title font-weight-bold text-dark">{{cart_item.variant.vehicle_id}}</a>
+                                    
+                                  </div>
+                                  <div class="ml-4">
+                                    <p  style="width: 45px;height: 20px;background-color: {{variant.color}};"></p>
+                                  </div>
+                                </div> 
+                                <p> <span  class="font-weight-bold"> Range: </span>{{variant.vehicle_id.range}} km <br> <span class="font-weight-bold">Top Speed : </span> {{cart_item.variant.vehicle_id.top_speed}} km/h</p>
+                              </figcaption>
+                            </a>
+                          </figure>
+                        </td>
+                        <td> 
+                          <!-- col.// -->
+                                <div class="col"> 
+                                  <div class="input-group input-spinner">
+                                    
+                                    <input type="text" disabled class="form-control p-2"  value="{{1}}">
+                                    
+                                  </div> <!-- input-group.// -->
+                                </div> <!-- col.// -->
+                        </td>
+                        <td> 
+                          <div class="price-wrap"> 
+                            <var class="price">₹{{request.session.booking_price}}</var>
+                            
+                          </div> <!-- price-wrap .// -->
+                        </td>
+                        <td>
+                          <div class="price-wrap"> 
+                            
+                            {% if variant.vehicle_id.vehicleoffer.is_active %}
+                              <small>₹ {{variant.get_price |floatformat:0|intcomma }} each</small><br>
+                            <span style="font-size: small;">₹ <strike> <b>{{variant.price | intcomma }}</b> </strike> <br> {{variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}% off</span>
+              
+                            {% else %}
+                           <small>₹ {{variant.price |floatformat:0| intcomma }} each</small>
+                            {% endif %}
+                          </div> <!-- price-wrap .// -->
+                        </td>
+                      
+                        
+                      </tr>
+
+                      {% else %}
                       {% for cart_item in cart_items %}
                     <tr>
                       <td>
@@ -93,7 +149,9 @@
                       
                     </tr>
                     
+                    
                     {% endfor %}
+                    {% endif %}
                     
                     </tbody>
                     </table>
@@ -271,66 +329,84 @@
           <aside class="col-md-4">
             <div class="card">
               <div class="card-body">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
-                  <form action="#" method="post" class="search">
-                    <div class="input-group w-100">
-                      <input
-                        type="text"
-                        class="form-control"
-                        style="
-                          width: 60%;
-                          border-top-left-radius: 0.5rem;
-                          border-bottom-left-radius: 0.5rem;
-                        "
-                        placeholder="Coupon Code"
-                      />
-
-                      <div class="input-group-append">
-                        <button
-                          class="btn btn-primary"
-                          style="
-                            width: 70px;
-                            border-top-right-radius: 0.5rem;
-                            border-bottom-right-radius: 0.5rem;
-                          "
-                          type="submit"
-                        >
-                          Apply
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  <!-- search-wrap .end// -->
-                </div>
+                
                 <!-- col.// -->
                 <dl class="dlist-align">
+                  <dt>Total vehicle price:</dt>
+                  <dd class="text-right">₹{{ request.session.pending_price |floatformat:"0" | intcomma }}</dd>
+                </dl>
+                <hr>
+                <dl class="dlist-align">
                   <dt>Booking price:</dt>
-                  <dd class="text-right"> ₹{{booking_price |floatformat:"0"}}</dd>
+                  <dd class="text-right"> ₹{{request.session.booking_price |floatformat:"0"}}</dd>
                 </dl>
                 <dl class="dlist-align">
                   <dt>Tax (5%) :</dt>
-                  <dd class="text-right"> ₹{{total_tax |floatformat:"0"}}</dd>
+                  <dd class="text-right"> ₹{{request.session.total_tax |floatformat:"0"}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                  <dt>Coupon code:</dt>
+                  <dd style="color: green;" class="text-right"> {{request.session.code}}</dd>
                 </dl>
                 <dl class="dlist-align">
                   <dt>Discount price:</dt>
-                  <dd class="text-right"> ₹0</dd>
+                  <dd style="color: green;" class="text-right"> -₹{{request.session.coupon_discount_price}}</dd>
                 </dl>
                 
                 <dl class="dlist-align">
                   <dt>Grand Total:</dt>
                   <dd class="text-right text-dark b">
-                    <strong> ₹{{grand_total |floatformat:"0"}}</strong>
+                    <strong> ₹{{request.session.grand_total |floatformat:"0"}}</strong>
                   </dd>
                 </dl>
                 <hr />
-                <p class="text-center mb-3">
+               
+                <input value="Book Now" type="submit"class="btn btn-primary btn-block">
+                <p class="text-center mt-3">
                   <img src="{% static 'images/misc/payments.png' %}" height="26" />
                 </p>
-                <input value="Book Now" type="submit"class="btn btn-primary btn-block">
-                  
+              </div>
+              </form>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
+                
+                <form action="{% url 'redeem_coupon'%}" method="post" id="form-id" class="search">
+                  {% csrf_token %}
+                  <div class="input-group w-100">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="
+                        width: 60%;
+                        border-top-left-radius: 0.5rem;
+                        border-bottom-left-radius: 0.5rem;
+                      "
+                      placeholder="Coupon Code"
+                      name="code"
+                    />
+
+                    <div class="input-group-append">
+                      <button id="your-id"
+                        class="btn btn-primary" type="submit"
+                        style="
+                          width: 70px;
+                          border-top-right-radius: 0.5rem;
+                          border-bottom-right-radius: 0.5rem;
+                        "
+                        
+                      >
+                        Apply
+                      </button>
+                      
+                    </div>
+                    <p class="m-3">Have a coupon?</p>
+                  </div>
+                  {% include 'includes/alerts.html' %}
+                </form>
+
+                <!-- search-wrap .end// -->
+              </div>
                 
               
-              </div>
               <!-- card-body.// -->
             </div>
             <!-- card.// -->
@@ -338,10 +414,11 @@
           <!-- col.// -->
         </div>
         <!-- row.// -->
-        </form>
+        
 
         <!-- ============================ COMPONENT 2 END//  ================================= -->
       </div>
       <!-- container .//  -->
     </section>
+    
 {% endblock %}

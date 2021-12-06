@@ -62,6 +62,7 @@
                                         <li><strong>Booking ID</strong> {{order.order_number}}</li>
                                         <li><strong>Transaction</strong> {{payment_id}}</li>
                                         <li><strong>Booking Date:</strong> {{order.created_at}}</li>
+                                        <li><strong>Payment Gateway:</strong> {{order.payment_option}}</li>
                                         <li><strong>Status:</strong> PAID</li>
                                     </ul>
                                 </div>
@@ -129,13 +130,19 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th colspan="6" class="text-right">Sub Total:</th>
-                                                <th class="text-center">₹{{order.order_total}} INR</th>
+                                                <th colspan="6" class="text-right">Discount Price:</th>
+                                                <th style="color: green;" class="text-center">-₹{{order.discount_price|floatformat:0}} INR</th>
                                             </tr>
                                             <tr>
-                                                <th colspan="6" class="text-right">Tax:</th>
-                                                <th class="text-center">₹{{order.tax}}INR</th>
+                                                <th colspan="6" class="text-right">Sub Total:</th>
+                                                <th class="text-center">₹{{order.order_total|floatformat:0}} INR</th>
                                             </tr>
+                                            
+                                            <tr>
+                                                <th colspan="6" class="text-right">Tax:</th>
+                                                <th class="text-center">₹{{order.tax |floatformat:0}} INR</th>
+                                            </tr>
+                                            
                                             
                                             <tr>
                                                 <th colspan="6" class="text-right">Grand Total:</th>
