@@ -1,15 +1,19 @@
+from django.utils import timezone
 from typing import Tuple
 from django.core.validators import slug_re
 from django.db import models
+from django.db.models.aggregates import Sum
 from django.db.models.deletion import Collector
 from django.db.models.fields import BooleanField, CharField, DateTimeField, SlugField
 from colorfield.fields import ColorField
+from django.http import request
 from category.models import Category
+
 
 from vendor.models import Vendor
 from user.models import Account
 from django.db.models import Avg
-
+from django.apps import apps
 
 # Create your models here.
 class Vehicle(models.Model):
@@ -74,6 +78,27 @@ class Variant(models.Model):
         except:
             pass
             return self.price
+    def get_revenue(self,month=timezone.now().month):
+        
+        vendor=self.vehicle_id.vendor_id
+        MyModel = apps.get_model('orders', 'OrderVehicle')
+        orders=MyModel.objects.filter(vendor_id=vendor,created_at__month=month,status="Completed",variant=self)
+        return orders.values('variant').annotate(revenue=Sum('price'))
+    def get_profit(self,month=timezone.now().month):
+        
+        vendor=self.vehicle_id.vendor_id
+        MyModel = apps.get_model('orders', 'OrderVehicle')
+        orders=MyModel.objects.filter(vendor_id=vendor,created_at__month=month,status="Completed",variant=self)
+        profit_calculted=orders.values('variant').annotate(profit=Sum('price'))
+        profit_calculated=profit_calculted[0]['profit']*0.23
+        return profit_calculated
+    def get_count(self,month=timezone.now().month):
+        
+        vendor=self.vehicle_id.vendor_id
+        MyModel = apps.get_model('orders', 'OrderVehicle')
+        orders=MyModel.objects.filter(vendor_id=vendor,created_at__month=month,status="Completed",variant=self)
+        return orders.values('variant').annotate(quantity=Sum('quantity'))
+        
 
 class ReviewRating(models.Model):
     vehicle     =   models.ForeignKey(Vehicle,on_delete=models.CASCADE)

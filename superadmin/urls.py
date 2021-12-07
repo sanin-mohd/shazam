@@ -24,6 +24,7 @@ urlpatterns = [
     path('edit_price/<str:id>',views.edit_price,name='edit_price'),
     path('admin_report',views.admin_report,name='admin_report'),
     path('download_admin_report',views.download_admin_report,name='download_admin_report'),
+
     
     
 

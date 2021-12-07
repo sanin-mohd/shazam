@@ -1,4 +1,4 @@
-{% extends 'vendor/index.html'%}
+{% extends 'superadmin/base.html'%}
 {% load static %}
 {% load humanize%}
 {% block content%}
@@ -13,14 +13,14 @@
             <h4 class="mb-0"> Sales Report : {{month_now}}</h4>
           </div>
           <div class="">
-            <h5>Total Revenue :₹ {{total_revenue|floatformat:0|intcomma}}</h5>
+            <h5>Total Revenue : {{total_revenue}}</h5>
             
           </div>
           <div class="">
-            <h5>Total Profit :₹ {{total_profit|floatformat:0|intcomma}}</h5>
+            <h5>Total Profit : {{total_profit}}</h5>
           </div>
           <div class="">
-            <a style="float: right;" href="{% url 'download_vendor_sales_report'%}" class="btn btn-info">Download Report</a>
+            <a style="float: right;" href="{% url 'download_vendor_report'%}" class="btn btn-info">Download Report</a>
           </div>
         </div>
         <!-- table  -->
@@ -108,10 +108,6 @@
 
     </div>
   </div>
-  <script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
+
 
 {% endblock %}

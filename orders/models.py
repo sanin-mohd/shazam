@@ -96,9 +96,5 @@ class OrderVehicle(models.Model):
     def __int__(self):
         return self.vehicle
     
-    def get_renvenue(self,month=timezone.now().month, variant_id=0):
-        email=request.user.email
-        vendor=Vendor.objects.get(email=email)
-        orders=OrderVehicle.objects.filter(vendor_id=vendor,created_at__month=month,status="Completed",variant=variant_id)
-        return orders.values('variant').annotate(revenue=Sum('price'))
+    
 

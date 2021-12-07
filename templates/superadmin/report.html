@@ -10,7 +10,14 @@
         <!-- card header  -->
         <div class="card-header bg-white border-bottom-0 py-4 d-flex justify-content-between">
           <div class="">
-            <h4 class="mb-0">Monthly Bookings Report</h4>
+            <h4 class="mb-0">Sales Report</h4>
+          </div>
+          <div class="">
+            <h5>Total Revenue :₹ {{total_revenue|floatformat:0|intcomma}}</h5>
+            
+          </div>
+          <div class="">
+            <h5>Total Bookings :{{total_bookings|floatformat:0|intcomma}}</h5>
           </div>
           <div class="">
             <a href="{% url 'download_admin_report' %}" style="float: right;" class="btn btn-info">Download Report</a>

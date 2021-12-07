@@ -410,8 +410,19 @@ def edit_price(request,id):
 def admin_report(request):
     month=timezone.now().month
     orders=Order.objects.filter(created_at__month=month).order_by('-created_at')
+    
+    total_revenue=0
+    total_bookings=orders.count()
+    for order in orders:
+        total_revenue+=order.order_total
+        
+    request.session['total_revenue']=total_revenue
+    request.session['total_bookings']=total_bookings
     context={
         'orders':orders,
+        'total_revenue':total_revenue,
+        'total_bookings':total_bookings
+
     }
     return render(request,'superadmin/report.html',context)
 
@@ -420,10 +431,11 @@ def download_admin_report(request):
     orders=Order.objects.filter(created_at__month=month).order_by('-created_at')
     
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=monthly_booking.csv'
+    response['Content-Disposition'] = 'attachment; filename=sales_report.csv'
 
     writer = csv.writer(response)
-    
+    writer.writerow(['Total Revenue', 'Total Bookings'])
+    writer.writerow([request.session['total_revenue'],request.session['total_bookings']])
 
     writer.writerow(
         ['Booking ID', 'Billing name', 'Mobile', 'Paid', 'Discount', 'Created At'])

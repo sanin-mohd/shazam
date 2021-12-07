@@ -46,8 +46,10 @@ def vendor_dashboard(request):
             pending         =   OrderVehicle.objects.filter( vendor=vendor,created_at__month=month)
             pending_count=0
             for x in pending:
-                if x.status=="Offline verification Pending" or x.status=='Delivery in Process':
-                    pending_count+=x.quantity
+                if x.status=="Offline verification Pending" :
+                    pending_count+=1
+                if x.status=='Delivery in Process':
+                    pending_count+=1
             # (Q(status ='Offline verification Pending' ) or Q(status ='Delivery in Process' ))
             pending=pending_count
             print(pending)
@@ -527,7 +529,6 @@ def download_vendor_report(request):
 
     writer = csv.writer(response)
     
-
     writer.writerow(
         ['Vehicle Model', 'Category', 'Rating', 'Variant', 'Price(INR)', 'Offer Given(%)', 'Stocks'])
 
@@ -548,16 +549,66 @@ def vendor_sales(request,month=timezone.now().month):
     vehicles=Vehicle.objects.filter(vendor_id=vendor)
     variants=Variant.objects.filter(vehicle_id__vendor_id=vendor)
     
-
+    month_now=timezone.now().strftime('%B')
     #renvenue by distinct vehicle
     revenue_by_vehicles = (orders.values('variant').annotate(revenue=Sum('price')).order_by('vehicle__vehicle_name'))   
     print(revenue_by_vehicles)
+    # for variant in variants:
+    #     print(orders.filter(variant=variant).aggregate(Sum('price')))
+    print("-------------------")
+    total_revenue=0
+    total_profit=0
     for variant in variants:
-        print(orders.filter(variant=variant).aggregate(Sum('price')))
-    
+        try:
+            print(variant.get_revenue())
+            total_revenue+=variant.get_revenue()[0]['revenue']
+        except:
+            pass
+        try:
+
+            print(variant.get_profit())
+            total_profit+=variant.get_profit()
+        except:
+            pass    
+    request.session['total_revenue']=total_revenue
+    request.session['total_profit']=total_profit        
     context={
+        'month_now':month_now,
+        'total_revenue':total_revenue,
+        'total_profit':total_profit,
         'revenue_by_vehicles':revenue_by_vehicles,
         'variants':variants,
         'vendor':vendor,
     }
     return render(request,'vendor/sales_report.html',context)
+
+def download_vendor_sales_report(request):
+    user=request.user
+    vendor=Vendor.objects.get(email=user.email)
+    vehicles=Vehicle.objects.filter(vendor_id=vendor)
+    variants=Variant.objects.filter(vehicle_id__vendor_id=vendor)
+    context={
+        'vehicles':vehicles,
+        'vendor':vendor,
+        'variants':variants,
+
+    }
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=sales_report.csv'
+
+    writer = csv.writer(response)
+    
+    writer.writerow(['Total Revenue', 'Total Profit'])
+    writer.writerow([request.session['total_revenue'],request.session['total_profit']])
+    writer.writerow(
+        ['Vehicle Model', 'Category', 'Variant', 'No of Sold vehicles', 'Revenue recieved', 'Profit','Stocks remaining'])
+
+    for x in variants:
+        try:
+
+            writer.writerow([x.vehicle_id, x.vehicle_id.category,
+                         x.color, x.get_count()[0]['quantity'], x.get_revenue()[0]['revenue'],x.get_profit(),
+                         x.remaining])
+        except:
+            pass
+    return response

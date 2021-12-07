@@ -25,6 +25,7 @@ urlpatterns = [
     path('report',views.report,name='report'),
     path('download_vendor_report',views.download_vendor_report,name='download_vendor_report'),
     path('vendor_sales',views.vendor_sales,name='vendor_sales'),
+    path('download_vendor_sales_report',views.download_vendor_sales_report,name='download_vendor_sales_report'),
     
     
 
