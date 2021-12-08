@@ -25,7 +25,7 @@ SECRET_KEY = '=27pcagvl#4)(^)apefd%s@tehh1(c#!93%yz1iz0qlnx8p&hz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['143.244.136.210']
+ALLOWED_HOSTS = ['143.244.136.210','127.0.0.1']
 
 
 # Application definition
