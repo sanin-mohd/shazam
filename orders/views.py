@@ -429,7 +429,7 @@ def old_reciept(request,order_number):
         return redirect('home')
 def ordered_details(request):
     user=request.user
-    orders              =   Order.objects.filter(user=user).order_by('-created_at')[:10]
+    orders              =   Order.objects.filter(user=user,payment__status=True).order_by('-created_at')[:10]
     ordered_vehicles    =   OrderVehicle.objects.filter(user=user)
     context     = {
         'orders':orders,

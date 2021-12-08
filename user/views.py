@@ -268,6 +268,10 @@ def check_login_otp(request):
 
                 auth.login(request, user)
                 return redirect('home')
+            else:
+                messages.info(request, "Password not matching..Try Again..!")
+                return redirect('otp-login')
+
         except:
             messages.info(request, "Somthing Went Wrong")
             return redirect('otp-login')
@@ -385,7 +389,9 @@ def password_otp(request):
         if check_code(request.user.mobile,otp):
             return redirect('new_password')
         else:
-            redirect('user_dashboard')
+            messages.error(request,"Password not matching... Try again")
+            return redirect('user_dashboard')
+            
     send_code(request.user.mobile)
     return render(request,'password_otp.html')  
 def new_password(request):

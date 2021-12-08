@@ -1,12 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Payment Failed</h2>
-</body>
-</html>
+{% extends 'base.html'%}
+{% load static %}
+{% block content%}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);
+.container{
+  padding: 20px;
+}
+body{
+  background-color: #f6f4f4;
+  font-family: 'Raleway', sans-serif;
+}
+.teal{
+  background-color: #ffc952 !important;
+  color: #444444 !important;
+}
+a{
+  color: #47b8e0 !important;
+}
+.message{
+  text-align: left;
+}
+.price1{
+	font-size: 40px;
+	font-weight: 200;
+	display: block;
+	text-align: center;
+}
+.ui.message p {margin: 5px;}
+    </style>
+
+    <div class="container " style="vertical-align: middle;">
+        <div class="ui middle aligned center aligned grid">
+          <div class="ui eight wide column">
+         
+            <form class="ui large form">
+                      
+                <div class="ui icon negative message">
+                  <i class="warning icon"></i>
+                  <div class="content">
+                    <div class="header">
+                      Oops! Payment Failed.
+                    </div>
+                    <p>While trying to reserve money from your account</p>
+                  </div>
+                  
+               </div>
+            
+                <a href="{% url 'checkout' %}"><span class="ui large teal submit fluid button">Try again</span></a>
+            
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="" style="height: 300px;"></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+{% endblock %}

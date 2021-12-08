@@ -104,8 +104,6 @@ def remove_cart_item(request,variant_id):
     cart_item.delete()
     return redirect('cart')
 
-
-
 def cart(request,total_price=0,booking_price=0,total_quantity=0):
     if request.session.has_key('buy_now_variant_id'):
         del request.session['buy_now_variant_id']
@@ -124,13 +122,12 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
         print("cart line 2 working...")
         i=0
         for cart_item in cart_items:
+            print("------------")
             print(cart_item.variant.get_price())
             print(cart_item.quantity)
-            print("------------")
+            
             try:
-                if cart_item.variant.vehicle_id.vehicleoffer.is_active:
-                   
-                    total_price += cart_item.variant.get_price()*cart_item.quantity
+                total_price += cart_item.variant.get_price()*cart_item.quantity
                 
             except:
                 
@@ -138,6 +135,7 @@ def cart(request,total_price=0,booking_price=0,total_quantity=0):
                
 
             print(total_price)
+            print("------------")
             total_quantity=total_quantity+cart_item.quantity
             booking_price=booking_price+cart_item.variant.vehicle_id.category.bookingprice.booking_price*cart_item.quantity
             

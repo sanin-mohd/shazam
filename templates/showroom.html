@@ -10,6 +10,12 @@
 			.btn-primary:hover{
 				background-color: black;
 			}
+			@media only screen and (max-width: 1200px) {
+				.gallery-wrap .img-big-wrap img {
+					height: auto; 
+					
+				}
+			}
 		</style>
 <section class="section-content padding-y bg">
 <div class="container">
@@ -25,7 +31,7 @@
 							<p style="color: whitesmoke; text-align: center; font-size: medium; font-family: sans-serif;">{{vehicle.vehicleoffer.discount}}% off</p>
 			  			</div>
 			  		{% endif %}
-	   <a href="#"><img src="{{vehicle.gif}} "></a>
+	   <a href="#"><img class="img-fluid" src="{{vehicle.gif}} "></a>
 	</div> <!-- img-big-wrap.// -->
 	
 </article> <!-- gallery-wrap .end// -->
@@ -33,65 +39,81 @@
 		<main class="col-md-6 border-left">
 <article class="content-body">
 
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-12">
+			<h2 class="title">{{vehicle}} </h2>
+			
+		</div>
+		<div class="rating-star col-12 col-md-12">
+			<span>
+				<i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+		<span>{{review_count}} reviews</span>
+				</span>
+		</div>
+	</div>
+</div>
 
-<div class="d-flex justify-content-between">
-	<div class="">
-		<h2 class="title">{{vehicle}} </h2>
+<hr>
+<div class="container">
+	<div class="row">
+		<div class="mb-3 col-12"> 
+			<var class="price h4">SOLD BY <span style="color: #00B2BD;float: right;">{{vehicle.vendor_id}}</span> </var> 
+		</div> 
 		
-	</div>
-	<div class="rating-star">
-		<span>
-			<i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
-			<i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
-			<i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
-			<i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
-			<i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
-	<span>{{review_count}} reviews</span>
-			</span>
+		
+			<div class="col-12">
+				<h5>TOP SPEED<span style="float: right;">{{vehicle.top_speed}} km/h</span></h5>
+				
+		
+			</div>
+			<div class="col-12">
+				<h5>RANGE<span style="float: right;">{{vehicle.range}} km</span></h5>
+				
+		
+			</div>
+			{% if vehicle.vehicleoffer.is_active %}
+			<div class="col-12">
+				<h5>SPECIAL OFFER<span style="float: right;">{{vehicle.vehicleoffer.discount}}% off</span></h5>
+			</div>
+			{% endif %}
+			
+			
+		
+
 	</div>
 </div>
-<div class="mb-3"> 
-	<var class="price h4">Sold by <span style="color: #00B2BD;">{{vehicle.vendor_id}}</span> </var> 
-</div> 
 
-<div class="d-flex justify-content-around p-3">
-	<div class="">
-		<h5>TOP SPEED</h5>
-		<h6>{{vehicle.top_speed}} km/h</h6>
-
-	</div>
-	<div class="">
-		<h5>RANGE</h5>
-		<h6>{{vehicle.range}} km</h6>
-
-	</div>
-	{% if vehicle.vehicleoffer.is_active %}
-	<div class="">
-		<h5>OFFER by seller</h5>
-		<h6>{{vehicle.vehicleoffer.discount}}% discount</h6>
-
-	</div>
-	{% endif %}
-	
-	
-</div>
 
 
 <hr>
 	<div class="row">
 		<div class="item-option-select">
 			<h6>Choose Color</h6>
-			{% for variant in variants %}
-			<div class="btn-group btn-group-sm " >
-				<div class="btn btn-light">
-					<a href="{% url 'showroom-variant' variant.id %}">
-							<div class="ml-1" style="width: 50px;height:30px;background-color: {{variant.color}};"></div>
-						</a>
-					</div>
-				</div> 
-				
-				
-			{% endfor %}
+		<div class="row">
+			
+				{% for variant in variants %}
+				<div class="col-3 col-md-3 m-3">
+					<div class="btn-group btn-group-sm " >
+						<div class="btn btn-light">
+							<a href="{% url 'showroom-variant' variant.id %}">
+								<div class="ml-1" style="width: 50px;height:30px;background-color: {{variant.color}};"></div>
+							</a>
+							</div>
+					</div> 
+
+				</div>
+        		
+            
+            
+        		{% endfor %}
+
+			
+		</div>
 		</div>
 	</div> <!-- row.// -->
 	<!-- <div class="row">
@@ -125,11 +147,12 @@
 
 <div class="row">
 			<div class="col-md-9">
-
+	{% if review %}
 	<header class="section-heading">
 		<h3>Customer Reviews </h3>  
 		
 	</header>
+	{% endif %}
 {% for review in reviews %}
 	<article class="box mb-3">
 		<div class="icontext w-100">

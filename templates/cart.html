@@ -39,7 +39,7 @@
 <div class="row">
 	<aside class="col-lg-9">
 <div class="card">
-<table class="table table-borderless table-shopping-cart">
+<table class="table table-responsive table-borderless table-shopping-cart">
 <thead class="text-muted">
 <tr class="small text-uppercase">
   <th scope="col">Vehicle</th>
@@ -59,16 +59,17 @@
 				<div class="aside"><img src="{{cart_item.variant.image1.url}}" class="img-sm"></div>
 				<figcaption class="info">
 					
-					<div class="d-flex flex-row">
+					<div class="">
 						<div class="">
 							<a href="{% url 'showroom-variant' cart_item.variant.id %}" class="title font-weight-bold text-dark">{{cart_item.variant.vehicle_id}}</a>
-							
+				
 						</div>
-						<div class="ml-4">
-							<p  style="width: 45px;height: 20px;background-color: {{cart_item.variant.color}};"></p>
+						<div class="" style="border:3px solid black;border-radius: 3px;width: 40px;height: 20px;background-color: {{cart_item.variant.color}};">
+
 						</div>
+						
 					</div> 
-					<p> <span  class="font-weight-bold"> Range: </span>{{cart_item.variant.vehicle_id.range}} km <br> <span class="font-weight-bold">Top Speed : </span> {{cart_item.variant.vehicle_id.top_speed}} km/h</p>
+					<p> <span  class="font-weight-bold"> RANGE <br></span>{{cart_item.variant.vehicle_id.range}} km <br> <span class="font-weight-bold">TOP SPEED <br></span> {{cart_item.variant.vehicle_id.top_speed}} km/h</p>
 				</figcaption>
 			</a>
 		</figure>
@@ -104,7 +105,7 @@
 			<var class="price">₹{{cart_item.sub_total |floatformat:0 | intcomma}}</var> 
 			{% if cart_item.variant.vehicle_id.vehicleoffer.is_active %}
             <small>₹ {{cart_item.variant.get_price |floatformat:0|intcomma }} each</small>
-            <span style="font-size: small;">₹ <strike> <b>{{cart_item.variant.price | intcomma }}</b> </strike> <br> {{cart_item.variant.vehicle_id.vehicleoffer.discount |floatformat:0|intcomma }}% off</span>
+            <span style="font-size: small;"><strike> <b>{{cart_item.variant.price | intcomma }}</b> </strike> </span>
             
             {% else %}
             <small>₹ {{cart_item.variant.price |floatformat:0| intcomma }} each</small>

@@ -44,7 +44,7 @@
 	</article> <!-- filter-group  .// -->
 	
 	
-	<article class="filter-group">
+	<!-- <article class="filter-group">
 		<header class="card-header">
 			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
@@ -57,7 +57,7 @@
 				<div class="form-row">
 				<div class="form-group col-md-6">
 				  <label>Min</label>
-				  <!-- <input class="form-control" placeholder="$0" type="number"> -->
+				  
 				  	<select class="mr-2 form-control">
 						<option value="0">$0</option>
 						<option value="50">$50</option>
@@ -80,11 +80,12 @@
 						<option value="2000">$2000+</option>
 					</select>
 				</div>
-				</div> <!-- form-row.// -->
+				</div>
 				<button class="btn btn-block btn-primary">Apply</button>
-			</div><!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group .// -->
+			</div>
+		</div> 
+	</article> -->
+	 <!-- filter-group .// -->
 	
 </div> <!-- card.// -->
 
@@ -113,6 +114,10 @@
 		background-color:rgb(255, 255, 255) ;
 		color: black;
 	}
+	.fix-height{
+		height: 111px !important;
+	}
+	
 </style>
 <div class="row">
 	{% if vehicles %}
@@ -133,35 +138,35 @@
 				<figcaption class="info-wrap">
 					
 					
-					<div class="rating-star">
-						<span>
+					<div class="rating-star " >
+						<span >
 							<i class="fa fa-star{% if vehicle.rating < 0.5 %}-o{% elif vehicle.rating >= 0.5 and vehicle.rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
 							<i class="fa fa-star{% if vehicle.rating < 1.5 %}-o{% elif vehicle.rating >= 1.5 and vehicle.rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
 							<i class="fa fa-star{% if vehicle.rating < 2.5 %}-o{% elif vehicle.rating >= 2.5 and vehicle.rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
 							<i class="fa fa-star{% if vehicle.rating < 3.5 %}-o{% elif vehicle.rating >= 3.5 and vehicle.rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
 							<i class="fa fa-star{% if vehicle.rating < 4.5 %}-o{% elif vehicle.rating >= 4.5 and vehicle.rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
-					<span>{{vehicle.review_count}} reviews</span>
+					<span style="float: right;">{{vehicle.review_count}} reviews</span>
 							</span>
 					</div>
 					<div class="fix-height">
 						
-						<span class="price">{{vehicle.vehicle_name}} </span><span class="price">>> Sold by <span style="color: #00B2BD;">{{vehicle.vendor_id}}</span></span>
+						<h5 class="price text-center" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{vehicle.vehicle_name}} </h5><span class="price">SOLD BY <span style="color: #00B2BD;"><span style="float: right;">{{vehicle.vendor_id}}</span></span></span>
 						
 						
 						<div class="price-wrap mt-2">
 							
-							<span class="price">Top Speed : {{vehicle.top_speed}} km/h</span>
-							<br>
-							<span class="price">Range : {{vehicle.range}} km</span>
-							{% if vehicle.vehicleoffer.is_active %}
-							<p style="color: #00B2BD; font-size: small;float: right;" class="price-old">{{vehicle.vehicleoffer.discount}}% off</p>
-							{% endif %}
+							<span class="price">TOP SPEED  <span style="float: right;">{{vehicle.top_speed}} km/h</span></span>
+							
+							<span class="price"> <br> RANGE  <span style="float: right;">{{vehicle.range}} km</span></span>
+							
 						</div> <!-- price-wrap.// -->
 					</div>
 					<a href="{% url 'showroom' vehicle.id %}" class="btn btn-block btn-success">ShowRoom</a>
-					<a href="#" class="btn btn-block btn-primary">Test Drive</a>
+					
 				</figcaption>
+				
 			</figure>
+			
 
 		</a>
 		

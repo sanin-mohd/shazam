@@ -45,6 +45,36 @@ $(document).ready(function () {
             dp:{
                 required:true
             },
+            otp:{
+                required:true
+            },
+            full_name:{
+                required:true
+            },
+            address_line_1:{
+                required:true
+            },
+            address_line_2:{
+                required:true
+            },
+            city:{
+                required:true
+            },
+            zip_code:{
+                required:true
+            },
+            state:{
+                required:true
+            },
+            country:{
+                required:true
+            },
+            mobile:{
+                required:true
+            },
+            landmark:{
+                required:true
+            },
 
         },
         
