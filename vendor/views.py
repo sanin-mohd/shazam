@@ -69,17 +69,21 @@ def vendor_dashboard(request):
             recieved_revenue=   OrderVehicle.objects.filter(vendor=vendor,status='Completed',created_at__month=month).aggregate(Sum('price'))
             print("Recieved Revenue : ")
             print(recieved_revenue)
-            max_revenue     =   OrderVehicle.objects.filter(vendor=vendor,created_at__month=month).aggregate(Sum('price'))
-            print("MAX Revenue : ")
-            print(max_revenue)
+            
             inventory=0
             inventory_revenue=  OrderVehicle.objects.filter(vendor=vendor,created_at__month=month)
+            
+            
             for x in inventory_revenue:
                 if x.status=="Offline verification Pending" or x.status=='Delivery in Process':
                     inventory+=x.price
             inventory_revenue=inventory
+
             print("Inventory Revenue : ")
             print(inventory_revenue)
+            max_revenue     =   recieved_revenue['price__sum']+inventory_revenue
+            print("MAX Revenue : ")
+            print(max_revenue)
             #Monthly data for vehicle sales by vehicle_name chart
             chart2labels    =   []
             chart2data      =   []

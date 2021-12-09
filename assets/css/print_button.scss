@@ -1,0 +1,21 @@
+.print-button {
+    text-align: center;
+    
+    &__content {
+      display: inline-block;
+      cursor: pointer;
+      margin-top: 1em;
+      padding: .5em 1em;
+      color: white;
+      text-decoration: none;
+      font-size: 25px;
+      border-radius: 3px;
+      transition: .3s;
+      background: #a60b0f;
+      
+      &:hover {
+        background-color: #c40004;
+      }
+    }
+    
+  }

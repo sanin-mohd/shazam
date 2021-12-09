@@ -189,7 +189,10 @@ def checkout(request):
             request.session['booking_price']=booking_price
         else:
             cart_items=CartItem.objects.filter(user=request.user,is_active=True)
-            booking_price=request.session['booking_price']
+            try:
+                booking_price=request.session['booking_price']
+            except:
+                booking_price=0
     else:
         cart=Cart.objects.get(cart_id=_cart_id(request))
         
@@ -273,7 +276,10 @@ def checkout(request):
                 }
     else:
 
-        total_tax=request.session['total_tax']
+        try:
+            total_tax=request.session['total_tax']
+        except:
+            total_tax=0
         grand_total=booking_price+total_tax
         print("*********************************************")
         grand_total-=coupon_discount_price
