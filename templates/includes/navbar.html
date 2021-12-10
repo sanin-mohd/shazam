@@ -71,6 +71,7 @@
                                 <a style="color: white;"href="{% url 'register'%}"> Register</a>
                             </div>
                         </div>
+                        {% if cart_count is not 0 %}
                         <div class="ml-5">
                           <a href="{% url 'cart' %}">
 
@@ -83,6 +84,8 @@
                           
                         </div>
                            <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
+
+                           {% endif %}
                         
                         {% else %}
                         

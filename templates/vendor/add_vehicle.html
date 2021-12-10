@@ -7,15 +7,18 @@
 <link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
 <div id="form-main ">
   <div id="form-div">
-    <form method="post" action="{% url 'add-vehicle'%}" class="form" id="form1">
+    <form method="post" action="{% url 'add-vehicle'%}" class="form" id="form">
+      {% include 'includes/alerts.html' %}
         {% csrf_token %}
       
       <p class="name">
         <label for="">Model Name</label>
         <input name="vehicle_name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
       </p>
+      <label for="">Category</label>
       <select name="category"  class="form-select validate[required,custom[onlyLetter],length[0,100]] feedback-input" aria-label="Default select example">
-        <option selected>Category</option>
+        
+        
         {% for category in categories %}
 
         <option value="{{category}}">{{category}}</option>
@@ -41,7 +44,7 @@
       
       <p class="name">
         <label for="">Gif URL</label>
-        <input name="gif" type="url" class="validate[required,custom[email]] feedback-input" id="name" placeholder="" />
+        <input name="gif" accept="image/*" type="url" class="validate[required,custom[email]] feedback-input" id="name" placeholder="" />
       </p>
       
       

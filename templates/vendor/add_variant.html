@@ -15,7 +15,7 @@
 
 <div id="form-main ">
   <div id="form-div">
-    <form action="{% url 'add-variant' vehicle.id %}"  enctype="multipart/form-data" method="post">
+    <form id="form" action="{% url 'add-variant' vehicle.id %}"  enctype="multipart/form-data" method="post">
       {% csrf_token %}
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Color</label>
@@ -34,17 +34,17 @@
        
         
         <label for="exampleInputPassword1" class="form-label">Image1</label>
-        <input name="image1" type="file"  class="form-control"  id="id_images_one">
+        <input name="image1" accept="image/*" type="file"  class="form-control"  id="id_images_one">
       </div>
       <div class="mb-3">
         
         <label for="exampleInputPassword1" class="form-label">Image2</label>
-        <input name="image2" type="file"  class="form-control"  id="id_images_two">
+        <input name="image2" accept="image/*"  type="file"  class="form-control"  id="id_images_two">
       </div>
       <div class="mb-3">
         
         <label for="exampleInputPassword1" class="form-label">Image3</label>
-        <input name="image3" type="file"  class="form-control"  id="id_images_three">
+        <input name="image3" accept="image/*" type="file"  class="form-control"  id="id_images_three">
       </div>
       <div class="form-group">
         <div id="image-box" class="image-container"></div>

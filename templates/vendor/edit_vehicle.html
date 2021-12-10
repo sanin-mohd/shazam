@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
 <div id="form-main ">
   <div id="form-div">
-    <form method="post" action="{% url 'edit-vehicle' vehicle.id %}" class="form" id="form1">
+    <form method="post" action="{% url 'edit-vehicle' vehicle.id %}" class="form" id="form">
         {% csrf_token %}
       
       <p class="name">

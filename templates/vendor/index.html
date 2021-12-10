@@ -336,7 +336,11 @@
   <!-- Libs JS -->
   {%block script%}
   {% endblock%}
-
+  <style>
+    .error{
+        color: rgb(255, 0, 0) !important;
+    }
+</style>
 
   <script src="{% static 'vendor/assets/libs/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
@@ -355,7 +359,9 @@
 
 
   <!-- Theme JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
   <script src="{% static 'vendor/assets/js/theme.min.js' %}"></script>
+  <script src="{% static 'js/validation.js' %}"></script>
 
 
 </body>

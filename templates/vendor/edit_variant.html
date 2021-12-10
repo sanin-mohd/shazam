@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{% static 'admin/add_category.css'%}">
 <div id="form-main ">
   <div id="form-div">
-    <form method="post" action="{% url 'edit-variant' variant.id %}" enctype="multipart/form-data" class="form" id="form1">
+    <form method="post" action="{% url 'edit-variant' variant.id %}" enctype="multipart/form-data" class="form" id="form">
         {% csrf_token %}
       
       <p class="name">
@@ -39,17 +39,17 @@
           
           <label for="">Image 1</label>
           <img src="{{variant.image1.url}}" style="width: 100px;height: 100px;" alt="">
-        <input name="image1" type="file" value="{{variant.image1.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 1" id="id_images_one" />
+        <input name="image1" accept="image/*" type="file" value="{{variant.image1.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 1" id="id_images_one" />
       </p>
       <p class="name">
         <label for="">Image 2</label>
         <img src="{{variant.image2.url}}" style="width: 100px;height: 100px;" alt="">
-        <input name="image2" type="file"  value="{{variant.image2.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 2" id="id_images_two" />
+        <input name="image2" accept="image/*" type="file"  value="{{variant.image2.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 2" id="id_images_two" />
       </p>
       <p class="name">
         <label for="">Image 3</label>
         <img src="{{variant.image3.url}}" style="width: 100px;height: 100px;" alt="">
-        <input name="image3" type="file"  value="{{variant.image3.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 3" id="id_images_three" />
+        <input name="image3" accept="image/*" type="file"  value="{{variant.image3.url}}" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Image 3" id="id_images_three" />
       </p>
       <div class="form-group">
         <div id="image-box" class="image-container"></div>
@@ -64,7 +64,7 @@
          <div class="ease"></div>
       </div>
       <div class="submit " style="margin-top:40px">
-        <a href="{% url 'delete-variant' variant.id %}"><input type="button" style="background-color: red;" value="Delte" id="button-blue"/></a>
+        <a href="{% url 'delete-variant' variant.id %}"><input type="button" style="background-color: red;" value="Delete" id="button-blue"/></a>
          <div class="ease"></div>
       </div>
       

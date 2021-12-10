@@ -14,16 +14,8 @@
         <label for="">Banner Name</label>
         <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
       </p>
-      
-   
-      <p class="name">
-        
-        <label for="">Vehicle Poster</label>
-        <p><img id="output" style="height: 100px;width: 400px;" /></p>
-        <input name="poster" id="id_images_one" type="file" onchange="loadFile(event)" accept="image/*" class="validate[required,custom[email]] feedback-input"  placeholder="" />
-      </p>
       <select name="vehicle"  class="form-select validate[required,custom[onlyLetter],length[0,100]] feedback-input" aria-label="Default select example">
-        <option selected>Vehicle</option>
+        
         {% for vehicle in vehicles %}
 
         <option value="{{vehicle.id}}">{{vehicle}}</option>
@@ -31,6 +23,14 @@
         {% endfor %}
         
       </select>
+   
+      <p class="name">
+        
+        <label for="">Vehicle Poster</label>
+        <p><img id="output" style="height: 100px;width: 400px;" /></p>
+        <input name="poster" id="id_images_one" type="file" onchange="loadFile(event)" accept="image/*" class="validate[required,custom[email]] feedback-input"  placeholder="" />
+      </p>
+      
       
       <div class="form-group">
         <div id="image-box" class="image-container"></div>
@@ -103,7 +103,7 @@
             scalable: false,
             zoomable: false,
             movable: false,
-                    aspectRatio: 19/3,
+                    aspectRatio: 23/4,
             minCropBoxWidth: 220,
             minCropBoxHeight: 180,
           })

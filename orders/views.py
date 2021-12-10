@@ -323,38 +323,62 @@ def razorpay_payment_verification(request):
             payment_id=razorpay_payment_id,
             amount_paid=order.order_total,
             payment_method='razorpay',
-            status=True
+            status='COMPLETED'
         )
         order.payment       =   payment
         order.is_ordered    =   True
         order.status        =   'New'
         order.save()
         request.session['payment_id'] = razorpay_payment_id
-        
-    cart_items=CartItem.objects.filter(user=request.user)
-    for item in cart_items:
-        
+    if request.session.has_key('buy_now_variant_id'):
+        variant=Variant.objects.get(id=request.session['buy_now_variant_id'])
+            
         ordervehicle            =   OrderVehicle()
         ordervehicle.order      =   order
         ordervehicle.payment    =   payment
         ordervehicle.user       =   request.user
-        ordervehicle.vendor     =   item.variant.vehicle_id.vendor_id
-        ordervehicle.vehicle    =   item.variant.vehicle_id
-        ordervehicle.variant    =   item.variant
-        ordervehicle.quantity   =   item.quantity
-        ordervehicle.price      =   item.variant.get_price()*item.quantity
-        ordervehicle.paid       =   item.quantity*item.variant.vehicle_id.category.bookingprice.booking_price
-        
+        ordervehicle.vendor     =   variant.vehicle_id.vendor_id
+        ordervehicle.vehicle    =   variant.vehicle_id
+        ordervehicle.variant    =   variant
+        ordervehicle.quantity   =   1
+        ordervehicle.price      =   variant.get_price()
+        ordervehicle.paid       =   request.session['grand_total']
+            
         ordervehicle.ordered    =   True
-        
+            
         ordervehicle.save()
 
-        # Reduce the quantity of sold variants
-        variant=Variant.objects.get(id=item.variant.id)
+            # Reduce the quantity of sold variants
+        
 
-        variant.remaining       -=   item.quantity
+        variant.remaining       -=   1
 
         variant.save()
+    else:
+        cart_items=CartItem.objects.filter(user=request.user)
+        for item in cart_items:
+            
+            ordervehicle            =   OrderVehicle()
+            ordervehicle.order      =   order
+            ordervehicle.payment    =   payment
+            ordervehicle.user       =   request.user
+            ordervehicle.vendor     =   item.variant.vehicle_id.vendor_id
+            ordervehicle.vehicle    =   item.variant.vehicle_id
+            ordervehicle.variant    =   item.variant
+            ordervehicle.quantity   =   item.quantity
+            ordervehicle.price      =   item.variant.get_price()*item.quantity
+            ordervehicle.paid       =   item.quantity*item.variant.vehicle_id.category.bookingprice.booking_price
+            
+            ordervehicle.ordered    =   True
+            
+            ordervehicle.save()
+
+            # Reduce the quantity of sold variants
+            variant=Variant.objects.get(id=item.variant.id)
+
+            variant.remaining       -=   item.quantity
+
+            variant.save()
 
 
     # Clear cart
@@ -429,7 +453,7 @@ def old_reciept(request,order_number):
         return redirect('home')
 def ordered_details(request):
     user=request.user
-    orders              =   Order.objects.filter(user=user,payment__status=True).order_by('-created_at')[:10]
+    orders              =   Order.objects.filter(user=user,payment__status='COMPLETED').order_by('-created_at')[:10]
     ordered_vehicles    =   OrderVehicle.objects.filter(user=user)
     context     = {
         'orders':orders,

@@ -308,11 +308,15 @@ def add_vehicle(request):
         gif=request.POST['gif']
         email=request.user
         vendor=Vendor.objects.get(email=email)
+        try:
 
-        vehicle=Vehicle.objects.create(vendor_id=vendor,vehicle_name=vehicle_name,category=Category.objects.get(category_name=category_name),range=range,top_speed=top_speed,no_of_seats=no_of_seats,gif=gif)
-        vehicle.save()
-        VehicleOffer.objects.create(vendor=vendor,discount=0,vehicle=vehicle,is_active=False)
-        return redirect('view-vehicles')
+            vehicle=Vehicle.objects.create(vendor_id=vendor,vehicle_name=vehicle_name,category=Category.objects.get(category_name=category_name),range=range,top_speed=top_speed,no_of_seats=no_of_seats,gif=gif)
+            vehicle.save()
+            VehicleOffer.objects.create(vendor=vendor,discount=0,vehicle=vehicle,is_active=False)
+            return redirect('view-vehicles')
+        except:
+            messages.info(request,"Vehicle name already exists")
+            return redirect('add-vehicle')
     else:
         categories=Category.objects.all()
         vendor=Vendor.objects.get(email=request.user.email)
@@ -341,7 +345,7 @@ def edit_vehicle(request,pk):
             return redirect('view-vehicles')
 
         except:
-            messages.info(request,"Not a valid data")
+            messages.info(request,"Not a valid data..Check if vehicle name already exists")
             return redirect('edit-category')
 
         

@@ -46,7 +46,7 @@ $(document).ready(function () {
                 required:true
             },
             otp:{
-                required:true
+                required:true,digits:true
             },
             full_name:{
                 required:true
@@ -61,7 +61,7 @@ $(document).ready(function () {
                 required:true
             },
             zip_code:{
-                required:true
+                required:true,digits:true
             },
             state:{
                 required:true
@@ -69,12 +69,46 @@ $(document).ready(function () {
             country:{
                 required:true
             },
-            mobile:{
-                required:true
-            },
             landmark:{
                 required:true
             },
+            vehicle_name:{
+                required:true
+            },
+            category:{
+                required:true
+            },
+            range:{
+                required:true
+            },
+            no_of_seats:{
+                required:true
+            },
+            gif:{
+                required:true,
+            },
+            color:{
+                required:true
+            },
+            price:{
+                required:true,digits:true
+            },
+            remaining:{
+                required:true,digits:true
+            },
+            image1:{
+                required:true
+            },
+            image2:{
+                required:true
+            },
+            image3:{
+                required:true
+            },
+            discount:{
+                required:true,digits:true
+            }
+
 
         },
         

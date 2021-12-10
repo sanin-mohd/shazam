@@ -78,7 +78,7 @@
 
                        
                         <p>Subtotal: {{order.order_total}} <br>
-                         Tax:  {{order.tax}} <br> 
+                         Tax:  {{order.tax |floatformat:0}} <br> 
                          <span class="b">Total: {{ order.order_total|add:order.tax }} </span>
                         </p>
                     </div>
