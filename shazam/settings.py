@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False,cast=bool)
 
-ALLOWED_HOSTS = ['134.209.158.201','143.110.178.0','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['134.209.158.201','143.110.178.0','127.0.0.1','localhost','shazam.mohamedsaneen.com','www.shazam.mohamedsaneen.com']
 
 
 # Application definition
