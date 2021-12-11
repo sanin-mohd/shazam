@@ -212,6 +212,7 @@ def verify_otp(request):
             user = Account.objects.get(mobile=mobile)
             user.is_verified = True
             user.save()
+            #send_welcome_msg(str(mobile))
             auth.login(request, user)
             return redirect('home')
         else:

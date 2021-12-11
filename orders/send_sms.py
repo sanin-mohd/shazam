@@ -12,7 +12,7 @@ def send_sms(user,mobile,orderID,paid,pending):
 
     message = client.messages \
                     .create(
-                        body="Congratulations..."+user+",SHAZAM.com has just confirmed your bookings with payment of ₹"+paid+".Your order Number is "+orderID+ ",Our comapny excicutives will contact you soon for offline verification" ,
+                        body="Congratulations..."+user+",shazam.com has just confirmed your bookings with payment of ₹"+paid+".Your order Number is "+orderID+ ",Our comapny excicutives will contact you soon for offline verification" ,
                         from_='+13093286606',
                         provide_feedback=True,
                         to='+91'+mobile

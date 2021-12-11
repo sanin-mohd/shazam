@@ -273,9 +273,16 @@ def update_payment(request):
 
 
     print("order confirm message sending")
-    #send_sms(username,mobile,orderID,paid,pending)
-    print("order confirm message sent")
+    try:
 
+        send_sms(username,mobile,orderID,paid,pending)
+        print("order confirm message sent")
+
+    except:
+        print("Twilio exception")
+
+
+    
 
     # Send order number and payment id back to sendData via JsonResponse
 
@@ -390,7 +397,16 @@ def razorpay_payment_verification(request):
     # orderID     =   str(request.session['orderID'])
     # paid        =   str(order.order_total)
     # pending     =   str(order.pending_amount)
-            
+    # print("order confirm message sending")
+
+    # send_sms(username,mobile,orderID,paid,pending)
+    # try:
+
+        
+    #     print("order confirm message sent")
+
+    # except:
+    #     print("Twilio exception")
 
     return JsonResponse({'message': 'success'})
 
