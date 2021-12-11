@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False,cast=bool)
 
-ALLOWED_HOSTS = ['134.209.158.201','127.0.0.1','localhost','shazam.mohamedsaneen.com','www.shazam.mohamedsaneen.com']
+ALLOWED_HOSTS = ['134.209.158.201','143.110.178.0','127.0.0.1','localhost']
 
 
 # Application definition
@@ -115,10 +115,10 @@ DATABASES = {
         'NAME': config('NAME'),
         'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
+
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

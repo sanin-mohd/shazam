@@ -19,7 +19,9 @@
     <script src="{% static 'js/superadmin/script.js'%}"></script>
   </head>
   <body>
+    
     <div class="d-flex justify-content-center align-items-center continer">
+      {% include 'includes/alerts.html' %}
       <div class="card py-5 px-3">
         <h5 class="m-0">Mobile phone verification</h5>
         <span class="mobile-text"
@@ -27,6 +29,7 @@
           <b class="text-color">+91 {{mobile}}</b>
         </span>
         <form method="post" action="{% url 'verify-otp'%}">
+          
           {% csrf_token%}
           <div class="d-flex flex-row mt-5" id="otp">
             <input

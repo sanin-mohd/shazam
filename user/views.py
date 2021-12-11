@@ -216,7 +216,8 @@ def verify_otp(request):
             auth.login(request, user)
             return redirect('home')
         else:
-            messages.info(request, "OTP not matching...")
+            
+            messages.error(request, "OTP not matching...Try Again")
             return redirect('verify-otp')
 
     else:

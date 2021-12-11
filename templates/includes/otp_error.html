@@ -1,0 +1,20 @@
+{% if messages %}
+
+    {% for message in messages %}
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{message}}',
+            
+          })
+    </script>
+    
+    {% endfor %}
+
+{% endif %}
+<style>
+    .error{
+        color: rgb(255, 0, 0) !important;
+    }
+</style>
