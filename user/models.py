@@ -117,10 +117,10 @@ class Address(models.Model):
     address_line_1=models.CharField(max_length=100)
     address_line_2=models.CharField(max_length=100)
     city=models.CharField(max_length=100)
-    zip_code=models.IntegerField()
+    zip_code=models.BigIntegerField()
     state=models.CharField(max_length=50,null=True)
     country=models.CharField(max_length=50)
-    mobile=models.IntegerField()
+    mobile=models.BigIntegerField()
     landmark=models.CharField(max_length=50)
     
     default=models.BooleanField(default=False)

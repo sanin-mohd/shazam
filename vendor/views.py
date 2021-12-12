@@ -81,7 +81,11 @@ def vendor_dashboard(request):
 
             print("Inventory Revenue : ")
             print(inventory_revenue)
-            max_revenue     =   recieved_revenue['price__sum']+inventory_revenue
+            try:
+
+                max_revenue     =   recieved_revenue['price__sum']+inventory_revenue
+            except:
+                max_revenue=0
             print("MAX Revenue : ")
             print(max_revenue)
             #Monthly data for vehicle sales by vehicle_name chart

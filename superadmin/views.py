@@ -97,8 +97,11 @@ def superadmin_dashboard(request):
         print(today_new_orders)
         print(yesterday_orders)
         print("-------------------------------")
-        
-        new_total_revenue_perc  =   ((today_revenue-yesterday_revenue)/ yesterday_revenue)*100  
+        try:
+
+            new_total_revenue_perc  =   ((today_revenue-yesterday_revenue)/ yesterday_revenue)*100  
+        except:
+            new_total_revenue_perc=0
         #Monthly data for vehicle sales by vehicle_name chart
         chart2labels    =   []
         chart2data      =   []
