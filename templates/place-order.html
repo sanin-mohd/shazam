@@ -16,7 +16,7 @@
     <section class="section-content padding-y bg">
       
       <div class="container">
-        <form action="{% url 'book_now' %}" method="POST" >
+        <form id="form" action="{% url 'book_now' %}" method="POST" >
           {% csrf_token %}
         <!-- ============================ COMPONENT 2 ================================= -->
         <div class="row">
