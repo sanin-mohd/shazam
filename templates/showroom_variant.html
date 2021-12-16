@@ -165,7 +165,7 @@
 	<a href="#" class="btn  btn-light"> <span class="text">Added to Cart</span> <i class="fas fa-check"></i>  </a>
 	<a href="{% url 'cart' %}" class="btn  btn-primary"> <span class="text">View Cart</span> <i class="fas fa-shopping-cart"></i>  </a>
 	{% else %}
-	<a href="{% url 'add_quantity' variant.id %}" class="btn  btn-primary mt-3"> <span class="text">Add To Cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+	<a href="{% url 'add_quantity' variant.id %}" class="btn  btn-primary mt-3"> <span class="text">Add To Cart</span> <img style="height: 23px; width: auto;" src="https://img.icons8.com/glyph-neue/64/000000/buy.png"/>  </a>
 	<a  href="{% url 'buy_now' variant.id %}" class="btn  btn-primary mt-3"> <span class="text">Buy Now</span> </a>
 	{% endif %}
 
