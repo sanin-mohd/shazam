@@ -26,6 +26,7 @@ from django.contrib.auth.decorators import login_required
 from orders.models import Order
 from send_code import send_code
 from check_code import check_code
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 @login_required(login_url='login')
@@ -71,6 +72,7 @@ def home(request):
     return render(request, 'index.html', context)
 
 
+@csrf_exempt
 def login(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -166,6 +168,7 @@ def logout(request):
         return redirect('login')
 
 
+@csrf_exempt
 def register(request):
     if request.user.is_authenticated:
         return redirect('home')
