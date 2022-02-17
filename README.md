@@ -3,7 +3,7 @@ A Django Web app which help customers to participate in  EV pre-booking  ,vendor
 
 HOSTED in digital ocean using 2 servers 1 proxy server  and 1 s3 for storing static files.
 
-
+[![Watch the video](screenshots/home.PNG)](https://user-images.githubusercontent.com/80631519/148835516-2dcc1df7-c8c8-4af1-9e6a-76bbe98de8c1.mp4)
 <h4>1. Home</h4>
 <img src="screenshots/home.PNG" style="width:500px">
 
