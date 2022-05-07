@@ -1,0 +1,149 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+
+		<style>
+			.btn-primary{
+				background-color:#00B2BD ;
+			}
+			.btn-primary:hover{
+				background-color: black;
+			}
+			@media only screen and (max-width: 1200px) {
+				.gallery-wrap .img-big-wrap img {
+					height: auto; 
+					
+				}
+			}
+		</style>
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+<div class="card">
+	<div class="row no-gutters">
+		<aside class="col-md-6">
+<article class="gallery-wrap"> 
+	<div class="img-big-wrap">
+		{% if vehicle.vehicleoffer.is_active %}
+						<div class="card shadow-lg" style="background-color: #00B2BD; height: 25px; width: 75px;  position: absolute; left: 0px; top: 25px;  z-index: 1; border-radius: 0pt;">
+							<p style="color: whitesmoke; text-align: center; font-size: medium; font-family: sans-serif;">{{vehicle.vehicleoffer.discount}}% off</p>
+			  			</div>
+			  		{% endif %}
+	   <a href="#"><img class="img-fluid" src="{{vehicle.gif}} "></a>
+	</div> <!-- img-big-wrap.// -->
+	
+</article> <!-- gallery-wrap .end// -->
+		</aside>
+		<main class="col-md-6 border-left">
+<article class="content-body">
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-12">
+			<h2 class="title">{{vehicle}} </h2>
+			
+		</div>
+		<div class="rating-star col-12 col-md-12">
+			<span>
+				<i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+				<i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+		<span>{{review_count}} reviews</span>
+				</span>
+		</div>
+	</div>
+</div>
+
+<hr>
+<div class="container">
+	<div class="row">
+		<div class="mb-3 col-12"> 
+			<var class="price h4">SOLD BY <span style="color: #00B2BD;float: right;">{{vehicle.vendor_id}}</span> </var> 
+		</div> 
+		
+		
+			<div class="col-12">
+				<h5>TOP SPEED<span style="float: right;">{{vehicle.top_speed}} km/h</span></h5>
+				
+		
+			</div>
+			<div class="col-12">
+				<h5>RANGE<span style="float: right;">{{vehicle.range}} km</span></h5>
+				
+		
+			</div>
+			{% if vehicle.vehicleoffer.is_active %}
+			<div class="col-12">
+				<h5>SPECIAL OFFER<span style="float: right;">{{vehicle.vehicleoffer.discount}}% off</span></h5>
+			</div>
+			{% endif %}
+			
+			
+		
+
+	</div>
+</div>
+
+
+
+
+	</article> <!-- product-info-aside .// -->
+		</main> <!-- col.// -->
+	</div> <!-- row.// -->
+</div> <!-- card.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+<br>
+
+<div class="row">
+			<div class="col-md-9">
+	<header class="section-heading">
+		{% if slots %}
+		<h3>Test Drive Booking </h3>  
+		{% else %}
+		<h3>Test Drive Not Available</h3>  
+		{% endif %}
+	</header>
+	{% if slots %}
+	<article class="box mb-3">
+
+        <table class="table container">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Dates</th>
+                <th scope="col">Slots Remaining</th>
+                <th scope="col">Book Now</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for slot in slots %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{slot.date_time }}</td>
+                        <td>{{ slot.slots}}</td>
+                        <td>
+                            <a href="" class="btn btn-block btn-dark">Book Now</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+	</article>
+
+	{% endif %}
+	
+
+	</div> <!-- col.// -->
+</div> <!-- row.// -->
+
+
+</div> <!-- container .//  -->
+</section>
+
+{% endblock %}

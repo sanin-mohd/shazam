@@ -71,7 +71,6 @@ def home(request):
     }
     return render(request, 'index.html', context)
 
-
 @csrf_exempt
 def login(request):
     if request.user.is_authenticated:
@@ -296,7 +295,6 @@ def view_category_store(request, pk=None):
         paged_vehicles=paginator.get_page(page)
 
         return render(request, 'store.html', {'vehicles': paged_vehicles,'categories':categories,'vehicles_count':vehicles_count})
-
 
     vehicles_count=vehicles.count()
     categories=Category.objects.all()

@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.humanize.templatetags.humanize import intcomma
 from offers.models import VehicleOffer
 from orders.models import Order, OrderVehicle
+from testDrive.models import Slots
 from . models import Vendor
 from user.models import Account
 from django.contrib import messages, auth
@@ -624,3 +625,23 @@ def download_vendor_sales_report(request):
         except:
             pass
     return response
+
+def testdrive(request):
+    user=request.user
+    vendor=Vendor.objects.get(email=user.email)
+    vehicles=Vehicle.objects.filter(vendor_id=vendor)
+    slots = []
+    for vehicle in vehicles:
+        slots += Slots.objects.filter(vehicle=vehicle)
+        
+    context={
+        'slots': slots,
+        'vendor':vendor,
+    }
+    
+    return render(request,'vendor/test_drive_slots.html',context)
+
+def addslot(request):
+    user=request.user
+    vendor=Vendor.objects.get(email=user.email)
+    vehicles=Vehicle.objects.filter(vendor_id=vendor)

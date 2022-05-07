@@ -1,0 +1,121 @@
+{% extends 'vendor/index.html'%}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<h4 class="text-center mt-5">Test Drive Slots</h4>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Vehicle</th>
+            <th scope="col">Dates</th>
+            <th scope="col">Slots Remaining</th>
+            <th scope="col">Manage</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for slot in slots %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{slot.vehicle }}</td>
+            <td>{{slot.date_time }}</td>
+            <td>{{ slot.slots}}</td>
+            <td><a onclick="verify(event)" href="" class=" btn btn-danger">Delete</a></td>
+          </tr>
+            {% endfor %}
+          
+        </tbody>
+      </table>
+
+</div>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function add(ev) {
+            ev.preventDefault();
+            const { value: fruit } = await Swal.fire({
+                title: 'Select field validation',
+                input: 'select',
+                inputOptions: {
+                  'Fruits': {
+                    apples: 'Apples',
+                    bananas: 'Bananas',
+                    grapes: 'Grapes',
+                    oranges: 'Oranges'
+                  },
+                  'Vegetables': {
+                    potato: 'Potato',
+                    broccoli: 'Broccoli',
+                    carrot: 'Carrot'
+                  },
+                  'icecream': 'Ice cream'
+                },
+                inputPlaceholder: 'Select a fruit',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                  return new Promise((resolve) => {
+                    if (value === 'oranges') {
+                      resolve()
+                    } else {
+                      resolve('You need to select oranges :)')
+                    }
+                  })
+                }
+              })
+              
+              if (fruit) {
+                Swal.fire(`You selected: ${fruit}`)
+              }
+        }
+        function verify(ev) {
+            ev.preventDefault();
+            var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+            console.log(urlToRedirect); // verify if this is the right URL
+            swal({
+              title: "Are you sure?",
+              text: "",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              // redirect with javascript here as per your logic after showing the alert using the urlToRedirect value
+              if (willDelete) {
+                swal("Poof! verified successfully!", {
+                  icon: "success",
+                });
+                window.location.href = urlToRedirect;
+              } else {
+                swal("Not verified....");
+              }
+            });
+            }
+            function delivered(ev) {
+              ev.preventDefault();
+              var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+              console.log(urlToRedirect); // verify if this is the right URL
+              swal({
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                // redirect with javascript here as per your logic after showing the alert using the urlToRedirect value
+                if (willDelete) {
+                  swal("Poof! Status updated successfully!", {
+                    icon: "success",
+                  });
+                  window.location.href = urlToRedirect;
+                } else {
+                  swal("Status not changed");
+                }
+              });
+              }
+    </script>
+
+{% endblock %}

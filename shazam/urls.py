@@ -37,6 +37,7 @@ urlpatterns = [
     path('review/',include('showroom.urls')),
     #coupon
     path('coupon/',include('coupons.urls')),
-    
+    #testdrive
+    path('testdrive/',include('testDrive.urls')),
     
 ]+ static(settings.MEDIA_URL,document_root=MEDIA_ROOT)

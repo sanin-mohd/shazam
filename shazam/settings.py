@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user',
     'category.apps.CategoryConfig',
     'vendor',
+    'testDrive',
     'superadmin',
     'crispy_forms',
     'showroom.apps.ShowroomConfig',
