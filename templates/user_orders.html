@@ -168,6 +168,7 @@
     <script>
         function cancelBooking(ev) {
             ev.preventDefault();
+            
             var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
             
             swal({

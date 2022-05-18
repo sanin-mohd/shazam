@@ -10,36 +10,26 @@
     <form method="post" action="{% url 'addslot'%}" class="form" id="form">
       {% include 'includes/alerts.html' %}
         {% csrf_token %}
-    
+        <select name="vehicle"  class="form-select validate[required,custom[onlyLetter],length[0,100]] feedback-input" aria-label="Default select example">
         <label for="">Vehicle Name</label>
         {% for vehicle in vehicles %}
-
         <option value="{{vehicle}}">{{vehicle}}</option>
-
         {% endfor %}
-        
       </select>
- 
       <p class="name">
         <label for="">Date Time</label>
-        <input name="top_speed" type="datetime-local" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+        <input name="datetime" type="datetime-local" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
       </p>
       <p class="name">
-        <label for="">Slots</label>
-        <input name="range" type="number" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
+        <label for="">Slot</label>
+        <input name="slot" type="number" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="" id="name" />
       </p>
      
-      
-      
       <div class="submit">
         <input type="submit" value="Save" id="button-blue"/>
-        <div class="ease"></div>
       </div>
       
-      <div class="submit " style="margin-top:40px">
-        <a href="{% url 'view-vehicles' %}"><input type="button" value="Cancel" id="button-blue"/></a>
-         <div class="ease"></div>
-      </div>
+
     </form>
   </div>
 </div>

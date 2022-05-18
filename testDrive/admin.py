@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Slots
+from . models import Slots, TestDriveUsers
 # Register your models here.
 class SlotsAdmin(admin.ModelAdmin):
     model = Slots
@@ -8,3 +8,5 @@ class SlotsAdmin(admin.ModelAdmin):
     list_filter = ()
     fieldsets =()
 admin.site.register(Slots,SlotsAdmin)
+
+admin.site.register(TestDriveUsers)

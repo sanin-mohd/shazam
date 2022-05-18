@@ -98,7 +98,17 @@
 <!-- ============================ COMPONENT 1 END .// ================================= -->
 
 <br>
-
+{% if booked_slot %}
+<section class="container mt-5" >
+  
+	<div class="alert alert-danger aria-hidden="true"" >
+	  <h4 class="alert-heading">Sorry, At a time only one test drive is allowed</h4>
+	  <p>You have a Test Drive for the vehicle {{vehicle}} owned by {{company}} on the date {{date}}.</p>
+	  <hr>
+	  <p class="mb-0">If you have any difficulties, Please contact us through Toll Free number +202020111.</p>
+	</div>
+  </section>
+{%else%}
 <div class="row">
 			<div class="col-md-9">
 	<header class="section-heading">
@@ -110,7 +120,7 @@
 	</header>
 	{% if slots %}
 	<article class="box mb-3">
-
+		{% include 'includes/alerts.html' %}
         <table class="table container">
             <thead>
               <tr>
@@ -122,14 +132,16 @@
             </thead>
             <tbody>
                 {% for slot in slots %}
+				{% if slot.slots%}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{slot.date_time }}</td>
                         <td>{{ slot.slots}}</td>
                         <td>
-                            <a href="" class="btn btn-block btn-dark">Book Now</a>
+                            <button onclick="confirmSlot(event, {{slot.id}})" class="btn btn-block btn-dark" >Book Now</button>
                         </td>
                     </tr>
+					{%endif%}
                 {% endfor %}
             </tbody>
           </table>
@@ -137,13 +149,41 @@
 	</article>
 
 	{% endif %}
+
 	
 
 	</div> <!-- col.// -->
 </div> <!-- row.// -->
-
+{%endif%}
 
 </div> <!-- container .//  -->
 </section>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+	function confirmSlot(ev,id) {
+		ev.preventDefault();
+		var urlToRedirect = `book_slot/${id}`; //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+		
+		swal({
+		  title: "Are you sure?",
+		  text: "",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((confirmed) => {
+		  // redirect with javascript here as per your logic after showing the alert using the urlToRedirect value
+		  if (confirmed) {
+			swal("", {
+			  icon: "success",
+			});
+			window.location.href = urlToRedirect;
+		  } else {
+			swal("Slot not added");
+		  }
+		});
 
+		
+		}
+</script>
 {% endblock %}

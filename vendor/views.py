@@ -645,3 +645,19 @@ def addslot(request):
     user=request.user
     vendor=Vendor.objects.get(email=user.email)
     vehicles=Vehicle.objects.filter(vendor_id=vendor)
+    context={
+        'vendor':vendor,
+        'vehicles':vehicles,
+    }
+    if request.method == 'POST':
+        vehicle=request.POST.get('vehicle')
+        slots = request.POST.get('slot')
+        date_time = request.POST.get('datetime')
+        vehicle = Vehicle.objects.get(vehicle_name=vehicle)
+        print(vehicle,slots,date_time)
+        
+        new = Slots.objects.create(vehicle=vehicle,slots=slots,date_time=date_time)
+        new.save()
+        return redirect('testdrive')
+    else:
+        return render(request,'vendor/add_slot.html',context)

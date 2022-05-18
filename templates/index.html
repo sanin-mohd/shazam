@@ -1,6 +1,19 @@
 {% extends 'base.html'%} {% load static%} {% block content%}
 
 <!-- ========================= SECTION MAIN ========================= -->
+
+<!-- ========================= SECTION MAIN END// ========================= -->
+{% if booked_slot %}
+<section class="container mt-5" >
+  
+  <div class="alert alert-success aria-hidden="true"" >
+    <h4 class="alert-heading">Reminder</h4>
+    <p>Hi {{user.first_name}}, You have a Test Drive for the vehicle {{vehicle}} owned by {{company}} on the date {{date}}.</p>
+    <hr>
+    <p class="mb-0">If you have any difficulties, Please contact us through Toll Free number +202020111.</p>
+  </div>
+</section>
+{% else %}
 <section class="section-intro padding-y-sm">
   <div class="container">
     <!-- <div class="intro-banner-wrap">
@@ -38,6 +51,7 @@
         </div>
         {% endfor %}
       </div>
+
       <a
         class="carousel-control-prev"
         href="#carouselExampleControls"
@@ -60,8 +74,7 @@
   </div>
   <!-- container //  -->
 </section>
-<!-- ========================= SECTION MAIN END// ========================= -->
-
+{% endif %}
 <!-- ========================= SECTION  ========================= -->
 <section class="section-name padding-y-sm">
   <div class="container">
