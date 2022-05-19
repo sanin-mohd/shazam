@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.humanize.templatetags.humanize import intcomma
 from offers.models import VehicleOffer
 from orders.models import Order, OrderVehicle
-from testDrive.models import Slots
+from testDrive.models import Slots, TestDriveUsers
 from . models import Vendor
 from user.models import Account
 from django.contrib import messages, auth
@@ -661,3 +661,23 @@ def addslot(request):
         return redirect('testdrive')
     else:
         return render(request,'vendor/add_slot.html',context)
+    
+def booked_users(request):
+    user=request.user
+    vendor=Vendor.objects.get(email=user.email)
+    booked_users = TestDriveUsers.objects.filter(slot__vehicle__vendor_id = vendor)
+
+    context = {
+        'users': booked_users,
+        'vendor':vendor,
+    }
+    
+    return render(request,'vendor/testdrive_users.html',context)
+
+def change_testdrive_status(request,id):
+    booked_user = Account.objects.get(id=id)
+    user = TestDriveUsers.objects.get(user_id=booked_user)
+    user.completed = True
+    user.active = False
+    user.save()
+    return redirect('booked_users')

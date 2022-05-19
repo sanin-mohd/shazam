@@ -4,11 +4,17 @@ from django.http import HttpResponse
 from . models import Slots, TestDriveUsers
 from django.contrib import messages, auth
 from showroom.models import ReviewRating, Vehicle
+
 # Create your views here.
 
 @login_required(login_url='login')
 def show_slots(request,vehicle_id):
-        slots = Slots.objects.filter(vehicle=vehicle_id)
+        slots = Slots.objects.filter(vehicle=vehicle_id,active = True)
+        
+        for slot in slots:
+            slot.validate_database()
+            
+        slots = Slots.objects.filter(vehicle=vehicle_id,active = True)
         vehicle = Vehicle.objects.get(id=vehicle_id)
         reviews=ReviewRating.objects.filter(vehicle=vehicle,status=True)
         review_count=reviews.count()

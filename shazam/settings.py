@@ -55,12 +55,15 @@ INSTALLED_APPS = [
     'offers',
     'coupons',
     'storages',
-    
-
-    
-    
+    'django_celery_beat',
     
 ]
+
+# Celery Configuration Options
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_TIMEZONE = "Asia/Kolkata"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
 

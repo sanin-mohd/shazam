@@ -28,6 +28,8 @@ urlpatterns = [
     path('download_vendor_sales_report',views.download_vendor_sales_report,name='download_vendor_sales_report'),
     path('testdrive',views.testdrive,name='testdrive'),
     path('addslot',views.addslot,name='addslot'),
+    path('booked_users',views.booked_users,name='booked_users'),
+    path('change_testdrive_status/<int:id>',views.change_testdrive_status,name='change_testdrive_status'),
     
     
 
